@@ -1,0 +1,164 @@
+/* Tactile Objects hero motion: short entrances + direct manipulation.
+   No autonomous loops, no flying plane, no decorative pointer blockers. */
+
+/* The scene lets pointer events through except on the two physical notes. */
+.landing-hero { position: relative; isolation: isolate; overflow: hidden; }
+.landing-hero__inner { position: relative; z-index: 1; }
+.hero-playground { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.hero-paper-slot {
+  position: absolute;
+  width: 145px;
+  height: 191px;
+  pointer-events: none;
+}
+.hero-paper-slot--letter { left: clamp(22px, 5.5vw, 95px); top: 27%; }
+.hero-paper-slot--note { right: clamp(22px, 6vw, 102px); bottom: 20%; }
+.hero-play-paper {
+  --paper-x: 0px;
+  --paper-y: 0px;
+  --paper-turn: 0deg;
+  --paper-base: -10deg;
+  --paper-scale: 1;
+  display: block;
+  position: relative;
+  isolation: isolate;
+  width: 128px;
+  height: 166px;
+  padding: 0;
+  border: 1px solid rgba(122,109,91,.2);
+  border-radius: 2px;
+  color: #968879;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background: linear-gradient(140deg,#fffefa,#f4eee6);
+  box-shadow: 5px 13px 22px rgba(65,52,44,.12),inset 0 0 0 1px rgba(255,255,255,.65);
+  transform: translate3d(var(--paper-x),var(--paper-y),0)
+    rotate(calc(var(--paper-base) + var(--paper-turn)))
+    scale(var(--paper-scale));
+  transform-origin: center;
+  transition: transform 850ms cubic-bezier(.19,1.33,.24,1),box-shadow 320ms ease;
+  will-change: transform;
+}
+.hero-play-paper.is-dragging {
+  --paper-scale: 1.065;
+  cursor: grabbing;
+  transition: none;
+  box-shadow: 9px 28px 35px rgba(52,42,40,.23),0 3px 8px rgba(52,42,40,.08);
+}
+.hero-play-paper:hover:not(.is-dragging) { box-shadow: 8px 18px 27px rgba(65,52,44,.16); }
+.hero-play-paper:focus-visible { outline: 3px solid #655bdd; outline-offset: 6px; }
+.hero-play-paper--note {
+  --paper-base: 13deg;
+  width: 121px;
+  height: 143px;
+  background: linear-gradient(145deg,#edf1e7,#dfe8dc);
+  border-color: rgba(96,119,98,.22);
+  color: #7b917e;
+}
+.hero-play-paper__grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .48;
+  background-image:
+    repeating-linear-gradient(87deg, transparent 0, transparent 11px, rgba(126,112,92,.026) 12px),
+    radial-gradient(rgba(110,99,83,.065) .5px, transparent .7px);
+  background-size: auto, 7px 7px;
+}
+.hero-play-paper__small-label {
+  position: absolute;
+  top: 28px;
+  left: 17px;
+  right: 12px;
+  white-space: nowrap;
+  text-align: left;
+  color: #a59c8f;
+  font: 550 6.5px/1.5 var(--site-code, monospace);
+  letter-spacing: .08em;
+}
+.hero-play-paper__lines { position: absolute; left: 18px; right: 20px; top: 68px; }
+.hero-play-paper__lines i {
+  display: block;
+  height: 1px;
+  margin-bottom: 15px;
+  background: rgba(144,130,114,.22);
+}
+.hero-play-paper__lines i:last-child { width: 57%; }
+.hero-play-paper__fold {
+  position: absolute;
+  right: -1px; top: -1px;
+  width: 29px; height: 29px;
+  background: linear-gradient(135deg, #dcd0c0 0 49%, #faf6ef 50%);
+  clip-path: polygon(0 0,100% 0,100% 100%);
+  filter: drop-shadow(-2px 2px 2px rgba(64,52,44,.07));
+}
+.hero-play-paper__pin { position: absolute; left: 20px; top: 20px; border-radius: 50%; width: 8px; height: 8px; border: 1px solid #96b49a; }
+.hero-play-paper__scribble { position: absolute; left: 22px; right: 22px; top: 66px; }
+.hero-play-paper__scribble i { display:block; height: 1px; background: rgba(94,128,98,.23); margin-bottom: 14px; }
+.hero-play-paper__scribble i:last-child { width: 60%; }
+.hero-play-paper__corner { position:absolute; bottom: 0; right: 0; width: 25px; height: 25px; background:#cbd9cb; clip-path:polygon(100% 0,0 100%,100% 100%); }
+.hero-paper-slot__hint {
+  display: block;
+  margin-top: 15px;
+  opacity: .57;
+  color: #8b8391;
+  font: 560 9px/1.5 var(--site-code, monospace);
+  letter-spacing: .01em;
+  text-align: center;
+}
+
+/* Each piece settles once on page load. This is not an infinite animation. */
+@keyframes hero-enter {
+  from { opacity: 0; transform: translate3d(0,17px,0); filter: blur(2px); }
+  to { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); }
+}
+@keyframes hero-paper-enter {
+  from { opacity: 0; transform: translate3d(0,28px,0) scale(.94); }
+  to { opacity: 1; transform: translate3d(0,0,0) scale(1); }
+}
+.landing-hero__headline-line { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .landing-hero__eyebrow,
+  .landing-hero__headline-line,
+  .landing-hero__lede,
+  .landing-hero__actions,
+  .landing-hero__signature,
+  .landing-hero__foot {
+    animation: hero-enter 770ms cubic-bezier(.18,.76,.22,1) both;
+  }
+  .landing-hero__eyebrow { animation-delay: 45ms; }
+  .landing-hero__headline-line:first-child { animation-delay: 115ms; }
+  .landing-hero__headline-line:nth-child(2) { animation-delay: 200ms; }
+  .landing-hero__lede { animation-delay: 310ms; }
+  .landing-hero__actions { animation-delay: 395ms; }
+  .landing-hero__signature { animation-delay: 475ms; }
+  .landing-hero__foot { animation-delay: 535ms; }
+  .hero-paper-slot { animation: hero-paper-enter 850ms cubic-bezier(.18,.76,.22,1) both; }
+  .hero-paper-slot--letter { animation-delay: 350ms; }
+  .hero-paper-slot--note { animation-delay: 520ms; }
+}
+@media (max-width: 950px) {
+  .hero-paper-slot--letter { left: 1.5%; top: 20%; }
+  .hero-paper-slot--note { right: 1.5%; bottom: 14%; }
+  .hero-play-paper { width: 111px; height: 146px; }
+  .hero-play-paper--note { width: 108px; height: 132px; }
+  .hero-paper-slot__hint { font-size: 8px; text-align:left; }
+}
+@media (max-width: 620px) {
+  /* Edge placement protects the central copy and still leaves a draggable tab. */
+  .hero-paper-slot--letter { left: -58px; top: 13%; }
+  .hero-paper-slot--note { right: -60px; bottom: 8%; }
+  .hero-play-paper { width: 110px; height: 145px; }
+  .hero-play-paper--note { width: 110px; height: 130px; }
+  .hero-paper-slot__hint { display: none; }
+  .hero-play-paper__small-label { font-size: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-hero__eyebrow,.landing-hero__headline-line,.landing-hero__lede,
+  .landing-hero__actions,.landing-hero__signature,.landing-hero__foot,
+  .hero-paper-slot { animation: none !important; }
+  .hero-play-paper { transition: none !important; }
+}
