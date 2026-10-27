@@ -1,6 +1,5 @@
-"use client";
-
 import { ArrowUpRightIcon, RefreshIcon, CopyIcon, CheckIcon, SparklesIcon } from "./ui/icons";
+"use client";
 
 import { useState } from "react";
 import { Envelope } from "@tactile/objects";

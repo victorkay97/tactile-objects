@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "typecheck": "tsc --noEmit"
+    "build": "node scripts/check-typography.mjs && next build",
+    "typecheck": "tsc --noEmit",
+    "check:typography": "node scripts/check-typography.mjs"
   },
   "dependencies": {
     "@tactile/objects": "workspace:*",

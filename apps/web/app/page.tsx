@@ -2,6 +2,20 @@ import { ArrowUpRightIcon, GithubIcon, SparklesIcon, CursorIcon, HandIcon, CodeI
 import Link from "next/link";
 import { EnvelopeStage } from "../components/envelope-stage";
 
+const homeCodeExample = [
+  'import { Envelope } from "@tactile/objects";',
+  'import "@tactile/objects/styles.css";',
+  '',
+  '// Good things come in small packages.',
+  'export default function Hello() {',
+  '  return (',
+  '    <Envelope tone="rose">',
+  '      <h3>Hello, world. ♡</h3>',
+  '    </Envelope>',
+  '  );',
+  '}',
+].join("\\n");
+
 export default function HomePage() {
   return (
     <main>
@@ -94,17 +108,7 @@ export default function HomePage() {
           </div>
           <div className="developer-code">
             <div className="code-window-top"><div className="window-dots"><i /><i /><i /></div><span>letter.tsx</span><span>REACT + TYPESCRIPT</span></div>
-            <pre><code><span className="code-purple">import</span> {"{ Envelope }"} <span className="code-purple">from</span> <span className="code-green">"@tactile/objects"</span>;
-<span className="code-purple">import</span> <span className="code-green">"@tactile/objects/styles.css"</span>;
-
-<span className="code-muted">// Good things come in small packages.</span>
-<span className="code-purple">export default function</span> <span className="code-blue">Hello</span>() {"{"}
-  <span className="code-purple">return</span> (
-    &lt;<span className="code-blue">Envelope</span> <span className="code-coral">tone</span>=<span className="code-green">"rose"</span>&gt;
-      &lt;<span className="code-blue">h3</span>&gt;Hello, world. ♡&lt;/<span className="code-blue">h3</span>&gt;
-    &lt;/<span className="code-blue">Envelope</span>&gt;
-  );
-{"}"}</code></pre>
+            <pre><code>{homeCodeExample}</code></pre>
             <div className="code-window-bottom">ONE IMPORT. A WHOLE LITTLE EXPERIENCE. <span><SparklesIcon size={18} aria-hidden="true" /></span></div>
           </div>
         </div>
