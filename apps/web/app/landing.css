@@ -319,7 +319,7 @@ a.landing-object:hover .landing-object__arrow svg { transform: translate(2px,-2p
   height: 95px;
   opacity: 0;
   will-change: transform, opacity;
-  animation: to-paper-flight 25s linear 1.8s infinite;
+  animation: to-paper-flight 25s linear -3.5s infinite;
 }
 .ambient-paper__flight svg { display: block; overflow: visible; }
 @keyframes to-paper-flight {
