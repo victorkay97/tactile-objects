@@ -252,6 +252,7 @@ export function EnvelopePlayground() {
                 </div>
               </fieldset>
 
+              <div className="workbench__setting-pair">
               <fieldset className="workbench__group">
                 <legend>Paper finish</legend>
                 <div className="workbench__option-row">
@@ -269,19 +270,28 @@ export function EnvelopePlayground() {
                   ))}
                 </div>
               </fieldset>
+              </div>
 
               <div className="workbench__group workbench__group--fields">
                 <span className="workbench__group-title">Write a little note</span>
-                <label className="workbench__field">Recipient<input maxLength={45} value={settings.recipient} onChange={event => change("recipient", event.target.value)} /></label>
-                <label className="workbench__field">Letter heading<input maxLength={60} value={settings.heading} onChange={event => change("heading", event.target.value)} /></label>
-                <label className="workbench__field">Message
-                  <textarea id="envelope-message" maxLength={500} rows={3} aria-describedby="envelope-message-help" value={settings.message} onChange={event => change("message", event.target.value)} />
-                  <span className="workbench__field-help" id="envelope-message-help">
-                    <span>Longer notes can scroll inside the open letter.</span>
-                    <span className="workbench__character-count">{settings.message.length}/500</span>
-                  </span>
-                </label>
-                <label className="workbench__field">Signature<input maxLength={45} value={settings.sender} onChange={event => change("sender", event.target.value)} /></label>
+                <div className="workbench__fields-grid">
+                  <label className="workbench__field">Recipient
+                    <input maxLength={45} value={settings.recipient} onChange={event => change("recipient", event.target.value)} />
+                  </label>
+                  <label className="workbench__field">Signature
+                    <input maxLength={45} value={settings.sender} onChange={event => change("sender", event.target.value)} />
+                  </label>
+                  <label className="workbench__field workbench__field--wide">Letter heading
+                    <input maxLength={60} value={settings.heading} onChange={event => change("heading", event.target.value)} />
+                  </label>
+                  <label className="workbench__field workbench__field--wide">Message
+                    <textarea id="envelope-message" maxLength={500} rows={3} aria-describedby="envelope-message-help" value={settings.message} onChange={event => change("message", event.target.value)} />
+                    <span className="workbench__field-help" id="envelope-message-help">
+                      <span>Longer notes can scroll inside the open letter.</span>
+                      <span className="workbench__character-count">{settings.message.length}/500</span>
+                    </span>
+                  </label>
+                </div>
               </div>
               <p className="workbench__inspector-foot"><SparklesIcon size={15} aria-hidden="true" /> Letter edits reveal the note; seal changes show the closed flap. Code stays in sync.</p>
             </aside>
