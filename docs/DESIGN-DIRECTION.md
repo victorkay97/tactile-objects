@@ -1,29 +1,43 @@
-# Design direction — V0.2
+# Visual direction — Tactile Objects
 
-We are developing a component library, not a decorative portfolio landing page.
+**Status:** Implementation candidate, pending local browser and interaction review.
 
-## References and lessons
-- shadcn/ui: disciplined type, hierarchy, simple navigation and previews immediately accessible.
-- React Bits: component-focused interaction pages with previews and inspectable code.
-- Motion Primitives: make motion discoverable, configurable and genuinely useful.
+## Positioning
+A digital workshop: expressive, tactile, visually rich. Still useful and precise for React developers.
 
-These references inform interaction and presentation patterns; Tactile Objects should not imitate their branding.
+We are not copying the visuals of shadcn/ui or React Bits. Instead, we borrow their discipline around readable component documentation and working live previews.
 
-## Decisions
-- Neutral, high-contrast developer interface with thin borders, restrained radii and readable type.
-- Hero communicates the concept; product takes over immediately afterward.
-- Real documentation surfaces: component navigation, Preview / Code / Props, color controls, source link and copyable usage.
-- No fictitious download counts, testimonials or published npm commands.
-- Planned objects are explicitly labelled planned.
-- Component demo panel uses a neutral dotted canvas, avoiding decorative website treatments that compete with the object.
-- Dark about section adds contrast at the end of the page, not across the component workspace.
+## Key decision: separate product from documentation
 
-## Envelope
-- Paper starts within the envelope, not sticking out beneath it.
-- Flap retains its wax seal during the fold.
-- Paper extracts after flap movement begins; closing happens in reverse order.
-- Motion reverses cleanly; keyboard/touch/reduced motion are preserved.
-- This is a better prototype, not yet a physically accurate envelope or full draggable-letter interaction.
+- `/` is a landing experience. Large, expressive Archivo headlines; signature purple, coral and mint; a hero envelope you can interact with; collection highlights; philosophy; one small technical teaser and CTA. **No prop tables, color swatches or tabbed code editor here.**
+- `/components` is the collection catalog. Objects can be browsed; incomplete components are marked as planned.
+- `/components/envelope` is the production-minded component playground with Preview / Code / Props, variants, typed API and source links.
+- `/about` documents the motivation and philosophy.
 
-## Release gates
-Run install, unit tests, typecheck and Next.js production build. Review desktop/mobile recordings, particularly paper readability and layering in open and closed states. Do not deploy until the user approves the visual and interaction quality.
+## Type
+- Archivo: impact headlines and selected section headings.
+- Geist: copy, navigation and controls.
+- Geist Mono: metadata, code and tiny functional labels.
+
+Body type and controls must be comfortably readable; micro-labels are supplementary.
+
+## Colours
+- Off-white #fffefa for warmth and breathing room.
+- Near-black #1d1b28 for text.
+- Electric indigo #635bff as the product signature.
+- Coral #ff816b for playful warmth.
+- Pale mint #d8f3e8 as a supportive accent.
+- Object materials retain their own believable natural colours.
+
+## Motion
+Large site elements should mostly remain still. The interactivity lives in the objects. Avoid distracting scroll effects that compete with component motion. Respect reduced-motion preferences.
+
+## Envelope iteration
+The new CSS positions the closed paper behind the pocket rather than below it, keeps the seal attached to the folding flap, and stages the letter after flap rotation. The envelope is still a stylized physical metaphor and needs frame-by-frame browser QA.
+
+## Review
+- Test at 1440px, 1024px, 768px, 390px and 320px.
+- Inspect clipping, focus rings, letter movement, reduced motion, and contrast.
+- Run `corepack pnpm test`, `corepack pnpm typecheck`, `corepack pnpm build`.
+- Verify browser source/code clipboard and all navigation routes.
+- Do not deploy or merge to main until reviewed and approved.

@@ -1,40 +1,43 @@
 # Tactile Objects
 
-**Interfaces you can feel.** A growing collection of tactile, interactive digital objects for React.
+**The internet, with feeling.** An open-source experiment in beautifully crafted, realistic interactive digital objects for React.
 
-We build familiar objects with intentional motion, detailed materials, and a small, typed integration surface. This is an experimental, open-source project in active development.
+We build familiar objects that respond with personality, care, and useful interaction—not just decorative animations.
 
-**Status:** v0.1 prototype — not published to npm or deployed. The first component is Envelope.
+**Status:** early alpha. One component (Envelope) is available inside this monorepo. It has **not** been published to npm or deployed.
 
-## Repository
+## Product routes
 
-- `packages/objects` — reusable React + TypeScript component package, independent of Next.js.
-- `apps/web` — Next.js library website, interactive preview and documentation.
-- `docs` — design direction, roadmap and quality standards.
+| Route | Purpose |
+| --- | --- |
+| `/` | Expressive landing page featuring the first interactive object |
+| `/components` | Browse available and planned objects |
+| `/components/envelope` | Dedicated playground, colourways, code and typed API |
+| `/about` | Philosophy and project purpose |
 
-## Local development
+## Repository structure
 
-Requires Node.js 22+ and Corepack.
+- `apps/web` — Next.js 16 site, built with Archivo and Geist typography.
+- `packages/objects` — framework-independent React component package.
+- `docs` — roadmap, interaction quality standards, and design direction.
+
+## Run locally
+
+Node.js 22 or newer and Corepack are recommended.
 
 ```powershell
 git clone https://github.com/victorkay97/tactile-objects.git
 cd tactile-objects
+git switch feat/foundation-and-envelope-prototype
 corepack pnpm install
 corepack pnpm dev
 ```
 
-If working from the open feature branch, switch to `feat/foundation-and-envelope-prototype` before installation.
+Open [http://localhost:3000](http://localhost:3000).
 
-Open http://localhost:3000.
+The root scripts use `corepack pnpm` explicitly to avoid multiple installed pnpm versions on Windows.
 
-The root script uses `corepack pnpm` explicitly to prevent a Windows PATH pnpm-version mismatch. If running the package and website separately:
-
-```powershell
-corepack pnpm --filter @tactile/objects build
-corepack pnpm --filter @tactile/web dev
-```
-
-## Tests
+Run individual checks:
 
 ```powershell
 corepack pnpm test
@@ -42,23 +45,25 @@ corepack pnpm typecheck
 corepack pnpm build
 ```
 
-## Envelope API
+The documentation route is interactive; hover, click, keyboard activation and reduced-motion behavior should all be reviewed.
+
+## Using Envelope
 
 ```tsx
 import { Envelope } from "@tactile/objects";
 import "@tactile/objects/styles.css";
 
-<Envelope recipient="A curious mind" tone="sage">
+<Envelope tone="sage" recipient="A curious mind">
   <h3>A little note</h3>
   <p>Something worth opening.</p>
 </Envelope>
 ```
 
-The package currently resolves through the pnpm workspace. The public npm release will follow accessibility, visual and integration review.
+This package currently resolves only from the pnpm workspace. It is not yet publicly installable.
 
-## Principles
+## Our quality bar
 
-Real interaction · intentional motion · useful defaults · accessible controls · honest documentation.
+We prioritize visual fidelity, interaction fidelity, accessibility, and developer ergonomics. Three excellent components are more valuable than thirty mediocre animations.
 
 See `docs/DESIGN-DIRECTION.md`, `docs/QUALITY.md`, and `docs/ROADMAP.md`.
 
