@@ -165,7 +165,7 @@ export function ObjectLab({kind}:{kind:LabKind}) {
         </>}
         {kind==="polaroid"&&<>
           <fieldset className="object-lab__group"><legend>Captured moment</legend><div className="object-lab__choices">
-            {(["coast","sunset","garden"] as const).map(scene=><button key={scene} type="button" aria-pressed={settings.scene===scene} className={settings.scene===scene?"is-active":""} onClick={()=>change("scene",scene)}>{scene}</button>)}
+            {(["coast","sunset","garden"] as const).map(scene=><button key={scene} type="button" aria-pressed={settings.scene===scene} className={settings.scene===scene?"is-active":""} onClick={()=>{change("scene",scene);setDeveloped(false);setFlipped(false);}}>{scene}</button>)}
           </div></fieldset>
           <fieldset className="object-lab__group"><legend>Photo paper</legend><div className="object-lab__choices">
             {(["ivory","cream"] as const).map(frame=><button key={frame} type="button" aria-pressed={settings.frame===frame} className={settings.frame===frame?"is-active":""} onClick={()=>change("frame",frame)}>{frame}</button>)}
