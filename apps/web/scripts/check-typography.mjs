@@ -79,4 +79,6 @@ assert(studioCSS.includes("height: 555px") && studioCSS.includes("flex: 0 0 auto
 assert(!studioCSS.includes("overflow-y:auto; overscroll-behavior:contain"), "Remove the nested inspector scroll rather than relying only on overrides");
 assert(studio.includes("maxLength={500}") && studio.includes("{settings.message.length}/500"), "Do not truncate useful letters at the previous 160-character limit");
 assert(studio.includes("SCROLL INSIDE THE PAPER"), "Long notes require an explicit scroll affordance");
-console.log("Typography, aligned compact studio, readable letters, dotted configurator and motion guards passed.");
+assert(studio.includes('className="workbench__setting-pair"') && studioCSS.includes(".workbench__setting-pair"), "Paper and seal controls must share a compact group");
+assert(studio.includes('className="workbench__fields-grid"') && studioCSS.includes(".workbench__fields-grid"), "Letter controls must use the balanced two-column field layout");
+console.log("Typography, aligned compact studio, grouped controls, readable letters and motion guards passed.");
