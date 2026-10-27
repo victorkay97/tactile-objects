@@ -1,3 +1,4 @@
+import { ArrowUpRightIcon, SparklesIcon } from "./ui/icons";
 "use client";
 
 import { useState } from "react";
@@ -17,7 +18,7 @@ export function EnvelopeStage({ variant = "hero", tone = "clay" }: EnvelopeStage
       <div className="stage-orb stage-orb--one" aria-hidden="true" />
       <div className="stage-orb stage-orb--two" aria-hidden="true" />
       <span className="stage-corner stage-corner--top" aria-hidden="true">OBJECT NO. 001 / THE ENVELOPE</span>
-      <span className="stage-corner stage-corner--bottom" aria-hidden="true">CRAFTED IN REACT ✳</span>
+      <span className="stage-corner stage-corner--bottom" aria-hidden="true">CRAFTED IN REACT <SparklesIcon size={13} aria-hidden="true" /></span>
       <div className="stage-envelope">
         <Envelope
           tone={tone}
@@ -30,7 +31,7 @@ export function EnvelopeStage({ variant = "hero", tone = "clay" }: EnvelopeStage
           <p>The internet can feel like something you can hold.</p>
         </Envelope>
       </div>
-      <span className="stage-status" aria-hidden="true">{isOpen ? "OPENED" : "TRY ME"} <span>↗</span></span>
+      <span className="stage-status" aria-hidden="true">{isOpen ? "OPENED" : "TRY ME"} <span><ArrowUpRightIcon size={14} aria-hidden="true" /></span></span>
     </div>
   );
 }

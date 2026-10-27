@@ -11,7 +11,8 @@
     "@tactile/objects": "workspace:*",
     "next": "^16.0.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@mingcute/react": "3.0.2"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

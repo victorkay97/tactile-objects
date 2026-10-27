@@ -431,3 +431,82 @@ a.catalog-card:hover { transform: translateY(-5px); box-shadow: 0 18px 30px rgba
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* MingCute icon alignment — all functional arrows/symbols use SVG icons. */
+.header-nav a,
+.site-footer nav a,
+.header-action,
+.hero-ctas .button,
+.text-arrow,
+.tile-arrow,
+.catalog-card-arrow,
+.catalog-endnote a,
+.docs-sidebar-back,
+.docs-sidebar-item,
+.docs-source-link,
+.docs-bottom-nav a,
+.docs-control-group,
+.reset-control,
+.docs-notice,
+.docs-live-pill,
+.docs-preview .preview-coordinate,
+.code-pane-title button,
+.footer-note,
+.cta-inner .button,
+.home-cta .button,
+.hero-bottom-note,
+.intro-ticker b,
+.eyebrow-star,
+.note-spark,
+.stage-status span,
+.code-window-bottom span,
+.about-symbol,
+.cta-doodle,
+.manifesto-icon {
+  align-items: center;
+}
+.header-nav a,
+.site-footer nav a,
+.header-action,
+.text-arrow,
+.catalog-endnote a,
+.docs-sidebar-back,
+.docs-source-link,
+.docs-bottom-nav a,
+.reset-control,
+.docs-notice,
+.docs-preview .preview-coordinate,
+.code-pane-title button,
+.footer-note,
+.hero-bottom-note,
+.stage-status span,
+.code-window-bottom span {
+  display: inline-flex;
+  gap: 8px;
+}
+.header-action svg,
+.button svg,
+.tile-arrow svg,
+.catalog-card-arrow svg,
+.manifesto-icon svg,
+.docs-sidebar-item svg,
+.docs-notice svg,
+.docs-source-link svg,
+.docs-bottom-nav svg,
+.code-pane-title svg,
+.footer-note svg,
+.eyebrow-star svg {
+  display: block;
+  flex: none;
+}
+.docs-sidebar-back svg,
+.docs-bottom-nav svg,
+.reset-control svg {
+  flex: none;
+}
+.about-symbol svg { width: min(220px, 100%); height: auto; }
+.cta-doodle svg { width: 360px; height: 360px; }
+@media (max-width: 620px) {
+  .about-symbol svg { width: 132px; }
+  .cta-doodle svg { width: 270px; height: 270px; }
+}

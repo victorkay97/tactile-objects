@@ -1,3 +1,4 @@
+import { ArrowUpRightIcon, RefreshIcon, CopyIcon, CheckIcon, SparklesIcon } from "./ui/icons";
 "use client";
 
 import { useState } from "react";
@@ -92,13 +93,13 @@ export function EnvelopePlayground() {
                 <p>The web can feel more human.</p>
               </Envelope>
             </div>
-            <span className="preview-coordinate preview-coordinate--bottom">CLICK TO {open ? "CLOSE" : "OPEN"} ↗</span>
+            <span className="preview-coordinate preview-coordinate--bottom">CLICK TO {open ? "CLOSE" : "OPEN"} <ArrowUpRightIcon size={15} aria-hidden="true" /></span>
           </div>
         )}
 
         {tab === "code" && (
           <div className="docs-code-pane" id="docs-panel-code" role="tabpanel" aria-labelledby="docs-tab-code">
-            <div className="code-pane-title">Envelope.tsx <button type="button" onClick={copyCode}>{copied ? "✓ Copied" : "⧉ Copy code"}</button></div>
+            <div className="code-pane-title">Envelope.tsx <button type="button" onClick={copyCode}>{copied ? <><CheckIcon size={15} aria-hidden="true" /> Copied</> : <><CopyIcon size={15} aria-hidden="true" /> Copy code</>}</button></div>
             <pre><code>{code}</code></pre>
           </div>
         )}
@@ -126,16 +127,16 @@ export function EnvelopePlayground() {
               title={item.name}
             ><i style={{ backgroundColor: item.color }} /></button>
           ))}</div><strong>{tones.find(item => item.value === tone)?.name}</strong></div>
-          <button type="button" className="reset-control" onClick={() => setOpen(false)}>↺ Reset</button>
+          <button type="button" className="reset-control" onClick={() => setOpen(false)}><RefreshIcon size={16} aria-hidden="true" /> Reset</button>
         </div>
       </div>
-      <div className="docs-notice"><span>✳</span><p><strong>Early prototype.</strong> This component is still being refined. The motion, material fidelity, and interaction API may change before release.</p></div>
+      <div className="docs-notice"><span><SparklesIcon size={22} aria-hidden="true" /></span><p><strong>Early prototype.</strong> This component is still being refined. The motion, material fidelity, and interaction API may change before release.</p></div>
       <section className="docs-usage" id="usage">
         <span className="section-label">MAKE IT YOURS</span>
         <h2>Use it in your project.</h2>
         <p>Import the component and stylesheet from the local workspace package. It accepts your own React content and provides both controlled and uncontrolled interaction state.</p>
         <div className="docs-usage-code">
-          <div className="code-pane-title">React / TSX <button type="button" onClick={copyCode}>{copied ? "✓ Copied" : "⧉ Copy code"}</button></div>
+          <div className="code-pane-title">React / TSX <button type="button" onClick={copyCode}>{copied ? <><CheckIcon size={15} aria-hidden="true" /> Copied</> : <><CopyIcon size={15} aria-hidden="true" /> Copy code</>}</button></div>
           <pre><code>{code}</code></pre>
         </div>
         <p className="docs-usage-foot">This package is currently available only inside the repository workspace. It has not been published to npm.</p>

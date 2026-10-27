@@ -1,3 +1,4 @@
+import { ArrowUpRightIcon, SparklesIcon } from "./ui/icons";
 import Link from "next/link";
 
 export function SiteFooter() {
@@ -12,9 +13,9 @@ export function SiteFooter() {
           <Link href="/">Home</Link>
           <Link href="/components">Components</Link>
           <Link href="/about">About</Link>
-          <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRightIcon size={14} aria-hidden="true" /></a>
         </nav>
-        <div className="footer-note">MADE TO BE FELT <span aria-hidden="true">✳</span> 2026</div>
+        <div className="footer-note">MADE TO BE FELT <SparklesIcon size={16} aria-hidden="true" /> 2026</div>
       </div>
     </footer>
   );
