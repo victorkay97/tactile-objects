@@ -1,0 +1,15 @@
+{
+  "name": "tactile-objects",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.18.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "corepack pnpm --filter @tactile/objects build && corepack pnpm --filter @tactile/web dev",
+    "build": "corepack pnpm --filter @tactile/objects build && corepack pnpm --filter @tactile/web build",
+    "typecheck": "corepack pnpm --filter @tactile/objects typecheck && corepack pnpm --filter @tactile/web typecheck",
+    "test": "corepack pnpm --filter @tactile/objects build && corepack pnpm --filter @tactile/objects test"
+  }
+}

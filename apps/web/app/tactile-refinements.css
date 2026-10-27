@@ -1,0 +1,125 @@
+/* Shared motion and finishing details — the interface responds, but never
+   becomes an animated wallpaper. Uses the existing MingCute action icons. */
+:root {
+  --ease-tactile: cubic-bezier(.2,.75,.24,1);
+  --motion-quick: 180ms;
+  --motion-object: 480ms;
+}
+
+.site-header .header-nav a { position: relative; transition: color var(--motion-quick) ease; }
+.site-header .header-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 100%; bottom: -8px; height: 1px;
+  background: currentColor;
+  transition: right 260ms var(--ease-tactile);
+}
+.site-header .header-nav a:hover::after,
+.site-header .header-nav a:focus-visible::after { right: 0; }
+.site-header .header-action { transition: background var(--motion-quick) ease,transform var(--motion-quick) ease; }
+.site-header .header-action:hover { transform: translateY(-2px); }
+.site-header .header-action svg,
+.site-header .header-nav svg { transition: transform var(--motion-quick) ease; }
+.site-header .header-action:hover svg,
+.site-header .header-nav a:hover svg { transform: translate(2px,-2px); }
+
+/* A tiny hand-drawn accent completes the word "feeling" as the hero settles. */
+.landing-hero h1 em { display: inline-block; position: relative; isolation: isolate; }
+.landing-hero h1 em::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: .075em; left: .02em; right: -.015em; bottom: .02em;
+  background: rgba(120,104,217,.24);
+  border-radius: 58% 44% 41% 48%;
+  transform: scaleX(1) rotate(-1.2deg);
+  transform-origin: left center;
+  z-index: -1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .landing-hero h1 em::after { animation: ink-underline 660ms var(--ease-tactile) .83s both; }
+}
+@keyframes ink-underline {
+  from { transform: scaleX(0) rotate(-1.2deg); opacity: 0; }
+  to { transform: scaleX(1) rotate(-1.2deg); opacity: 1; }
+}
+.landing-hero__actions .landing-btn { transition: transform var(--motion-quick) ease,background var(--motion-quick) ease,box-shadow var(--motion-quick) ease; }
+.landing-hero__actions .landing-btn:hover { box-shadow: 0 9px 24px rgba(35,30,50,.11); }
+.landing-hero__actions .landing-btn svg { transition: transform var(--motion-quick) ease; }
+.landing-hero__actions .landing-btn:hover svg { transform: translate(2px,-2px); }
+
+/* It is the OBJECT that responds in the collection, not merely the card. */
+.object-showcase__envelope,
+.object-showcase__envelope-paper,
+.object-showcase__envelope-flap,
+.object-showcase__envelope-seal,
+.object-showcase__polaroid,
+.object-showcase__polaroid-image,
+.object-showcase__journal,
+.object-showcase__journal-mark,
+.object-showcase__sticky {
+  transition-duration: var(--motion-object);
+  transition-timing-function: var(--ease-tactile);
+}
+.object-showcase__envelope {
+  perspective: 550px;
+  transform-style: preserve-3d;
+}
+.object-showcase__envelope-paper { transition-property: transform,box-shadow; }
+.object-showcase__envelope-flap {
+  transform-origin: 50% 0;
+  backface-visibility: visible;
+  transition-property: transform,filter;
+}
+a.object-showcase:hover .object-showcase__envelope-paper,
+a.object-showcase:focus-visible .object-showcase__envelope-paper {
+  transform: translateY(-12px) rotate(2deg);
+  box-shadow: 0 8px 16px rgba(75,50,39,.15);
+}
+a.object-showcase:hover .object-showcase__envelope-flap,
+a.object-showcase:focus-visible .object-showcase__envelope-flap {
+  transform: rotateX(-18deg);
+  filter: brightness(1.04);
+}
+a.object-showcase:hover .object-showcase__envelope-seal { transform: translateY(2px); }
+.object-showcase__light { transition: transform 700ms ease,opacity 700ms ease; }
+a.object-showcase:hover .object-showcase__light { transform: translateY(-4px) scale(1.1); opacity: .85; }
+
+/* Gallery layout becomes more considered without altering its data model. */
+.landing-grid { grid-template-columns: 1.12fr 1fr 1fr; }
+.landing-grid .object-showcase--featured:first-child .object-showcase__media { background: linear-gradient(145deg,#f0e6dd,#e9e0d9); }
+.landing-grid .object-showcase__info h3 { font-weight: 650; letter-spacing: -.049em; }
+.object-showcase__status.is-live { font-weight: 640; }
+.object-showcase__visual-caption { letter-spacing: .035em; }
+.object-showcase__media::after { opacity: .6; }
+.object-showcase__info { border-top: 1px solid rgba(61,53,61,.035); }
+
+/* Progressive reveal is restrained and only primes content below the viewport.
+   The no-JS baseline is always readable. */
+[data-motion-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+[data-motion-reveal="visible"] {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 720ms var(--ease-tactile),transform 720ms var(--ease-tactile);
+}
+@media (max-width: 700px) {
+  .landing-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .site-header .header-nav a::after { display: none; }
+}
+@media (max-width: 480px) {
+  .landing-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .header-nav a,
+  .site-header .header-action,.site-header svg,
+  .object-showcase__envelope,.object-showcase__envelope-paper,.object-showcase__envelope-flap,
+  .object-showcase__polaroid,.object-showcase__polaroid-image,.object-showcase__journal,
+  .object-showcase__sticky,.object-showcase__light,[data-motion-reveal] {
+    animation: none !important; transition: none !important;
+    opacity: 1 !important; transform: none !important;
+  }
+  .landing-hero h1 em::after { animation: none !important; }
+}

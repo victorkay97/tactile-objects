@@ -1,0 +1,68 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { Envelope } from "./Envelope";
+
+afterEach(cleanup);
+
+describe("Envelope", () => {
+  it("opens and closes when uncontrolled", () => {
+    render(<Envelope recipient="Visitor" />);
+    const openButton = screen.getByRole("button", { name: "Open envelope" });
+    expect(openButton.getAttribute("aria-expanded")).toBe("false");
+    fireEvent.click(openButton);
+    const closeButton = screen.getByRole("button", { name: "Close envelope" });
+    expect(closeButton.getAttribute("aria-expanded")).toBe("true");
+    fireEvent.click(closeButton);
+    expect(screen.getByRole("button", { name: "Open envelope" })).toBeTruthy();
+  });
+
+  it("notifies a controlled parent without mutating controlled state", () => {
+    const onOpenChange = vi.fn();
+    render(<Envelope open={false} onOpenChange={onOpenChange} />);
+    const button = screen.getByRole("button", { name: "Open envelope" });
+    fireEvent.click(button);
+    expect(onOpenChange).toHaveBeenCalledWith(true);
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("uses ivory paper and a wax seal by default", () => {
+    const view = render(<Envelope />);
+    const wrapper = view.container.querySelector(".to-envelope");
+    expect(wrapper?.getAttribute("data-paper")).toBe("ivory");
+    expect(wrapper?.getAttribute("data-seal")).toBe("wax");
+    expect(view.container.querySelector(".to-envelope__wax")).not.toBeNull();
+  });
+
+  it("accepts real material choices and removes the seal when asked", () => {
+    const view = render(<Envelope tone="sage" paper="white" seal="none" />);
+    const wrapper = view.container.querySelector(".to-envelope");
+    expect(wrapper?.getAttribute("data-tone")).toBe("sage");
+    expect(wrapper?.getAttribute("data-paper")).toBe("white");
+    expect(wrapper?.getAttribute("data-seal")).toBe("none");
+    expect(view.container.querySelector(".to-envelope__wax")).toBeNull();
+  });
+
+  it("keeps the letter region out of the tab order while closed", () => {
+    const view = render(<Envelope recipient="Friend"><h3>Read this</h3><p>A longer note.</p></Envelope>);
+    const letter = view.container.querySelector(".to-envelope__paper");
+    const content = view.container.querySelector(".to-envelope__message");
+    expect(letter?.getAttribute("aria-hidden")).toBe("true");
+    expect(content?.getAttribute("tabindex")).toBe("-1");
+    fireEvent.click(screen.getByRole("button", { name: "Open envelope" }));
+    expect(letter?.getAttribute("aria-hidden")).toBe("false");
+    expect(content?.getAttribute("tabindex")).toBe("0");
+    expect(content?.getAttribute("aria-label")).toContain("scroll if needed");
+    expect(content?.textContent).toContain("A longer note.");
+  });
+
+  it("preserves long user content instead of truncating it in React", () => {
+    const message = "A thoughtful letter can take a little more room. ".repeat(8);
+    const view = render(<Envelope defaultOpen><p>{message}</p></Envelope>);
+    expect(view.container.querySelector(".to-envelope__message")?.textContent).toBe(message);
+  });
+
+  it("respects defaultOpen", () => {
+    render(<Envelope defaultOpen />);
+    expect(screen.getByRole("button", { name: "Close envelope" })).toBeTruthy();
+  });
+});

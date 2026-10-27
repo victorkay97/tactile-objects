@@ -1,0 +1,24 @@
+{
+  "name": "@tactile/web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "node scripts/check-typography.mjs && node scripts/check-theme.mjs && next build",
+    "typecheck": "tsc --noEmit",
+    "check:typography": "node scripts/check-typography.mjs"
+  },
+  "dependencies": {
+    "@tactile/objects": "workspace:*",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@mingcute/react": "3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.0"
+  }
+}
