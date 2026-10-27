@@ -69,3 +69,13 @@ The model for this interaction comes from the restrained physical details used i
 - `apps/web/app/tactile-refinements.css` — coherent navigation feedback, object-specific gallery responses and a small hand-drawn headline accent.
 
 The result is a **review prototype**, not a claim of completed visual QA or a full paper-physics simulation. Run a real browser interaction test on mobile and desktop before promoting to production.
+
+## Craftsmanship review: envelope and gallery (iteration)
+
+- The flagship envelope keeps the paper below the front pocket throughout opening and closing; its flap clears first, then the paper extracts. Closing reverses that order. The seal stays physically connected to the flap.
+- Component package CSS includes coherent material grain, fine edge shadows, subtle paper emboss and a denser wax seal.
+- The homepage and catalog use the **real** `Envelope` React component as a playable preview. Its own button remains independent of the documentation links below the preview: no nested buttons/links.
+- Planned objects are non-interactive material studies. The journal shows a real binding/spine and page stack; the Polaroid uses layered prints. No planned item pretends to be available.
+- Hero release uses requestAnimationFrame damped spring integration (distance-dependent) rather than a fixed timing curve. Reduced-motion skips the simulation.
+- Tests assert timing and layer invariants for the flagship and run in Vercel's preview build, alongside TypeScript compilation and the existing static checks.
+- These are implementation and build gates. Rendered-browser QA must still examine flap shape, paper overlap, mobile tap targets, and the actual feeling of spring motion before production promotion.
