@@ -302,3 +302,16 @@
 .to-envelope[data-seal="none"] .to-envelope__flap-face {
   background: linear-gradient(180deg,rgba(255,255,255,.2),transparent 55%),linear-gradient(90deg,var(--to-base),var(--to-light) 50%,var(--to-base));
 }
+
+/* Preserve the reference's closed appearance, while keeping long letters
+   accessible after opening. These rules do not alter the reference canvas. */
+.to-envelope[data-state="open"] .to-envelope__message {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(122,99,78,.28) transparent;
+  overscroll-behavior: contain;
+}
+.to-envelope[data-state="open"] .to-envelope__trigger {
+  height: 142px;
+}
