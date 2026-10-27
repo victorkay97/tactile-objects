@@ -25,6 +25,23 @@ describe("Envelope", () => {
     expect(button.getAttribute("aria-expanded")).toBe("false");
   });
 
+  it("uses ivory paper and a wax seal by default", () => {
+    const view = render(<Envelope />);
+    const wrapper = view.container.querySelector(".to-envelope");
+    expect(wrapper?.getAttribute("data-paper")).toBe("ivory");
+    expect(wrapper?.getAttribute("data-seal")).toBe("wax");
+    expect(view.container.querySelector(".to-envelope__wax")).not.toBeNull();
+  });
+
+  it("accepts real material choices and removes the seal when asked", () => {
+    const view = render(<Envelope tone="sage" paper="white" seal="none" />);
+    const wrapper = view.container.querySelector(".to-envelope");
+    expect(wrapper?.getAttribute("data-tone")).toBe("sage");
+    expect(wrapper?.getAttribute("data-paper")).toBe("white");
+    expect(wrapper?.getAttribute("data-seal")).toBe("none");
+    expect(view.container.querySelector(".to-envelope__wax")).toBeNull();
+  });
+
   it("respects defaultOpen", () => {
     render(<Envelope defaultOpen />);
     expect(screen.getByRole("button", { name: "Close envelope" })).toBeTruthy();
