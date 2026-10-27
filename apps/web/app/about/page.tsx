@@ -6,7 +6,7 @@ import {
 export const metadata = { title: "About", description: "The thinking behind Tactile Objects." };
 
 const values = [
-  { num: "01", title: "Craft over quantity", description: "Every interaction gets the attention it deserves. We'd rather have three delightful objects than thirty forgettable effects.", Icon: SparklesIcon },
+  { num: "01", title: "Craft over quantity", description: "Every interaction gets the attention it deserves. We'd rather have four delightful objects than forty forgettable effects.", Icon: SparklesIcon },
   { num: "02", title: "Behaviour, not decoration", description: "Folds, gestures, depth, and timing should communicate how something works. Motion is part of the interface.", Icon: CursorIcon },
   { num: "03", title: "Open and usable", description: "Real React components, deliberate APIs, accessibility, and the freedom to make them your own.", Icon: CodeIcon },
 ];
