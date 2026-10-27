@@ -10,9 +10,9 @@ import {
 } from "../components/ui/icons";
 import { ObjectCard } from "../components/object-card";
 import { objects } from "../lib/objects";
-import { HeroPlayground } from "../components/hero-playground";
+import { HeroObjectShelf } from "../components/hero-object-shelf";
 import "./landing.css";
-import "./hero-playground.css";
+import "./hero-gallery.css";
 
 const example = [
   'import { Envelope } from "@tactile/objects";',
@@ -32,7 +32,6 @@ export default function HomePage() {
   return (
     <main className="landing">
       <section className="landing-hero" aria-labelledby="landing-title">
-        <HeroPlayground />
         <div className="layout-container landing-hero__inner">
           <div className="landing-hero__eyebrow">
             <span className="landing-live-dot" aria-hidden="true" />
@@ -64,7 +63,8 @@ export default function HomePage() {
               View on GitHub
             </a>
           </div>
-          <div className="landing-hero__signature">Try the edges. Drag a note, or turn a card.</div>
+          <div className="landing-hero__signature">Four little objects, each made to be experienced.</div>
+          <HeroObjectShelf />
           <div className="landing-hero__foot" aria-hidden="true">
             <span>BUILT WITH CURIOSITY</span>
             <span>SCROLL TO EXPLORE <ArrowDownIcon size={14} /></span>
@@ -81,7 +81,7 @@ export default function HomePage() {
               The best interactions don't<br className="landing-desktop-br" /> feel like interfaces.
             </h2>
             <p>
-              They feel familiar. An envelope that opens, a journal that turns,
+              They feel familiar. A journal that turns, a photograph that develops,
               a note that moves with you. We're building a collection around
               those little moments.
             </p>
@@ -98,7 +98,7 @@ export default function HomePage() {
               <h2 id="collection-title">The collection<span className="landing-dot">.</span></h2>
             </div>
             <div className="landing-section-heading__right">
-              <p>One live object. More in the workshop. Every piece gets the time and care it deserves.</p>
+              <p>Four live objects, each with its own little moment. Open, turn, develop and drag.</p>
               <Link href="/components" className="landing-inline-link">
                 All components <ArrowUpRightIcon size={16} aria-hidden="true" />
               </Link>
