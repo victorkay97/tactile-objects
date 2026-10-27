@@ -19,7 +19,7 @@ export default function DocsHome() {
       <div className="docs-site__cards">
         {sections.map(({href,num,title,description,Icon}) => <Link key={href} href={href} className="docs-site__card"><div className="docs-site__card-top"><Icon size={21} aria-hidden="true" /><span>{num} / GUIDE</span></div><h2>{title}</h2><p>{description}</p><span className="docs-site__card-arrow"><ArrowUpRightIcon size={17} aria-hidden="true" /></span></Link>)}
       </div>
-      <section className="docs-site__section"><span className="docs-site__eyebrow">FIRST OBJECT / 001</span><h2>Meet the Envelope.</h2><p>See the interaction running, change its material, inspect its API and copy an example. More components will join this collection when they're ready.</p><Link className="docs-site__text-link" href="/components/envelope">Open the playground <ArrowUpRightIcon size={16} aria-hidden="true" /></Link></section>
+      <section className="docs-site__section"><span className="docs-site__eyebrow">OBJECTS / 001—004</span><h2>Four little objects.</h2><p>The Envelope opens. The Journal turns. The Polaroid develops. The Sticky Note moves. Every one has a live preview, controls and a typed React API.</p><Link className="docs-site__text-link" href="/components/envelope">Explore all four <ArrowUpRightIcon size={16} aria-hidden="true" /></Link></section>
     </main>
   );
 }
