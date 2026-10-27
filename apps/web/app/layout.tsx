@@ -4,7 +4,7 @@ import "./globals.css";
 import "@tactile/objects/styles.css";
 
 export const metadata: Metadata = {
-  title: "Tactile Objects — Digital things you can feel",
+  title: "Tactile Objects — Interfaces you can feel",
   description: "An open-source collection of carefully crafted interactive digital objects for React.",
 };
 

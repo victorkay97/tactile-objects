@@ -6,29 +6,29 @@ import type { CSSProperties, PointerEvent, ReactNode } from "react";
 export type EnvelopeTone = "clay" | "sage" | "rose";
 
 export interface EnvelopeProps {
-  /** The contents of the letter. Keep interactive content near the top of the paper. */
+  /** Content shown on the letter. */
   children?: ReactNode;
-  /** The name printed on the front of the envelope. */
+  /** Address printed on the front. */
   recipient?: string;
-  /** Signature displayed inside the letter. */
+  /** Signature on the letter. */
   sender?: string;
-  /** Paper and envelope material palette. */
+  /** Envelope material palette. */
   tone?: EnvelopeTone;
-  /** Initial state when open is not controlled. */
+  /** Initial uncontrolled state. */
   defaultOpen?: boolean;
-  /** Controlled open state. */
+  /** Controlled state. */
   open?: boolean;
-  /** Called when an interaction requests a new state. */
+  /** Called when the object is opened or closed. */
   onOpenChange?: (open: boolean) => void;
   className?: string;
   style?: CSSProperties;
 }
 
 /**
- * A stylized envelope with a 3D-folding flap and an emerging letter.
+ * An interactive paper envelope with a folding flap and extractable note.
+ * Import "@tactile/objects/styles.css" once in the consuming application.
  *
- * Version 0 is a visual interaction prototype, not a physical simulation.
- * Import @tactile/objects/styles.css in your application.
+ * Version 0.1 is a stylized interaction, not a real paper physics simulation.
  */
 export function Envelope({
   children,
@@ -51,65 +51,76 @@ export function Envelope({
     onOpenChange?.(next);
   }
 
-  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (event.pointerType === "touch") return;
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) return;
+  function onMove(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType === "touch" || isOpen) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
 
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-    event.currentTarget.style.setProperty("--to-tilt-x", String(-y * 3) + "deg");
-    event.currentTarget.style.setProperty("--to-tilt-y", String(x * 4) + "deg");
+    event.currentTarget.style.setProperty("--to-rotate-x", `${-y * 3}deg`);
+    event.currentTarget.style.setProperty("--to-rotate-y", `${x * 4}deg`);
   }
 
-  function handlePointerLeave(event: PointerEvent<HTMLDivElement>) {
-    event.currentTarget.style.removeProperty("--to-tilt-x");
-    event.currentTarget.style.removeProperty("--to-tilt-y");
+  function onLeave(event: PointerEvent<HTMLDivElement>) {
+    event.currentTarget.style.removeProperty("--to-rotate-x");
+    event.currentTarget.style.removeProperty("--to-rotate-y");
   }
 
   return (
     <div
       className={["to-envelope", className].filter(Boolean).join(" ")}
-      data-open={isOpen ? "true" : "false"}
+      data-state={isOpen ? "open" : "closed"}
       data-tone={tone}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
       style={style}
     >
       <div className="to-envelope__scene">
-        <div className="to-envelope__stage">
+        <div
+          className="to-envelope__object"
+          onPointerMove={onMove}
+          onPointerLeave={onLeave}
+        >
+          <div className="to-envelope__shadow" aria-hidden="true" />
           <div className="to-envelope__back" aria-hidden="true" />
-          <div className="to-envelope__flap" aria-hidden="true" />
+
           <article
             id={letterId}
-            className="to-envelope__letter"
+            className="to-envelope__paper"
             aria-hidden={!isOpen}
             inert={!isOpen}
           >
-            <span className="to-envelope__eyebrow">A note for you</span>
-            <div className="to-envelope__content">
+            <div className="to-envelope__paper-rule" aria-hidden="true" />
+            <span className="to-envelope__kicker">A LITTLE NOTE</span>
+            <div className="to-envelope__message">
               {children ?? (
                 <>
-                  <h3>Some things deserve to be opened.</h3>
-                  <p>Not everything on the web has to feel flat.</p>
+                  <h3>Made to feel a little more human.</h3>
+                  <p>Some things are better when you can actually interact with them.</p>
                 </>
               )}
             </div>
             <span className="to-envelope__signature">{sender}</span>
           </article>
-          <div className="to-envelope__pocket" aria-hidden="true">
-            <span className="to-envelope__crease to-envelope__crease--left" />
-            <span className="to-envelope__crease to-envelope__crease--right" />
+
+          <div className="to-envelope__flap" aria-hidden="true">
+            <div className="to-envelope__flap-face" />
+            <div className="to-envelope__wax"><span>t</span></div>
           </div>
-          <div className="to-envelope__address" aria-hidden="true">To: {recipient}</div>
-          <div className="to-envelope__seal" aria-hidden="true">t.</div>
+
+          <div className="to-envelope__pocket" aria-hidden="true">
+            <span className="to-envelope__side to-envelope__side--left" />
+            <span className="to-envelope__side to-envelope__side--right" />
+            <span className="to-envelope__bottom-fold" />
+          </div>
+
+          <div className="to-envelope__address" aria-hidden="true">
+            <span>TO</span>
+            <strong>{recipient}</strong>
+          </div>
+
           <button
-            className="to-envelope__trigger"
             type="button"
+            className="to-envelope__trigger"
             aria-expanded={isOpen}
             aria-controls={letterId}
             aria-label={isOpen ? "Close envelope" : "Open envelope"}
@@ -117,8 +128,12 @@ export function Envelope({
           />
         </div>
       </div>
-      <p className="to-envelope__hint" aria-live="polite">
-        {isOpen ? "A little note, just for you." : "Tap the envelope to open it."}
+
+      <p className="to-envelope__instruction" aria-live="polite">
+        <span className="to-envelope__instruction-icon" aria-hidden="true">
+          {isOpen ? "↶" : "↗"}
+        </span>
+        {isOpen ? "Click the envelope to close" : "Click the envelope to open"}
       </p>
     </div>
   );

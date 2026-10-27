@@ -1,57 +1,65 @@
 # Tactile Objects
 
-A growing collection of realistic, interactive digital objects for React.
+**Interfaces you can feel.** A growing collection of tactile, interactive digital objects for React.
 
-The goal is simple: make familiar objects on the web feel considered, tangible, and enjoyable to use. Every object should be visually convincing, accessible, customizable, and useful in a real interface.
+We build familiar objects with intentional motion, detailed materials, and a small, typed integration surface. This is an experimental, open-source project in active development.
 
-**Status:** pre-release, first object in development. Not published to npm yet.
+**Status:** v0.1 prototype — not published to npm or deployed. The first component is Envelope.
 
-## What's inside
+## Repository
 
-- packages/objects — framework-independent React components.
-- apps/web — a Next.js showcase and interactive playground.
-- docs/ — the product roadmap and quality standards.
+- `packages/objects` — reusable React + TypeScript component package, independent of Next.js.
+- `apps/web` — Next.js library website, interactive preview and documentation.
+- `docs` — design direction, roadmap and quality standards.
 
-## Getting started
+## Local development
 
-Requires Node.js 22+, pnpm 10+.
+Requires Node.js 22+ and Corepack.
 
-    corepack enable
-    pnpm install
-    pnpm dev
+```powershell
+git clone https://github.com/victorkay97/tactile-objects.git
+cd tactile-objects
+corepack pnpm install
+corepack pnpm dev
+```
 
-Then open http://localhost:3000.
+If working from the open feature branch, switch to `feat/foundation-and-envelope-prototype` before installation.
 
-The dev command builds the objects package once before starting the showcase. After changing the library source, run:
+Open http://localhost:3000.
 
-    pnpm --filter @tactile/objects build
+The root script uses `corepack pnpm` explicitly to prevent a Windows PATH pnpm-version mismatch. If running the package and website separately:
 
-In a new terminal, run the site again to pick up changes.
+```powershell
+corepack pnpm --filter @tactile/objects build
+corepack pnpm --filter @tactile/web dev
+```
 
-## Using the envelope
+## Tests
 
-In this monorepo, import the component and its stylesheet:
+```powershell
+corepack pnpm test
+corepack pnpm typecheck
+corepack pnpm build
+```
 
-    import { Envelope } from "@tactile/objects";
-    import "@tactile/objects/styles.css";
+## Envelope API
 
-    <Envelope recipient="You" tone="rose">
-      <p>Something worth opening.</p>
-    </Envelope>
+```tsx
+import { Envelope } from "@tactile/objects";
+import "@tactile/objects/styles.css";
 
-The package is local-only for now. Publishing to npm will happen after visual, interaction, accessibility, and packaging review.
+<Envelope recipient="A curious mind" tone="sage">
+  <h3>A little note</h3>
+  <p>Something worth opening.</p>
+</Envelope>
+```
 
-## Commands
+The package currently resolves through the pnpm workspace. The public npm release will follow accessibility, visual and integration review.
 
-- pnpm dev — build the package and run the website.
-- pnpm build — build the package and the website.
-- pnpm typecheck — typecheck every workspace package.
-- pnpm test — run component tests.
+## Principles
 
-## Philosophy
+Real interaction · intentional motion · useful defaults · accessible controls · honest documentation.
 
-This isn't a collection of generic UI primitives. It's a collection of distinct digital objects, built with careful layering, motion, input feedback, and strong developer ergonomics.
+See `docs/DESIGN-DIRECTION.md`, `docs/QUALITY.md`, and `docs/ROADMAP.md`.
 
-See docs/QUALITY.md and docs/ROADMAP.md.
-
-MIT licensed. Contributions are welcome after the initial API stabilizes.
+MIT licensed.
