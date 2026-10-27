@@ -15,10 +15,12 @@ function DraggablePaper({ kind }: { kind: PaperKind }) {
   const paperRef = useRef<HTMLButtonElement>(null);
   const session = useRef<DragSession | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const returnFrame = useRef<number | null>(null);
   const [dragging, setDragging] = useState(false);
 
   useEffect(() => () => {
     if (timer.current !== null) clearTimeout(timer.current);
+    if (returnFrame.current !== null) cancelAnimationFrame(returnFrame.current);
   }, []);
 
   function moveTo(x: number, y: number, angle: number) {
@@ -34,7 +36,8 @@ function DraggablePaper({ kind }: { kind: PaperKind }) {
     const pointerId = session.current.pointerId;
     session.current = null;
     setDragging(false);
-    moveTo(0, 0, 0);
+    // Let React remove the dragging class before starting the CSS spring.
+    returnFrame.current = requestAnimationFrame(() => moveTo(0, 0, 0));
     if (event?.currentTarget.hasPointerCapture(pointerId)) {
       event.currentTarget.releasePointerCapture(pointerId);
     }
@@ -43,6 +46,7 @@ function DraggablePaper({ kind }: { kind: PaperKind }) {
   function handlePointerDown(event: PointerEvent<HTMLButtonElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     if (timer.current) clearTimeout(timer.current);
+    if (returnFrame.current !== null) cancelAnimationFrame(returnFrame.current);
     session.current = {
       pointerId: event.pointerId,
       originX: event.clientX,
