@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeSwitcher } from "./theme-switcher";
 import { ArrowUpRightIcon, GithubIcon } from "./ui/icons";
 
 export function SiteHeader() {
@@ -17,6 +18,7 @@ export function SiteHeader() {
             GitHub <GithubIcon size={15} aria-hidden="true" />
           </a>
         </nav>
+        <ThemeSwitcher />
         <Link href="/components" className="header-action">Browse objects <ArrowUpRightIcon size={16} aria-hidden="true" /></Link>
       </div>
       <nav className="header-mobile-nav" aria-label="Mobile navigation">
