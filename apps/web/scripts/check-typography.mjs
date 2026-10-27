@@ -19,7 +19,7 @@ assert(landingCSS.includes("text-align: center"), "Homepage must retain its cent
 assert(landingCSS.includes("var(--font-archivo"), "Homepage headings must use registered Archivo");
 assert(home.includes("ArrowUpRightIcon") && home.includes("GithubIcon"), "Use the MingCute icon system for actions");
 const sharedCSS = readFileSync(new URL("../app/platform.css", import.meta.url), "utf8");
-assert(sharedCSS.includes("body {\\n  --site-display: var(--font-archivo"), "Shared font aliases must be evaluated on body where Next.js font classes are installed");
+assert(/body\s*\{\s*--site-display:\s*var\(--font-archivo/.test(sharedCSS), "Shared font aliases must be evaluated on body where Next.js font classes are installed");
 assert(landingCSS.includes("min-height: calc(100svh - var(--site-header-height"), "Hero should fill available viewport");
 const header = readFileSync(new URL("../components/site-header.tsx", import.meta.url), "utf8");
 assert(header.includes('href="/docs"'), "Documentation must be in shared navigation");
