@@ -39,6 +39,7 @@ export function ThemeSwitcher() {
   const [preference, setPreference] = useState<ThemePreference>("system");
   const [open, setOpen] = useState(false);
   const container = useRef<HTMLDivElement>(null);
+  const currentPreference = useRef<ThemePreference>("system");
   const trigger = useRef<HTMLButtonElement>(null);
   const menuId = useId();
   const ActiveIcon = options.find(option => option.value === preference)?.Icon ?? ComputerIcon;
@@ -46,15 +47,17 @@ export function ThemeSwitcher() {
   useEffect(() => {
     const current = storedPreference();
     setPreference(current);
+    currentPreference.current = current;
     applyTheme(current);
 
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     function onSystemChange() {
-      if (storedPreference() === "system") applyTheme("system");
+      if (currentPreference.current === "system") applyTheme("system");
     }
     function onStorage(event: StorageEvent) {
       if (event.key !== key) return;
       const updated = storedPreference();
+      currentPreference.current = updated;
       setPreference(updated);
       applyTheme(updated);
     }
@@ -85,6 +88,7 @@ export function ThemeSwitcher() {
   }, [open]);
 
   function select(value: ThemePreference) {
+    currentPreference.current = value;
     setPreference(value);
     try { window.localStorage.setItem(key, value); } catch {}
     applyTheme(value);
