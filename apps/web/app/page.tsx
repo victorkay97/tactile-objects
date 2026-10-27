@@ -13,6 +13,7 @@ import { objects } from "../lib/objects";
 import { HeroPlayground } from "../components/hero-playground";
 import { RevealOnScroll } from "../components/reveal-on-scroll";
 import "./landing.css";
+import "./hero-playground.css";
 
 const example = [
   'import { Envelope } from "@tactile/objects";',
