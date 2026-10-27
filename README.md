@@ -4,15 +4,15 @@
 
 We build familiar objects that respond with personality, care, and useful interaction—not just decorative animations.
 
-**Status:** early alpha. One component (Envelope) is available inside this monorepo. It has **not** been published to npm. The development branch has Vercel previews; production is kept separate.
+**Status:** early alpha. Four real React components (Envelope, Journal, Polaroid and Sticky Note) are available inside this monorepo. Nothing is published to npm. Production remains separate from development previews.
 
 ## Product routes
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Centered landing page with draggable, spring-back paper details and a one-time text entrance |
-| `/components` | Browse available and planned objects |
-| `/components/envelope` | Dedicated playground, colourways, code and typed API |
+| `/` | Centered grid-backed workshop hero, subtle entrance motion and three new object discovery studies |
+| `/components` | Play with all four available interactive objects |
+| `/components/envelope` | Original approved envelope playground (development paused) |\n| `/components/journal` | Turn pages, edit entries and customize the hardcover |\n| `/components/polaroid` | Develop photos, flip the print and customize the moment |\n| `/components/sticky-note` | Peel, drag, pin, recolour and edit the note |
 | `/about` | Philosophy and project purpose |
 | `/docs` | Documentation index and component guides |
 | `/docs/getting-started` | Local setup and first React component |
@@ -51,7 +51,7 @@ corepack pnpm build
 
 The documentation route is interactive; hover, click, keyboard activation and reduced-motion behavior should all be reviewed.
 
-## Using Envelope
+## Using the components
 
 ```tsx
 import { Envelope } from "@tactile/objects";
@@ -63,11 +63,23 @@ import "@tactile/objects/styles.css";
 </Envelope>
 ```
 
+Other examples:
+
+```tsx
+import { Journal, Polaroid, StickyNote } from "@tactile/objects";
+import "@tactile/objects/styles.css";
+
+// Interactive by default; import once inside a client component.
+<Journal tone="sage" pages={[{ title: "Hello", body: "Something worth remembering." }]} />
+<Polaroid scene="sunset" caption="An afternoon to keep" />
+<StickyNote tone="butter" defaultText="Keep making things." editable />
+```
+
 This package currently resolves only from the pnpm workspace. It is not yet publicly installable.
 
 ## Our quality bar
 
-We prioritize visual fidelity, interaction fidelity, accessibility, and developer ergonomics. Three excellent components are more valuable than thirty mediocre animations.
+We prioritize visual fidelity, interaction fidelity, accessibility, and developer ergonomics. Four carefully made components are more valuable than forty mediocre animations.
 
 See `docs/DESIGN-DIRECTION.md`, `docs/QUALITY.md`, and `docs/ROADMAP.md`.
 
@@ -79,10 +91,11 @@ The frontend uses shared platform styling in `apps/web/app/platform.css`, with d
 
 The homepage and catalog use the same `ObjectCard` component, drawing data from `apps/web/lib/objects.ts`. Object surfaces are selected from a curated family of material palettes: paper, botanical, lilac and butter. **More objects do not require new unrelated UI colours** — reuse an established family or add one through design review.
 
-The landing-page hero fills the available viewport beneath the site header (including mobile navigation). The hero contains two small draggable paper details at the outer edges, but no hero envelope or autoplay plane. The dedicated component interactions live on their own showcase and playground pages.
+The landing hero fills the available viewport beneath the site header. A subtle reference grid gives it visual depth, while a three-object discovery shelf links directly to Journal, Polaroid and Sticky Note. The original two floating paper decorations have been removed. All four components are playable in the shared catalog and dedicated studios.
 
 MingCute Core Regular icons are centralized in `apps/web/components/ui/icons.ts`. Functional actions should use these rather than text arrows.
 
 ## Motion and interaction
 
-The homepage enters with a short, one-time, staggered text reveal. Its two paper details can be dragged using a mouse or touch, then spring back when released. Keyboard users can focus and activate them. Animations respect reduced-motion preferences, and the page no longer runs a perpetual flying plane.
+The homepage enters with a short, one-time, staggered text reveal. Journal pages turn, Polaroid photos develop/flip, and Sticky Notes peel/pin/drag. The hero shelf is a navigation surface and never pretends to simulate physics. Animations respect reduced-motion preferences, and the page no longer runs a perpetual flying plane.
+\n## Current preview restriction\n\nThe feature branch is ready for a fresh Vercel preview, but Vercel reported the free team's daily deployment limit on October 27, 2026. The newest site changes have not yet passed a complete Next.js deployment; do not treat earlier preview URLs as including the new three objects. The package build and 23 automated component tests passed in the last available deployment run.\n
