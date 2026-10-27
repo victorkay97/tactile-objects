@@ -14,7 +14,7 @@ const homeCodeExample = [
   '    </Envelope>',
   '  );',
   '}',
-].join("\\n");
+].join("\n");
 
 export default function HomePage() {
   return (
