@@ -10,7 +10,7 @@ import {
 } from "../components/ui/icons";
 import { ObjectCard } from "../components/object-card";
 import { objects } from "../lib/objects";
-import { AmbientPaperScene } from "../components/ambient-paper-scene";
+import { HeroPlayground } from "../components/hero-playground";
 import { RevealOnScroll } from "../components/reveal-on-scroll";
 import "./landing.css";
 
@@ -33,7 +33,7 @@ export default function HomePage() {
     <main className="landing">
       <RevealOnScroll />
       <section className="landing-hero" aria-labelledby="landing-title">
-        <AmbientPaperScene />
+        <HeroPlayground />
         <div className="layout-container landing-hero__inner">
           <div className="landing-hero__eyebrow">
             <span className="landing-live-dot" aria-hidden="true" />
@@ -43,8 +43,8 @@ export default function HomePage() {
           </div>
 
           <h1 id="landing-title">
-            A little more <em>feeling</em><br />
-            for the web.
+            <span className="landing-hero__headline-line">A little more <em>feeling</em></span>
+            <span className="landing-hero__headline-line">for the web.</span>
           </h1>
           <p className="landing-hero__lede">
             Familiar objects, thoughtfully reimagined as interactive React components.
