@@ -111,3 +111,17 @@ This iteration directly addresses issues found in the recorded browser review:
 - **Regression gates:** source checks cover letter font registration, overflow handling, and inspector height; component tests cover focus/semantics and preservation of longer React children.
 
 Do not publish to production or merge the draft PR until rendered desktop/mobile QA confirms that lettering fits, focus/scroll interactions work, and the wider layout is balanced. The test environment cannot certify the visual quality of paper folds.
+
+## Studio proportion correction — October 27, 2026
+
+The latest recorded feedback showed that the 1,536px one-off Envelope page container caused misalignment with the main navigation and made the preview canvas unnecessarily large.
+
+- **One site container:** The Envelope page now relies on the same `.layout-container` used by the site header (max 1,256px, with the same responsive gutters). No extra-wide page-specific width.
+- **Compact internal grid:** desktop documentation sidebar 190px with 32px gap; primary workbench limited to a balanced 1,000px. Breakpoints narrow the sidebar and stack the preview/inspector only when there is insufficient width.
+- **Intentional canvas height:** 555px on desktop, adapting to 535px, 505px, and 472px at narrower widths. The stage does not stretch to match the complete inspector height.
+- **Natural scrolling:** inspector remains in document flow. Remove the original nested overflow rule, rather than just masking it with later overrides.
+- **Keep what worked:** dotted canvas, presets, real controls, Newsreader letter typography, live code and Docs/Props views, real envelope materials and accessible open-letter scrolling.
+- **Longer messages:** the studio now allows 500 characters (up from 160) and displays an explicit scroll hint for longer open notes. The reusable library component itself does not truncate React children.
+- **Guardrails:** build checks reject returning to a 1,536px container, an inspector-specific scrollbar or the 160-character restriction.
+
+This is a focused layout correction, not a new product redesign. Visual QA on real desktop/mobile viewports remains required before promoting the preview to production.
