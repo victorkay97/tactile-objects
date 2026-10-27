@@ -135,3 +135,28 @@ The website has a global, accessible appearance selector in the shared header. T
 - **Acceptance:** verify home, catalog, About, docs and Envelope Studio in both modes; keyboard operation; persistence after reload; OS changes in System mode; responsiveness at 390px; reduced-motion preference. Build guards are useful but are not a substitute for real browser QA.
 
 This milestone deliberately does not change the public Envelope props or add new component physics. Envelope craftsmanship remains the next focused workstream after the visual theme review.
+
+## Four-object interaction milestone — October 27, 2026
+
+The user explicitly paused Envelope realism iterations. **Do not touch the approved Envelope Studio geometry or reopen the flagship animation workstream without a separate request.** Instead, build breadth with the same standard of craft and then return for deeper refinement.
+
+### Homepage experience
+- The old detached memo/specimen-paper hero was removed, including unused runtime sources. The hero is still centered and fills the available viewport below the navigation.
+- The hero now has a subtle masked **line grid**, a restrained radial highlight, one-time type entrance and a three-object discovery shelf. Journal, Polaroid and Sticky Note are linked from tactile specimens. These are links, not fake simulated interactions.
+- The collection now has four genuine live objects in large 2×2 editorial cards, instead of three unavailable placeholders. Each card renders the reusable React component with its own controls, separated from documentation navigation.
+- The collection grid receives a quieter version of the grid treatment. Hover affordances are precise; motion respects reduced-motion settings and never runs an automatic flight or perpetual loop.
+- Dark mode applies to the surrounding UI and the grid. **Object material palettes stay independent of the website theme.**
+
+### New public package components
+- `Journal`: hardcover tone and title, typed customizable pages, controlled and uncontrolled opening/page index, bounded navigation and keyboard arrow support. A CSS transform reveals the contents and a newly keyed leaf animates page turns. It does not auto-advance.
+- `Polaroid`: frame finish, caption/date, three self-contained illustrated scenes, deliberate developing effect, reversible front/back and controlled/uncontrolled state. There are no external stock-photo dependencies, and the photograph never develops on its own.
+- `StickyNote`: paper tone, controlled/uncontrolled content and pinned state, direct editing, pointer-captured movement, bounded placement, keyboard arrows and Escape centering. Pinning returns the note home. There is no autoplay or forced drag.
+- All three are exported by `@tactile/objects`; their physical CSS is merged into the same `@tactile/objects/styles.css` produced by `packages/objects/scripts/postbuild.mjs`.
+- Dedicated studios: `/components/journal`, `/components/polaroid` and `/components/sticky-note`, sharing Preview / Code / Props, dotted canvases, functional controls, live React code and theme-responsive chrome. The Envelope Studio remains as approved.
+
+### Verification and release
+- The **package build succeeded with 23/23 automated component tests** in the latest available Vercel build attempt, including the new object state/keyboard tests.
+- That attempt stopped in the pre-existing homepage source guard, which still expected the removed side-paper hero. The guard was corrected in a subsequent commit to require the new shelf and all three studios.
+- **Vercel subsequently reported `api-deployments-free-per-day` (HTTP 402).** As a result, a fresh full Next.js compile and rendered visual QA for the current complete site are still blocked. Do not claim those passed.
+- The changes are on the draft development PR; `main` and production remain untouched.
+- When deployment capacity returns, verify every new route, pointer/keyboard/touch behaviour, gallery click targets, responsiveness and dark mode. Review screenshots before considering the experience complete.
