@@ -10,7 +10,7 @@ const sample = [
   "",
   "export function FirstLetter() {",
   "  return (",
-  '    <Envelope tone="sage" recipient="A curious mind">',
+  '    <Envelope tone="sage" paper="white" seal="wax" recipient="A curious mind">',
   "      <h3>Hello, there.</h3>",
   "      <p>A little note to get started.</p>",
   "    </Envelope>",
@@ -24,7 +24,7 @@ export default function GettingStarted() {
     <p className="docs-site__lead">The quickest way to run the collection locally, see the first object, and understand how the React package is organized.</p>
     <section><h2>Before you begin</h2><p>You'll need Node.js 22 or newer and Corepack. The project uses pnpm 10.18.0. Until the first npm release, use the component from inside this monorepo.</p></section>
     <section><h2>Run the website</h2><p>Clone the repository and open the development branch, then start the showcase:</p><pre><code>{setup}</code></pre><p>Open <code>http://localhost:3000</code>. The app includes a homepage, collection catalog, and individual playground pages.</p></section>
-    <section><h2>Use your first object</h2><p>The objects package is framework-independent React. Import the component and its stylesheet once in the consuming app, then pass content as children:</p><pre><code>{sample}</code></pre><p>Try <code>tone="clay"</code>, <code>tone="sage"</code> or <code>tone="rose"</code> and see the <Link href="/components/envelope">Envelope playground</Link> for state and callback props.</p></section>
+    <section><h2>Use your first object</h2><p>The objects package is framework-independent React. Import the component and its stylesheet once in the consuming app, then pass content as children:</p><pre><code>{sample}</code></pre><p>Try <code>tone="clay"</code>, <code>tone="sage"</code> or <code>tone="rose"</code>, choose <code>paper="ivory"</code> or <code>paper="white"</code>, and use <code>seal="none"</code> to remove the wax stamp. The <Link href="/components/envelope">live Envelope studio</Link> lets you change these real props and copy matching React code.</p></section>
     <section><h2>Validate locally</h2><pre><code>{["corepack pnpm test","corepack pnpm typecheck","corepack pnpm build"].join("\n")}</code></pre><p>The code is still under active development. Building successfully doesn't substitute for checking the interaction on desktop and mobile.</p></section>
     <div className="docs-site__next"><Link href="/docs/accessibility">Next: Accessibility <ArrowUpRightIcon size={16} aria-hidden="true" /></Link></div>
   </main>;
