@@ -73,4 +73,10 @@ assert(letterStyles.includes('var(--font-newsreader, Georgia)'), "Letter typogra
 assert(letterStyles.includes("overflow-y: auto") && letterStyles.includes("scrollbar-width: thin"), "Long notes must remain readable inside the letter");
 assert(studioCSS.includes("max-height: none") && studioCSS.includes("overflow: visible"), "Inspector must scroll with the page, not create a nested scrollbar");
 assert(studio.includes("settings.message.length") && studio.includes("envelope-message-help"), "Editing a long letter must show guidance and character count");
-console.log("Typography, letter legibility, fluid inspector, dotted configurator and motion guards passed.");
+assert(!studioCSS.includes("1536px"), "Studio must not override the site's shared container to 1536px");
+assert(studioCSS.includes("grid-template-columns: 190px minmax(0, 1fr)"), "Studio sidebar must use the compact shared-grid layout");
+assert(studioCSS.includes("height: 555px") && studioCSS.includes("flex: 0 0 auto"), "Preview canvas must not stretch to match the inspector");
+assert(!studioCSS.includes("overflow-y:auto; overscroll-behavior:contain"), "Remove the nested inspector scroll rather than relying only on overrides");
+assert(studio.includes("maxLength={500}") && studio.includes("{settings.message.length}/500"), "Do not truncate useful letters at the previous 160-character limit");
+assert(studio.includes("SCROLL INSIDE THE PAPER"), "Long notes require an explicit scroll affordance");
+console.log("Typography, aligned compact studio, readable letters, dotted configurator and motion guards passed.");
