@@ -9,6 +9,7 @@ import "./globals.css";
 import "./platform.css";
 import "./tactile-refinements.css";
 import "./gallery-craft.css";
+import "./gallery-live.css";
 import "./themes.css";
 import "@tactile/objects/styles.css";
 
