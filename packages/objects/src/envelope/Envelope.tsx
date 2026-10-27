@@ -102,7 +102,12 @@ export function Envelope({
           >
             <div className="to-envelope__paper-rule" aria-hidden="true" />
             <span className="to-envelope__kicker">A LITTLE NOTE</span>
-            <div className="to-envelope__message">
+            <div
+              className="to-envelope__message"
+              role="region"
+              aria-label="Letter contents — scroll if needed"
+              tabIndex={isOpen ? 0 : -1}
+            >
               {children ?? (
                 <>
                   <h3>Made to feel a little more human.</h3>
