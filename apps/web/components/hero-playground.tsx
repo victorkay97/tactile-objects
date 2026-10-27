@@ -17,6 +17,7 @@ function PlayableSpecimen({ kind }: { kind: SpecimenKind }) {
   const object = useRef<HTMLButtonElement>(null);
   const draggingRef = useRef<DragSession | null>(null);
   const returnFrame = useRef<number | null>(null);
+  const position = useRef({ x: 0, y: 0, angle: 0 });
   const nudgeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const suppressClick = useRef(false);
   const [dragging, setDragging] = useState(false);
@@ -28,11 +29,50 @@ function PlayableSpecimen({ kind }: { kind: SpecimenKind }) {
   }, []);
 
   function setPosition(x: number, y: number, turn: number) {
+    position.current = { x, y, angle: turn };
     const node = object.current;
     if (!node) return;
     node.style.setProperty("--drag-x", `${x}px`);
     node.style.setProperty("--drag-y", `${y}px`);
     node.style.setProperty("--drag-angle", `${turn}deg`);
+  }
+
+  /**
+   * A damped spring instead of a fixed easing curve:
+   * motion depends on the distance the visitor actually moved the object.
+   * Everything is transform-only and stops as soon as it settles.
+   */
+  function springHome() {
+    if (returnFrame.current !== null) cancelAnimationFrame(returnFrame.current);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setPosition(0, 0, 0);
+      return;
+    }
+    const velocity = { x: 0, y: 0, angle: 0 };
+    let previous = 0;
+    const stiffness = 270;
+    const damping = 24;
+    function tick(now: number) {
+      const dt = previous === 0 ? 1 / 60 : Math.min((now - previous) / 1000, 0.032);
+      previous = now;
+      const current = position.current;
+      const next = { ...current };
+      for (const axis of ["x", "y", "angle"] as const) {
+        const acceleration = -stiffness * current[axis] - damping * velocity[axis];
+        velocity[axis] += acceleration * dt;
+        next[axis] += velocity[axis] * dt;
+      }
+      setPosition(next.x, next.y, next.angle);
+      const moving = Math.max(Math.abs(velocity.x), Math.abs(velocity.y), Math.abs(velocity.angle));
+      const displaced = Math.max(Math.abs(next.x), Math.abs(next.y), Math.abs(next.angle));
+      if (moving < 0.7 && displaced < 0.2) {
+        setPosition(0, 0, 0);
+        returnFrame.current = null;
+        return;
+      }
+      returnFrame.current = requestAnimationFrame(tick);
+    }
+    returnFrame.current = requestAnimationFrame(tick);
   }
 
   function startDrag(event: PointerEvent<HTMLButtonElement>) {
@@ -67,8 +107,7 @@ function PlayableSpecimen({ kind }: { kind: SpecimenKind }) {
     draggingRef.current = null;
     suppressClick.current = active.travelled;
     setDragging(false);
-    // Animate only after React has removed the drag-mode class.
-    returnFrame.current = requestAnimationFrame(() => setPosition(0, 0, 0));
+    springHome();
     if (event?.currentTarget.hasPointerCapture(active.pointerId)) {
       event.currentTarget.releasePointerCapture(active.pointerId);
     }
@@ -86,12 +125,13 @@ function PlayableSpecimen({ kind }: { kind: SpecimenKind }) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     setPosition(0, -13, -4);
     if (nudgeTimer.current !== null) clearTimeout(nudgeTimer.current);
-    nudgeTimer.current = setTimeout(() => setPosition(0, 0, 0), 170);
+    nudgeTimer.current = setTimeout(springHome, 180);
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     if (event.key !== "Escape") return;
     setFlipped(false);
+    if (returnFrame.current !== null) cancelAnimationFrame(returnFrame.current);
     setPosition(0, 0, 0);
   }
 
