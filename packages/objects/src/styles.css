@@ -286,3 +286,19 @@
     transition: none !important;
   }
 }
+
+/* Public API: letter paper shade is independent of the envelope colourway. */
+.to-envelope[data-paper="white"] .to-envelope__paper {
+  --to-paper: #ffffff;
+  background:
+    repeating-linear-gradient(96deg,rgba(130,130,140,.019) 0,rgba(130,130,140,.019) 1px,transparent 1px,transparent 8px),
+    radial-gradient(circle at 17% 23%,rgba(220,220,228,.09),transparent 40%),
+    linear-gradient(135deg,#ffffff 0%,#fdfdfe 64%,#f3f4f7 100%);
+}
+.to-envelope[data-paper="white"] .to-envelope__paper::before {
+  border-color: rgba(123,133,146,.12);
+}
+/* Without a wax seal, the flap remains present and keeps the same geometry. */
+.to-envelope[data-seal="none"] .to-envelope__flap-face {
+  background: linear-gradient(180deg,rgba(255,255,255,.2),transparent 55%),linear-gradient(90deg,var(--to-base),var(--to-light) 50%,var(--to-base));
+}
