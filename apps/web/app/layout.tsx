@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { themeInitScript } from "../lib/theme-script";
 import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
@@ -8,6 +9,7 @@ import "./globals.css";
 import "./platform.css";
 import "./tactile-refinements.css";
 import "./gallery-craft.css";
+import "./themes.css";
 import "@tactile/objects/styles.css";
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
@@ -24,7 +26,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeInitScript }} /></head>
       <body className={archivo.variable + " " + geist.variable + " " + geistMono.variable}>
         <SiteHeader />
         <RevealOnScroll />
