@@ -67,4 +67,10 @@ for (const prop of ["tone", "paper", "seal", "recipient", "sender"]) {
 assert(studio.includes('JSON.stringify(config.recipient)') && studio.includes('JSON.stringify(config.message)'), "React code must safely follow user-edited content");
 assert(studio.includes('aria-label="Zoom out"') && studio.includes('aria-label="Zoom in"'), "Preview zoom must be a real accessible control");
 assert(studio.includes('onClick={reset}') && studio.includes('onClick={copyCode}'), "Reset and code copying must be implemented");
-console.log("Typography, interactive workshop, usable component props, dots, docs and motion guards passed.");
+const letterStyles = readFileSync(new URL("../../../packages/objects/src/styles.css", import.meta.url), "utf8");
+assert(layout.includes('Newsreader') && layout.includes('--font-newsreader'), "Editorial letter font must be registered");
+assert(letterStyles.includes('var(--font-newsreader, Georgia)'), "Letter typography must use the registered font with a standalone fallback");
+assert(letterStyles.includes("overflow-y: auto") && letterStyles.includes("scrollbar-width: thin"), "Long notes must remain readable inside the letter");
+assert(studioCSS.includes("max-height: none") && studioCSS.includes("overflow: visible"), "Inspector must scroll with the page, not create a nested scrollbar");
+assert(studio.includes("settings.message.length") && studio.includes("envelope-message-help"), "Editing a long letter must show guidance and character count");
+console.log("Typography, letter legibility, fluid inspector, dotted configurator and motion guards passed.");
