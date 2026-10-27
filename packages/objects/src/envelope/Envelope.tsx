@@ -4,6 +4,8 @@ import { useId, useState } from "react";
 import type { CSSProperties, PointerEvent, ReactNode } from "react";
 
 export type EnvelopeTone = "clay" | "sage" | "rose";
+export type EnvelopePaper = "ivory" | "white";
+export type EnvelopeSeal = "wax" | "none";
 
 export interface EnvelopeProps {
   /** Content shown on the letter. */
@@ -14,6 +16,10 @@ export interface EnvelopeProps {
   sender?: string;
   /** Envelope material palette. */
   tone?: EnvelopeTone;
+  /** Letter paper colour, independent from the envelope material. */
+  paper?: EnvelopePaper;
+  /** Optional decorative wax seal attached to the closing flap. */
+  seal?: EnvelopeSeal;
   /** Initial uncontrolled state. */
   defaultOpen?: boolean;
   /** Controlled state. */
@@ -36,6 +42,8 @@ export function Envelope({
   recipient = "A curious mind",
   sender = "Tactile Objects",
   tone = "clay",
+  paper = "ivory",
+  seal = "wax",
   defaultOpen = false,
   open,
   onOpenChange,
@@ -73,6 +81,8 @@ export function Envelope({
       className={["to-envelope", className].filter(Boolean).join(" ")}
       data-state={isOpen ? "open" : "closed"}
       data-tone={tone}
+      data-paper={paper}
+      data-seal={seal}
       style={style}
     >
       <div className="to-envelope__scene">
@@ -105,7 +115,7 @@ export function Envelope({
 
           <div className="to-envelope__flap" aria-hidden="true">
             <div className="to-envelope__flap-face" />
-            <div className="to-envelope__wax"><span>t</span></div>
+            {seal === "wax" && <div className="to-envelope__wax"><span>t</span></div>}
           </div>
 
           <div className="to-envelope__pocket" aria-hidden="true">
