@@ -32,7 +32,7 @@ describe("Envelope physical motion sequence", () => {
     const closedFlap = rule('.to-envelope[data-state="closed"] .to-envelope__flap');
     const closedPaper = rule(".to-envelope__paper");
     expect(closedPaper).toContain("630ms");
-    expect(closedFlap).toContain("670ms");
+    expect(closedFlap).toContain("690ms");
   });
 
   it("offers an instant state change for reduced-motion users", () => {
