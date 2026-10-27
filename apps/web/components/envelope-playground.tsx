@@ -1,146 +1,302 @@
 "use client";
 
-import { ArrowUpRightIcon, RefreshIcon, CopyIcon, CheckIcon, SparklesIcon } from "./ui/icons";
-
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { Envelope } from "@tactile/objects";
-import type { EnvelopeTone } from "@tactile/objects";
+import type { EnvelopePaper, EnvelopeSeal, EnvelopeTone } from "@tactile/objects";
+import {
+  ArrowUpRightIcon, RefreshIcon, CopyIcon, CheckIcon, SparklesIcon,
+  DotGridIcon, ZoomInIcon, ZoomOutIcon, MailIcon, CodeIcon, PlaygroundIcon,
+} from "./ui/icons";
 
-type Tab = "preview" | "code" | "props";
+type View = "preview" | "code" | "props";
+type Preset = "hello" | "thankyou" | "personal" | "custom";
+type Config = {
+  tone: EnvelopeTone;
+  paper: EnvelopePaper;
+  seal: EnvelopeSeal;
+  recipient: string;
+  sender: string;
+  heading: string;
+  message: string;
+};
 
-const tones: { name: string; value: EnvelopeTone; color: string }[] = [
-  { name: "Sandstone", value: "clay", color: "#cda381" },
-  { name: "Sage", value: "sage", color: "#a1b29e" },
-  { name: "Blush", value: "rose", color: "#d2aaa6" },
+const initial: Config = {
+  tone: "clay",
+  paper: "ivory",
+  seal: "wax",
+  recipient: "A curious mind",
+  sender: "Tactile Objects",
+  heading: "A little more magic, please.",
+  message: "The web can feel more human.",
+};
+
+const presets: { id: Exclude<Preset, "custom">; label: string; values: Config }[] = [
+  { id: "hello", label: "Hello", values: initial },
+  { id: "thankyou", label: "Thank you", values: {
+    tone: "sage", paper: "white", seal: "wax", recipient: "You, of course",
+    sender: "With gratitude", heading: "A small thank you.",
+    message: "For the little things that mean so much.",
+  }},
+  { id: "personal", label: "Personal", values: {
+    tone: "rose", paper: "ivory", seal: "none", recipient: "Someone special",
+    sender: "With love", heading: "Just because.",
+    message: "Some notes are better when they're personal.",
+  }},
 ];
 
-const propRows = [
-  ["tone", '"clay" | "sage" | "rose"', '"clay"', "Envelope material palette."],
-  ["recipient", "string", '"A curious mind"', "Address printed on the front."],
+const tones: { value: EnvelopeTone; name: string; colour: string }[] = [
+  { value: "clay", name: "Sandstone", colour: "#cba07d" },
+  { value: "sage", name: "Sage", colour: "#a4b6a1" },
+  { value: "rose", name: "Rose", colour: "#d5aca6" },
+];
+
+const props: [string, string, string, string][] = [
+  ["tone", '"clay" | "sage" | "rose"', '"clay"', "Envelope material colour."],
+  ["paper", '"ivory" | "white"', '"ivory"', "Visible letter paper finish."],
+  ["seal", '"wax" | "none"', '"wax"', "Wax stamp on the folding flap."],
+  ["recipient", "string", '"A curious mind"', "Address on the front."],
   ["sender", "string", '"Tactile Objects"', "Letter signature."],
-  ["children", "ReactNode", "Default note", "The contents of the letter."],
+  ["children", "ReactNode", "Default letter", "Your heading, copy, or React content."],
   ["open", "boolean", "undefined", "Controlled open state."],
   ["defaultOpen", "boolean", "false", "Initial uncontrolled state."],
-  ["onOpenChange", "(open: boolean) => void", "—", "Called when opening or closing."],
-  ["className", "string", "undefined", "Optional wrapper class."],
-  ["style", "CSSProperties", "undefined", "Optional wrapper styles."],
+  ["onOpenChange", "(open: boolean) => void", "—", "Open/close callback."],
+  ["className", "string", "undefined", "Custom wrapper class."],
+  ["style", "CSSProperties", "undefined", "Custom wrapper styles."],
 ];
 
-export function EnvelopePlayground() {
-  const [tone, setTone] = useState<EnvelopeTone>("clay");
-  const [open, setOpen] = useState(false);
-  const [tab, setTab] = useState<Tab>("preview");
-  const [copied, setCopied] = useState(false);
-
-  const code = [
+function snippet(config: Config) {
+  // JSON string expressions inside JSX preserve quotes and arbitrary user input.
+  return [
     'import { Envelope } from "@tactile/objects";',
     'import "@tactile/objects/styles.css";',
     "",
-    "export default function Note() {",
+    "export default function MyLetter() {",
     "  return (",
-    '    <Envelope tone="' + tone + '" recipient="A curious mind">',
-    "      <h3>A little more magic, please.</h3>",
-    "      <p>The web can feel more human.</p>",
+    '    <Envelope',
+    `      tone=${JSON.stringify(config.tone)}`,
+    `      paper=${JSON.stringify(config.paper)}`,
+    `      seal=${JSON.stringify(config.seal)}`,
+    `      recipient={${JSON.stringify(config.recipient)}}`,
+    `      sender={${JSON.stringify(config.sender)}}`,
+    "    >",
+    `      <h3>{${JSON.stringify(config.heading)}}</h3>`,
+    `      <p>{${JSON.stringify(config.message)}}</p>`,
     "    </Envelope>",
     "  );",
     "}",
   ].join("\n");
+}
+
+export function EnvelopePlayground() {
+  const [settings, setSettings] = useState<Config>(initial);
+  const [preset, setPreset] = useState<Preset>("hello");
+  const [open, setOpen] = useState(false);
+  const [view, setView] = useState<View>("preview");
+  const [showDots, setShowDots] = useState(true);
+  const [zoom, setZoom] = useState(100);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "success" | "error">("idle");
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const code = snippet(settings);
+
+  useEffect(() => () => {
+    if (copyTimer.current !== null) clearTimeout(copyTimer.current);
+  }, []);
+
+  function change<K extends keyof Config>(key: K, value: Config[K]) {
+    setSettings(previous => ({ ...previous, [key]: value }));
+    setPreset("custom");
+  }
+
+  function applyPreset(id: Exclude<Preset, "custom">) {
+    const next = presets.find(item => item.id === id);
+    if (!next) return;
+    setSettings({ ...next.values });
+    setPreset(id);
+    setOpen(false);
+  }
+
+  function reset() {
+    setSettings({ ...initial });
+    setPreset("hello");
+    setOpen(false);
+    setZoom(100);
+    setShowDots(true);
+  }
 
   async function copyCode() {
     try {
       await navigator.clipboard.writeText(code);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
+      setCopyStatus("success");
     } catch {
-      setCopied(false);
+      setCopyStatus("error");
     }
+    if (copyTimer.current !== null) clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopyStatus("idle"), 2000);
   }
 
   return (
     <>
-      <div className="docs-playground">
-        <div className="docs-playground-toolbar">
-          <div role="tablist" aria-label="Component playground" className="docs-tabs">
-            {(["preview", "code", "props"] as const).map((item) => (
-              <button
-                key={item}
-                type="button"
-                role="tab"
-                id={"docs-tab-" + item}
-                aria-selected={tab === item}
-                aria-controls={"docs-panel-" + item}
-                className={tab === item ? "docs-tab active" : "docs-tab"}
-                onClick={() => setTab(item)}
-              >
-                {item[0].toUpperCase() + item.slice(1)}
-              </button>
-            ))}
+      <section className="workbench" aria-label="Envelope customization workbench">
+        <header className="workbench__header">
+          <div className="workbench__heading">
+            <span className="workbench__heading-icon"><PlaygroundIcon size={18} aria-hidden="true" /></span>
+            <div><strong>Object playground</strong><span>01 / ENVELOPE</span></div>
           </div>
-          <span className="docs-live-pill"><i /> INTERACTIVE DEMO</span>
-        </div>
+          <div className="workbench__header-actions">
+            <nav className="workbench__views" aria-label="Workbench views">
+              {(["preview", "code", "props"] as const).map(item => (
+                <button
+                  key={item}
+                  type="button"
+                  className={view === item ? "workbench__view is-selected" : "workbench__view"}
+                  aria-pressed={view === item}
+                  onClick={() => setView(item)}
+                >
+                  {item === "preview" ? "Preview" : item === "code" ? "Code" : "Props"}
+                </button>
+              ))}
+            </nav>
+            <button className="workbench__copy" type="button" onClick={copyCode}>
+              {copyStatus === "success" ? <CheckIcon size={16} aria-hidden="true" /> : <CopyIcon size={16} aria-hidden="true" />}
+              <span>{copyStatus === "success" ? "Copied" : "Copy React"}</span>
+            </button>
+          </div>
+        </header>
 
-        {tab === "preview" && (
-          <div className="docs-preview" id="docs-panel-preview" role="tabpanel" aria-labelledby="docs-tab-preview">
-            <span className="preview-coordinate preview-coordinate--top">FIG. 001 / THE ENVELOPE</span>
-            <div className="preview-envelope">
-              <Envelope
-                tone={tone}
-                open={open}
-                onOpenChange={setOpen}
-                recipient="A curious mind"
-                sender="— Tactile Objects"
-              >
-                <h3>A little more magic, please.</h3>
-                <p>The web can feel more human.</p>
-              </Envelope>
+        {view === "preview" ? (
+          <div className="workbench__columns">
+            <div className="workbench__stage">
+              <div className={showDots ? "workbench__canvas has-dots" : "workbench__canvas"} aria-label="Live interactive envelope preview">
+                <div className="workbench__canvas-top">
+                  <span>FIG. 001 <span className="workbench__top-sep">/</span> PAPER STUDY</span>
+                  <span className="workbench__live"><i aria-hidden="true" /> LIVE COMPONENT</span>
+                </div>
+                <div className="workbench__envelope-frame" style={{ "--stage-zoom": zoom / 100 } as CSSProperties}>
+                  <Envelope
+                    tone={settings.tone}
+                    paper={settings.paper}
+                    seal={settings.seal}
+                    recipient={settings.recipient}
+                    sender={settings.sender}
+                    open={open}
+                    onOpenChange={setOpen}
+                  >
+                    <h3>{settings.heading}</h3>
+                    <p>{settings.message}</p>
+                  </Envelope>
+                </div>
+                <div className="workbench__canvas-bottom">
+                  <span>{open ? "THE NOTE IS OPEN" : "A LITTLE NOTE, UNOPENED"}</span>
+                  <span>INTERACT WITH THE OBJECT <ArrowUpRightIcon size={13} aria-hidden="true" /></span>
+                </div>
+              </div>
+              <div className="workbench__stage-toolbar">
+                <button type="button" className={showDots ? "workbench__tool is-on" : "workbench__tool"} aria-pressed={showDots} onClick={() => setShowDots(value => !value)} title="Toggle dotted preview canvas">
+                  <DotGridIcon size={17} aria-hidden="true" /> <span>Dots</span>
+                </button>
+                <span className="workbench__toolbar-divider" />
+                <div className="workbench__zoom" aria-label="Preview zoom">
+                  <button type="button" aria-label="Zoom out" title="Zoom out" disabled={zoom <= 80} onClick={() => setZoom(value => Math.max(80, value - 10))}><ZoomOutIcon size={17} aria-hidden="true" /></button>
+                  <span aria-live="off">{zoom}%</span>
+                  <button type="button" aria-label="Zoom in" title="Zoom in" disabled={zoom >= 110} onClick={() => setZoom(value => Math.min(110, value + 10))}><ZoomInIcon size={17} aria-hidden="true" /></button>
+                </div>
+                <div className="workbench__stage-actions">
+                  <button className="workbench__tool" type="button" onClick={() => setOpen(value => !value)}>
+                    <MailIcon size={17} aria-hidden="true" /> <span>{open ? "Close letter" : "Open letter"}</span>
+                  </button>
+                  <button className="workbench__tool workbench__tool--reset" type="button" onClick={reset} title="Reset all settings and preview">
+                    <RefreshIcon size={17} aria-hidden="true" /> <span>Reset</span>
+                  </button>
+                </div>
+              </div>
             </div>
-            <span className="preview-coordinate preview-coordinate--bottom">CLICK TO {open ? "CLOSE" : "OPEN"} <ArrowUpRightIcon size={15} aria-hidden="true" /></span>
+
+            <aside className="workbench__inspector" aria-label="Envelope properties">
+              <div className="workbench__inspector-intro"><span className="workbench__mini-label">MAKE IT YOURS</span><h2>Customize<span>.</span></h2><p>Change a detail. See it happen.</p></div>
+
+              <fieldset className="workbench__group">
+                <legend>Start with a feeling</legend>
+                <div className="workbench__preset-row">
+                  {presets.map(item => (
+                    <button key={item.id} type="button" aria-pressed={preset === item.id} className={preset === item.id ? "workbench__preset is-selected" : "workbench__preset"} onClick={() => applyPreset(item.id)}>{item.label}</button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset className="workbench__group">
+                <legend>Envelope colour</legend>
+                <div className="workbench__swatches">
+                  {tones.map(item => (
+                    <button
+                      key={item.value}
+                      type="button"
+                      className={settings.tone === item.value ? "workbench__swatch is-selected" : "workbench__swatch"}
+                      aria-pressed={settings.tone === item.value}
+                      onClick={() => change("tone", item.value)}
+                    >
+                      <span className="workbench__swatch-dot" style={{ background: item.colour }} aria-hidden="true" />{item.name}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset className="workbench__group">
+                <legend>Paper finish</legend>
+                <div className="workbench__option-row">
+                  {(["ivory", "white"] as const).map(item => (
+                    <button key={item} type="button" aria-pressed={settings.paper === item} className={settings.paper === item ? "workbench__option is-selected" : "workbench__option"} onClick={() => change("paper", item)}>{item === "ivory" ? "Warm ivory" : "Bright white"}</button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset className="workbench__group">
+                <legend>Wax seal</legend>
+                <div className="workbench__option-row">
+                  {(["wax", "none"] as const).map(item => (
+                    <button key={item} type="button" aria-pressed={settings.seal === item} className={settings.seal === item ? "workbench__option is-selected" : "workbench__option"} onClick={() => change("seal", item)}>{item === "wax" ? "With seal" : "No seal"}</button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <div className="workbench__group workbench__group--fields">
+                <span className="workbench__group-title">Write a little note</span>
+                <label className="workbench__field">Recipient<input maxLength={45} value={settings.recipient} onChange={event => change("recipient", event.target.value)} /></label>
+                <label className="workbench__field">Letter heading<input maxLength={60} value={settings.heading} onChange={event => change("heading", event.target.value)} /></label>
+                <label className="workbench__field">Message<textarea maxLength={160} rows={2} value={settings.message} onChange={event => change("message", event.target.value)} /></label>
+                <label className="workbench__field">Signature<input maxLength={45} value={settings.sender} onChange={event => change("sender", event.target.value)} /></label>
+              </div>
+              <p className="workbench__inspector-foot"><SparklesIcon size={15} aria-hidden="true" /> Settings update the real component and React code.</p>
+            </aside>
+          </div>
+        ) : view === "code" ? (
+          <div className="workbench__detail" aria-label="Generated React source">
+            <div className="workbench__detail-header"><div><span className="workbench__mini-label">GENERATED FROM YOUR SETTINGS</span><h2>Take it with you.</h2></div><button type="button" className="workbench__detail-copy" onClick={copyCode}><CopyIcon size={16} aria-hidden="true" /> Copy code</button></div>
+            <pre className="workbench__code"><code>{code}</code></pre>
+            <p>This example uses the actual Envelope props and your current content. The package is available inside this repository workspace; an npm release is still planned.</p>
+          </div>
+        ) : (
+          <div className="workbench__detail" aria-label="Envelope React properties">
+            <div className="workbench__detail-header"><div><span className="workbench__mini-label">TYPED COMPONENT API</span><h2>Know every detail.</h2></div><CodeIcon size={21} aria-hidden="true" /></div>
+            <div className="workbench__props-scroll"><table className="workbench__props"><thead><tr><th>Property</th><th>Type</th><th>Default</th><th>What it changes</th></tr></thead><tbody>{props.map(([name, type, defaultValue, description]) => <tr key={name}><td><code>{name}</code></td><td><code>{type}</code></td><td><code>{defaultValue}</code></td><td>{description}</td></tr>)}</tbody></table></div>
           </div>
         )}
+        <footer className="workbench__footer">
+          <div><span className="workbench__foot-dot" aria-hidden="true" /> LIVE REACT PREVIEW <span aria-hidden="true">/</span> NO PLACEHOLDER CONTROLS</div>
+          <span aria-live="polite">{copyStatus === "error" ? "Clipboard unavailable. Select code in the Code tab." : copyStatus === "success" ? "React example copied." : "LOCAL WORKSPACE PACKAGE · EARLY ALPHA"}</span>
+        </footer>
+      </section>
 
-        {tab === "code" && (
-          <div className="docs-code-pane" id="docs-panel-code" role="tabpanel" aria-labelledby="docs-tab-code">
-            <div className="code-pane-title">Envelope.tsx <button type="button" onClick={copyCode}>{copied ? <><CheckIcon size={15} aria-hidden="true" /> Copied</> : <><CopyIcon size={15} aria-hidden="true" /> Copy code</>}</button></div>
-            <pre><code>{code}</code></pre>
-          </div>
-        )}
-
-        {tab === "props" && (
-          <div className="docs-props-pane" id="docs-panel-props" role="tabpanel" aria-labelledby="docs-tab-props">
-            <table>
-              <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-              <tbody>{propRows.map(([name, type, fallback, description]) => (
-                <tr key={name}><td><code>{name}</code></td><td><code>{type}</code></td><td><code>{fallback}</code></td><td>{description}</td></tr>
-              ))}</tbody>
-            </table>
-          </div>
-        )}
-
-        <div className="docs-controls">
-          <div className="docs-control-group"><span>COLORWAY</span><div className="docs-swatches">{tones.map(item => (
-            <button
-              key={item.value}
-              type="button"
-              className={item.value === tone ? "swatch active" : "swatch"}
-              onClick={() => setTone(item.value)}
-              aria-label={"Use " + item.name + " envelope"}
-              aria-pressed={tone === item.value}
-              title={item.name}
-            ><i style={{ backgroundColor: item.color }} /></button>
-          ))}</div><strong>{tones.find(item => item.value === tone)?.name}</strong></div>
-          <button type="button" className="reset-control" onClick={() => setOpen(false)}><RefreshIcon size={16} aria-hidden="true" /> Reset</button>
-        </div>
-      </div>
-      <div className="docs-notice"><span><SparklesIcon size={22} aria-hidden="true" /></span><p><strong>Early prototype.</strong> This component is still being refined. The motion, material fidelity, and interaction API may change before release.</p></div>
+      <div className="docs-notice"><span><SparklesIcon size={22} aria-hidden="true" /></span><p><strong>A real component, still being refined.</strong> Colour, paper, seal, letter content and open state use the actual Envelope API. Zoom and canvas dots change only your preview. The library is not yet published to npm.</p></div>
       <section className="docs-usage" id="usage">
-        <span className="section-label">MAKE IT YOURS</span>
-        <h2>Use it in your project.</h2>
-        <p>Import the component and stylesheet from the local workspace package. It accepts your own React content and provides both controlled and uncontrolled interaction state.</p>
+        <span className="section-label">FOR THE MAKERS</span>
+        <h2>From playground to project.</h2>
+        <p>Every adjustment to the envelope is reflected in usable React code. Import the component and stylesheet from the local workspace, and put your own React content inside the letter.</p>
         <div className="docs-usage-code">
-          <div className="code-pane-title">React / TSX <button type="button" onClick={copyCode}>{copied ? <><CheckIcon size={15} aria-hidden="true" /> Copied</> : <><CopyIcon size={15} aria-hidden="true" /> Copy code</>}</button></div>
+          <div className="code-pane-title">React / TSX <button type="button" onClick={copyCode}>{copyStatus === "success" ? <><CheckIcon size={15} aria-hidden="true" /> Copied</> : <><CopyIcon size={15} aria-hidden="true" /> Copy code</>}</button></div>
           <pre><code>{code}</code></pre>
         </div>
-        <p className="docs-usage-foot">This package is currently available only inside the repository workspace. It has not been published to npm.</p>
+        <p className="docs-usage-foot">Workspace package only for now. Component props are typed, and keyboard and reduced-motion behaviours are supported.</p>
       </section>
     </>
   );
