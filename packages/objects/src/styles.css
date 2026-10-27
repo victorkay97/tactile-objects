@@ -113,7 +113,7 @@
 }
 
 .to-envelope[data-state="open"] .to-envelope__paper {
-  transform: translateY(-80px);
+  transform: translateY(-130px);
   box-shadow: 0 16px 30px rgba(59,44,30,.16);
   transition-delay: 385ms;
   pointer-events: auto;
@@ -344,7 +344,7 @@
   .to-envelope__object {
     transform: translateX(-50%) scale(.84);
     transform-origin: 50% 0;
-    width: min(380px, calc((100vw - 24px) / .84));
+    width: min(380px, calc((100vw - 24px) * 1.19));
   }
   .to-envelope__instruction { margin-top: -15px; }
 }
