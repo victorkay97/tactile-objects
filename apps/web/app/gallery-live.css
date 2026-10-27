@@ -15,16 +15,16 @@
 .object-showcase__media:has(.object-showcase__live-object) {overflow:hidden;}
 .object-showcase__media:has(.object-showcase__live-object)::after {pointer-events:none;}
 .landing .landing-grid {
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
-.landing-grid .object-showcase__media {height:272px;}
-.landing-grid .object-showcase__info {padding:18px 16px;}
-.landing-grid .object-showcase__info h3 {font-size:19px;}
-.landing-grid .object-showcase__live-object--journal {transform:translateX(-50%) scale(.57);}
-.landing-grid .object-showcase__live-object--polaroid {transform:translateX(-50%) scale(.59);}
-.landing-grid .object-showcase__live-object--sticky {transform:translateX(-50%) scale(.58);}
-.landing-grid .object-showcase__live-envelope {transform:translateX(-50%) scale(.49);}
+.landing-grid .object-showcase__media {height:342px;}
+.landing-grid .object-showcase__info {padding:21px 20px;}
+.landing-grid .object-showcase__info h3 {font-size:22px;}
+.landing-grid .object-showcase__live-object--journal {transform:translateX(-50%) scale(.78);}
+.landing-grid .object-showcase__live-object--polaroid {transform:translateX(-50%) scale(.78);}
+.landing-grid .object-showcase__live-object--sticky {transform:translateX(-50%) scale(.77);}
+.landing-grid .object-showcase__live-envelope {transform:translateX(-50%) scale(.66);}
 .collection-page__grid .object-showcase__live-object {
   transform:translateX(-50%) scale(.79);
   top:15px;
@@ -46,13 +46,13 @@ html[data-theme="dark"] .object-showcase__live-object .to-sticky__hint {
 }
 @media(max-width:1180px) {
   .landing .landing-grid {grid-template-columns:repeat(2,minmax(0,1fr));}
-  .landing-grid .object-showcase__live-object--journal {transform:translateX(-50%) scale(.7);}
-  .landing-grid .object-showcase__live-object--polaroid {transform:translateX(-50%) scale(.7);}
-  .landing-grid .object-showcase__live-object--sticky {transform:translateX(-50%) scale(.69);}
+  .landing-grid .object-showcase__live-object--journal {transform:translateX(-50%) scale(.75);}
+  .landing-grid .object-showcase__live-object--polaroid {transform:translateX(-50%) scale(.75);}
+  .landing-grid .object-showcase__live-object--sticky {transform:translateX(-50%) scale(.75);}
 }
 @media(max-width:700px) {
   .collection-page__grid .object-showcase__live-object {transform:translateX(-50%) scale(.69);}
-  .landing-grid .object-showcase__live-object {transform:translateX(-50%) scale(.67);}
+  .landing-grid .object-showcase__live-object {transform:translateX(-50%) scale(.70);}
 }
 @media(max-width:480px) {
   .landing .landing-grid {grid-template-columns:1fr;}
