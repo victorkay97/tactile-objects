@@ -292,140 +292,6 @@ a.landing-object:hover .landing-object__arrow svg { transform: translate(2px,-2p
   .landing-grid .object-showcase__media { height: 255px; }
 }
 
-/* ---------------------------------------------------------
-   Ambient motion — one paper plane and quiet margin details.
-   The central copy stays visually dominant and fully clickable.
-   --------------------------------------------------------- */
-.landing-hero {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-.landing-hero__inner { z-index: 2; }
-.ambient-paper {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
-  contain: paint;
-}
-.ambient-paper__flight {
-  position: absolute;
-  top: clamp(25px, 8%, 90px);
-  left: 0;
-  width: 150px;
-  height: 95px;
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: to-paper-flight 25s linear -3.5s infinite;
-}
-.ambient-paper__flight svg { display: block; overflow: visible; }
-@keyframes to-paper-flight {
-  0%, 5% {
-    transform: translate3d(-175px, 28px, 0) rotate(-10deg);
-    opacity: 0;
-  }
-  10% { opacity: .83; }
-  22% {
-    transform: translate3d(calc(24vw - 110px), -12px, 0) rotate(4deg);
-    opacity: .83;
-  }
-  40% {
-    transform: translate3d(calc(49vw - 110px), 21px, 0) rotate(-5deg);
-    opacity: .83;
-  }
-  58% {
-    transform: translate3d(calc(78vw - 110px), -17px, 0) rotate(7deg);
-    opacity: .83;
-  }
-  74% {
-    transform: translate3d(calc(100vw + 90px), 20px, 0) rotate(-8deg);
-    opacity: .78;
-  }
-  80%, 100% {
-    transform: translate3d(calc(100vw + 190px), 22px, 0) rotate(-8deg);
-    opacity: 0;
-  }
-}
-.ambient-paper__scrap {
-  position: absolute;
-  width: 80px;
-  height: 86px;
-  opacity: .82;
-  filter: drop-shadow(5px 10px 8px rgba(56,47,72,.065));
-}
-.ambient-paper__scrap--left { left: clamp(15px,6.3vw,110px); top: 51%; transform: rotate(-13deg); }
-.ambient-paper__scrap--right { right: clamp(15px,5.5vw,100px); top: 54%; transform: rotate(12deg) scale(.87); }
-.ambient-paper__scrap-inner {
-  position: absolute;
-  inset: 0;
-  display: block;
-  background: #f4f1e9;
-  border: 1px solid rgba(132,119,106,.24);
-  border-radius: 2px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.85);
-  animation: to-paper-breathe 7.4s ease-in-out infinite alternate;
-}
-.ambient-paper__scrap-inner--right {
-  background: #e4ecdf;
-  border-color: rgba(93,126,107,.19);
-  animation-delay: -3.4s;
-}
-@keyframes to-paper-breathe {
-  0%,100% { transform: translate3d(0, 0, 0) rotate(-2deg); }
-  50% { transform: translate3d(2px, -9px, 0) rotate(2deg); }
-}
-.ambient-paper__scrap-fold {
-  position: absolute;
-  top: 0; right: 0;
-  width: 20px; height: 20px;
-  background: linear-gradient(135deg, #ded8ca 0 50%, #fcfaf5 51%);
-  clip-path: polygon(0 0,100% 100%,0 100%);
-  transform: rotate(180deg);
-  filter: drop-shadow(-1px 1px 1px rgba(0,0,0,.04));
-}
-.ambient-paper__scrap-line {
-  position: absolute;
-  height: 1px;
-  left: 18px; right: 15px; top: 36px;
-  background: rgba(149,140,135,.33);
-  box-shadow: 0 11px 0 rgba(149,140,135,.24), 0 -11px 0 rgba(149,140,135,.20);
-}
-.ambient-paper__scrap-line--short { top: 64px; right: 32px; box-shadow: none; }
-.ambient-paper__scrap-inner--right .ambient-paper__scrap-line {
-  top: 57px; left: 16px; right: 21px; background: rgba(101,137,113,.24);
-  box-shadow: 0 9px rgba(101,137,113,.15);
-}
-.ambient-paper__scrap-mark {
-  position: absolute;
-  left: 20px; top: 17px;
-  width: 19px; height: 19px;
-  border: 1px solid rgba(106,141,117,.36);
-  border-radius: 50%;
-  transform: rotate(-12deg);
-}
-.ambient-paper__scrap-mark::after {
-  content: "";
-  position: absolute;
-  left: 5px; top: 7px;
-  width: 8px; height: 1px;
-  background: rgba(106,141,117,.44);
-  transform: rotate(-30deg);
-}
-.ambient-paper__pin {
-  position: absolute;
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: #afa9d5;
-  opacity: .5;
-  animation: to-pin-drift 5.5s ease-in-out infinite alternate;
-}
-.ambient-paper__pin--one { left: 12%; top: 24%; }
-.ambient-paper__pin--two { right: 12%; top: 38%; animation-delay: -2.8s; background: #c9b4ad; }
-@keyframes to-pin-drift { from { transform: translateY(-3px); } to { transform: translateY(6px); } }
-
 /* One-time scroll entrances, progressively enhanced by IntersectionObserver.
    No-JS and reduced-motion users see every section immediately. */
 .landing [data-motion-reveal] {
@@ -448,28 +314,14 @@ a.landing-object:hover .landing-object__arrow svg { transform: translate(2px,-2p
 .landing .object-showcase:where(:hover,:focus-visible) .object-showcase__scene {
   transform: translate3d(0,-6px,0) scale(1.025);
 }
-@media (max-width: 850px) {
-  .ambient-paper__scrap { opacity: .55; transform-origin: center; }
-  .ambient-paper__scrap--left { left: 3%; transform: rotate(-13deg) scale(.8); }
-  .ambient-paper__scrap--right { right: 3%; transform: rotate(12deg) scale(.73); }
-  .ambient-paper__flight { animation-duration: 29s; }
-}
-@media (max-width: 620px) {
-  .ambient-paper__scrap, .ambient-paper__pin { display: none; }
-  .ambient-paper__flight { top: 2%; width: 115px; height: 75px; opacity: .75; }
-  .ambient-paper__flight svg { width: 115px; height: auto; }
-  .landing-hero__inner { isolation: isolate; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .ambient-paper__flight {
-    animation: none !important;
-    top: 20px; left: auto; right: 0;
-    transform: rotate(7deg) scale(.72);
-    opacity: .45;
-    will-change: auto;
+  .landing [data-motion-reveal] {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
-  .ambient-paper__scrap-inner,
-  .ambient-paper__pin { animation: none !important; }
-  .landing [data-motion-reveal] { transition: none !important; opacity: 1 !important; transform: none !important; }
-  .landing .object-showcase__scene, .collection-page .object-showcase__scene { transition: none !important; }
+  .landing .object-showcase__scene,
+  .collection-page .object-showcase__scene {
+    transition: none !important;
+  }
 }
