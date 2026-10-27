@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/check-typography.mjs && next build",
+    "build": "node scripts/check-typography.mjs && node scripts/check-theme.mjs && next build",
     "typecheck": "tsc --noEmit",
     "check:typography": "node scripts/check-typography.mjs"
   },
