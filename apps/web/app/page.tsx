@@ -11,6 +11,7 @@ import {
 import { ObjectCard } from "../components/object-card";
 import { objects } from "../lib/objects";
 import "./landing.css";
+import "./motion.css";
 
 const example = [
   'import { Envelope } from "@tactile/objects";',
@@ -30,6 +31,13 @@ export default function HomePage() {
   return (
     <main className="landing">
       <section className="landing-hero" aria-labelledby="landing-title">
+        <div className="hero-atmosphere" aria-hidden="true">
+          <div className="hero-flight"><div className="hero-plane"><span className="hero-plane__left" /><span className="hero-plane__right" /><span className="hero-plane__fold" /></div></div>
+          <div className="hero-paper hero-paper--left"><span /><span /><span /></div>
+          <div className="hero-paper hero-paper--right"><span /><span /></div>
+          <span className="hero-spark hero-spark--one">✧</span>
+          <span className="hero-spark hero-spark--two">✧</span>
+        </div>
         <div className="layout-container landing-hero__inner">
           <div className="landing-hero__eyebrow">
             <span className="landing-live-dot" aria-hidden="true" />
