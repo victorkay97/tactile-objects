@@ -70,7 +70,7 @@
 }
 .to-envelope__paper {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   left: 10%;
   bottom: 88px;
   width: 80%;
@@ -89,13 +89,16 @@
   flex-direction: column;
   pointer-events: none;
   transform: translateY(26px);
-  transition: transform 740ms cubic-bezier(.2,.75,.24,1),box-shadow 740ms ease,z-index 0ms linear 0ms;
+  transition: transform 630ms cubic-bezier(.22,.78,.25,1), box-shadow 630ms ease;
+  will-change: transform;
 }
 .to-envelope[data-state="open"] .to-envelope__paper {
-  z-index: 5;
-  transform: translateY(-149px) rotate(-1.5deg);
-  box-shadow: 8px 21px 28px rgba(55,41,29,.16);
-  transition: transform 900ms cubic-bezier(.16,.81,.18,1) 365ms, box-shadow 900ms ease 365ms, z-index 0ms linear 730ms;
+  /* Remains physically behind the front pocket throughout extraction. */
+  z-index: 3;
+  transform: translateY(-156px) rotate(-1.2deg);
+  box-shadow: 6px 19px 28px rgba(55,41,29,.14);
+  /* Flap clears the letter before extraction starts. */
+  transition: transform 780ms cubic-bezier(.19,.81,.22,1) 640ms, box-shadow 780ms ease 640ms;
   pointer-events: auto;
 }
 .to-envelope__paper-rule { height: 1px; width: 28px; background: #bba18b; margin-bottom: 10px; flex: 0 0 auto; }
@@ -114,7 +117,8 @@
   transform-origin: center top;
   transform-style: preserve-3d;
   transform: rotateX(0deg);
-  transition: transform 720ms cubic-bezier(.27,.09,.23,1),z-index 0ms linear 0ms;
+  transition: transform 590ms cubic-bezier(.2,.61,.22,1) 670ms, z-index 0ms linear 670ms;
+  will-change: transform;
 }
 .to-envelope__flap-face {
   position: absolute;
@@ -154,10 +158,12 @@
 .to-envelope[data-state="open"] .to-envelope__flap {
   transform: rotateX(180deg);
   z-index: 1;
-  transition: transform 720ms cubic-bezier(.27,.09,.23,1),z-index 0ms linear 730ms;
+  transition: transform 590ms cubic-bezier(.2,.61,.22,1), z-index 0ms linear 590ms;
 }
 .to-envelope[data-state="closed"] .to-envelope__flap {
-  transition: transform 690ms cubic-bezier(.37,.08,.23,1) 400ms, z-index 0ms linear 400ms;
+  /* The paper retracts completely before the flap seals. */
+  z-index: 6;
+  transition: transform 590ms cubic-bezier(.22,.62,.2,1) 690ms, z-index 0ms linear 690ms;
 }
 .to-envelope__pocket {
   position: absolute;
@@ -224,5 +230,59 @@
   .to-envelope__object,.to-envelope__shadow,.to-envelope__paper,.to-envelope__flap,.to-envelope__address {
     transition: none !important;
     transition-delay: 0ms !important;
+  }
+}
+
+/* Material finishing: restrained fibre, crease light and edge definition. */
+.to-envelope__back::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.to-envelope__back::after {
+  content: "";
+  position: absolute;
+  left: 1%; right: 1%; top: 1px; height: 2px;
+  background: rgba(94,63,44,.095);
+  filter: blur(1px);
+}
+.to-envelope__pocket {
+  filter: drop-shadow(0 -1px 1px rgba(90,58,40,.09));
+}
+.to-envelope__flap-face {
+  filter: drop-shadow(0 2px 1px rgba(117,80,50,.08));
+}
+.to-envelope__paper {
+  background:
+    repeating-linear-gradient(96deg,rgba(156,124,85,.025) 0,rgba(156,124,85,.025) 1px,transparent 1px,transparent 8px),
+    radial-gradient(circle at 21% 18%,rgba(204,177,137,.12), transparent 40%),
+    linear-gradient(132deg,#fffdf7,var(--to-paper) 60%,#f6efe3);
+}
+.to-envelope__paper::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(194,165,119,.11);
+  pointer-events: none;
+}
+.to-envelope__wax {
+  background:
+    radial-gradient(circle at 32% 24%,rgba(255,213,190,.36),transparent 43%),
+    radial-gradient(circle at 47% 51%,#b5685b 0%,#91493f 64%,#76362f 100%);
+  box-shadow: 0 4px 7px rgba(83,39,32,.22), inset 0 0 0 1px rgba(255,225,211,.32), inset -3px -3px 4px rgba(95,40,34,.27);
+}
+/* Avoid alternate page-specific overrides dropping the original perspective tilt. */
+@media (max-width: 560px) {
+  .to-envelope__object {
+    transform: translateX(-50%) scale(.85) rotateX(var(--to-rotate-x)) rotateY(var(--to-rotate-y));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .to-envelope__paper,.to-envelope__flap {
+    transition: none !important;
   }
 }
