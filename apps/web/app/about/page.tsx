@@ -14,19 +14,19 @@ const values = [
 export default function AboutPage() {
   return (
     <main className="story-page">
-      <section className="layout-container story-page__hero">
+      <section data-motion-reveal className="layout-container story-page__hero">
         <span className="platform-overline">THE IDEA BEHIND TACTILE OBJECTS</span>
         <h1>Small interactions.<br /><span>Lasting impressions.</span></h1>
         <p>We're interested in the moments that make the digital world feel less like a screen and more like something you can actually interact with.</p>
         <div className="story-page__hero-foot"><span>AN OPEN-SOURCE EXPERIMENT</span><span>CRAFTED IN REACT</span></div>
       </section>
       <section className="story-page__manifesto">
-        <div className="layout-container story-page__manifesto-inner">
+        <div data-motion-reveal className="layout-container story-page__manifesto-inner">
           <span className="platform-overline">01 / THE BELIEF</span>
           <div><h2>Interfaces don't have to feel <em>flat.</em></h2><p>Real objects teach us through movement, weight, resistance, and touch. We're translating those familiar qualities into interactive React components that are both expressive and useful.</p><p>Our goal isn't to simulate everything perfectly. It's to make each interaction feel thoughtful, believable, and memorable.</p></div>
         </div>
       </section>
-      <section className="layout-container story-page__values">
+      <section data-motion-reveal className="layout-container story-page__values">
         <div className="story-page__section-heading"><span className="platform-overline">02 / THE PRINCIPLES</span><h2>What we're building toward.</h2></div>
         <div className="story-page__value-list">
           {values.map(({num,title,description,Icon}) => (
@@ -39,7 +39,7 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-      <section className="layout-container story-page__closing">
+      <section data-motion-reveal className="layout-container story-page__closing">
         <div><span className="platform-overline">03 / JOIN THE JOURNEY</span><h2>Explore what's taking shape.</h2><p>See the objects, inspect the source, and learn how they work.</p></div>
         <div className="story-page__closing-actions">
           <Link href="/components" className="platform-button">Explore objects <ArrowUpRightIcon size={16} aria-hidden="true" /></Link>
