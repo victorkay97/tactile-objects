@@ -29,11 +29,17 @@ assert(home.includes("<ObjectCard"), "Homepage must reuse the shared object card
 for(const path of ["../app/docs/page.tsx","../app/docs/getting-started/page.tsx","../app/docs/accessibility/page.tsx","../app/docs/design-principles/page.tsx"]){
   assert(readFileSync(new URL(path, import.meta.url), "utf8").length > 100, "Missing documentation content: " + path);
 }
-const ambient = readFileSync(new URL("../components/ambient-paper-scene.tsx", import.meta.url), "utf8");
+const heroScene = readFileSync(new URL("../components/hero-playground.tsx", import.meta.url), "utf8");
+const heroStyles = readFileSync(new URL("../app/hero-playground.css", import.meta.url), "utf8");
 const reveal = readFileSync(new URL("../components/reveal-on-scroll.tsx", import.meta.url), "utf8");
-assert(home.includes("<AmbientPaperScene />"), "Hero is missing its ambient paper choreography");
-assert(ambient.includes('aria-hidden="true"'), "Decorative paper flight should stay out of accessibility tree");
-assert(landingCSS.includes("@keyframes to-paper-flight"), "Paper-plane animation must exist");
-assert(landingCSS.includes("prefers-reduced-motion: reduce"), "Motion must respect reduced motion preferences");
+assert(home.includes("<HeroPlayground />"), "Hero is missing its interactive paper playground");
+assert(!home.includes("AmbientPaperScene"), "Remove the autoplay paper plane scene");
+assert(!landingCSS.includes("@keyframes to-paper-flight"), "No continuously flying plane should remain");
+assert(heroScene.startsWith('"use client"'), "Draggable papers must be interactive client components");
+for (const event of ["onPointerDown", "onPointerMove", "onPointerUp", "onPointerCancel", "onLostPointerCapture", "setPointerCapture"]) {
+  assert(heroScene.includes(event), "Paper drag is missing " + event);
+}
+assert(heroStyles.includes("@keyframes hero-enter"), "Hero needs its reload entrance");
+assert(heroStyles.includes("prefers-reduced-motion: reduce"), "Hero must support reduced motion");
 assert(reveal.includes("IntersectionObserver") && reveal.includes("prefers-reduced-motion"), "Scroll reveals must be progressive and motion-aware");
-console.log("Typography, viewport hero, icons, ambient animation and docs guards passed.");
+console.log("Typography, viewport hero, interactive paper, reduced motion and docs guards passed.");
