@@ -4,13 +4,13 @@
 
 We build familiar objects that respond with personality, care, and useful interaction—not just decorative animations.
 
-**Status:** early alpha. One component (Envelope) is available inside this monorepo. It has **not** been published to npm or deployed.
+**Status:** early alpha. One component (Envelope) is available inside this monorepo. It has **not** been published to npm. The development branch has Vercel previews; production is kept separate.
 
 ## Product routes
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Expressive landing page featuring the first interactive object |
+| `/` | Centered landing page with draggable, spring-back paper details and a one-time text entrance |
 | `/components` | Browse available and planned objects |
 | `/components/envelope` | Dedicated playground, colourways, code and typed API |
 | `/about` | Philosophy and project purpose |
@@ -79,6 +79,10 @@ The frontend uses shared platform styling in `apps/web/app/platform.css`, with d
 
 The homepage and catalog use the same `ObjectCard` component, drawing data from `apps/web/lib/objects.ts`. Object surfaces are selected from a curated family of material palettes: paper, botanical, lilac and butter. **More objects do not require new unrelated UI colours** — reuse an established family or add one through design review.
 
-The landing-page hero fills the available viewport beneath the site header (including mobile navigation). No object illustration sits in the hero; component interactions have their own showcase and playground pages.
+The landing-page hero fills the available viewport beneath the site header (including mobile navigation). The hero contains two small draggable paper details at the outer edges, but no hero envelope or autoplay plane. The dedicated component interactions live on their own showcase and playground pages.
 
 MingCute Core Regular icons are centralized in `apps/web/components/ui/icons.ts`. Functional actions should use these rather than text arrows.
+
+## Motion and interaction
+
+The homepage enters with a short, one-time, staggered text reveal. Its two paper details can be dragged using a mouse or touch, then spring back when released. Keyboard users can focus and activate them. Animations respect reduced-motion preferences, and the page no longer runs a perpetual flying plane.
