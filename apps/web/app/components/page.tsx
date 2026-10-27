@@ -11,7 +11,7 @@ export const metadata = {
 export default function ComponentsPage() {
   return (
     <main className="collection-page">
-      <header className="layout-container collection-page__hero">
+      <header className="layout-container collection-page__hero" data-motion-reveal>
         <div className="collection-page__overline"><span className="platform-overline">THE OBJECT COLLECTION</span><span className="collection-page__volume">VOL. 001 / EARLY ALPHA</span></div>
         <div className="collection-page__heading">
           <h1>Little objects.<br /><span>Considered details.</span></h1>
@@ -19,10 +19,10 @@ export default function ComponentsPage() {
         </div>
         <div className="collection-page__filters"><span>ALL OBJECTS <span className="collection-page__counter">04</span></span><span>01 AVAILABLE · 03 IN THE WORKSHOP</span></div>
       </header>
-      <section className="layout-container collection-page__grid" aria-label="Available and planned objects">
+      <section data-motion-reveal className="layout-container collection-page__grid" aria-label="Available and planned objects">
         {objects.map((object) => <ObjectCard key={object.id} object={object} />)}
       </section>
-      <aside className="layout-container collection-page__footnote">
+      <aside data-motion-reveal className="layout-container collection-page__footnote">
         <div className="collection-page__footnote-icon"><SparklesIcon size={21} aria-hidden="true" /></div>
         <div><strong>More objects are on their way.</strong><p>We'll only add components when they're ready to be used, not just admired.</p></div>
         <Link href="/docs/design-principles">How we make things <ArrowUpRightIcon size={17} aria-hidden="true" /></Link>
