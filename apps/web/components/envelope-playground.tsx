@@ -6,7 +6,7 @@ import { Envelope } from "@tactile/objects";
 import type { EnvelopePaper, EnvelopeSeal, EnvelopeTone } from "@tactile/objects";
 import {
   ArrowUpRightIcon, RefreshIcon, CopyIcon, CheckIcon, SparklesIcon,
-  DotGridIcon, ZoomInIcon, ZoomOutIcon, MailIcon, CodeIcon, PlaygroundIcon, ArrowDownIcon,
+  DotGridIcon, ZoomInIcon, ZoomOutIcon, MailIcon, CodeIcon, PlaygroundIcon,
 } from "./ui/icons";
 
 type View = "preview" | "code" | "props";
@@ -106,13 +106,6 @@ export function EnvelopePlayground() {
   function change<K extends keyof Config>(key: K, value: Config[K]) {
     setSettings(previous => ({ ...previous, [key]: value }));
     setPreset("custom");
-    // Reveal what changed: paper and letter details live inside the note,
-    // while the seal is visible on the envelope's closed flap.
-    if (key === "paper" || key === "heading" || key === "message" || key === "sender") {
-      setOpen(true);
-    } else if (key === "seal") {
-      setOpen(false);
-    }
   }
 
   function applyPreset(id: Exclude<Preset, "custom">) {
@@ -194,11 +187,7 @@ export function EnvelopePlayground() {
                   </Envelope>
                 </div>
                 <div className="workbench__canvas-bottom">
-                  <span aria-live="polite">
-                    {open && settings.message.length > 170 ? (
-                      <span className="workbench__long-note">LONGER LETTER · SCROLL INSIDE THE PAPER <ArrowDownIcon size={13} aria-hidden="true" /></span>
-                    ) : open ? "THE NOTE IS OPEN" : "A LITTLE NOTE, UNOPENED"}
-                  </span>
+                  <span>{open ? "THE NOTE IS OPEN" : "A LITTLE NOTE, UNOPENED"}</span>
                   <span>INTERACT WITH THE OBJECT <ArrowUpRightIcon size={13} aria-hidden="true" /></span>
                 </div>
               </div>
@@ -252,7 +241,6 @@ export function EnvelopePlayground() {
                 </div>
               </fieldset>
 
-              <div className="workbench__setting-pair">
               <fieldset className="workbench__group">
                 <legend>Paper finish</legend>
                 <div className="workbench__option-row">
@@ -270,30 +258,15 @@ export function EnvelopePlayground() {
                   ))}
                 </div>
               </fieldset>
-              </div>
 
               <div className="workbench__group workbench__group--fields">
                 <span className="workbench__group-title">Write a little note</span>
-                <div className="workbench__fields-grid">
-                  <label className="workbench__field">Recipient
-                    <input maxLength={45} value={settings.recipient} onChange={event => change("recipient", event.target.value)} />
-                  </label>
-                  <label className="workbench__field">Signature
-                    <input maxLength={45} value={settings.sender} onChange={event => change("sender", event.target.value)} />
-                  </label>
-                  <label className="workbench__field workbench__field--wide">Letter heading
-                    <input maxLength={60} value={settings.heading} onChange={event => change("heading", event.target.value)} />
-                  </label>
-                  <label className="workbench__field workbench__field--wide">Message
-                    <textarea id="envelope-message" maxLength={500} rows={3} aria-describedby="envelope-message-help" value={settings.message} onChange={event => change("message", event.target.value)} />
-                    <span className="workbench__field-help" id="envelope-message-help">
-                      <span>Longer notes can scroll inside the open letter.</span>
-                      <span className="workbench__character-count">{settings.message.length}/500</span>
-                    </span>
-                  </label>
-                </div>
+                <label className="workbench__field">Recipient<input maxLength={45} value={settings.recipient} onChange={event => change("recipient", event.target.value)} /></label>
+                <label className="workbench__field">Letter heading<input maxLength={60} value={settings.heading} onChange={event => change("heading", event.target.value)} /></label>
+                <label className="workbench__field">Message<textarea maxLength={500} rows={2} value={settings.message} onChange={event => change("message", event.target.value)} /></label>
+                <label className="workbench__field">Signature<input maxLength={45} value={settings.sender} onChange={event => change("sender", event.target.value)} /></label>
               </div>
-              <p className="workbench__inspector-foot"><SparklesIcon size={15} aria-hidden="true" /> Letter edits reveal the note; seal changes show the closed flap. Code stays in sync.</p>
+              <p className="workbench__inspector-foot"><SparklesIcon size={15} aria-hidden="true" /> Settings update the real component and React code.</p>
             </aside>
           </div>
         ) : view === "code" ? (
