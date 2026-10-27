@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Archivo, Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import { RevealOnScroll } from "../components/reveal-on-scroll";
@@ -13,6 +13,7 @@ import "@tactile/objects/styles.css";
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
+const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap", style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
   title: {
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={archivo.variable + " " + geist.variable + " " + geistMono.variable}>
+      <body className={archivo.variable + " " + geist.variable + " " + geistMono.variable + " " + newsreader.variable}>
         <SiteHeader />
         <RevealOnScroll />
         {children}
