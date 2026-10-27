@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Progressive enhancement: content is visible by default.
@@ -8,6 +9,7 @@ import { useEffect } from "react";
  * Reduced-motion and browsers without IntersectionObserver stay static.
  */
 export function RevealOnScroll() {
+  const pathname = usePathname();
   useEffect(() => {
     if (
       typeof window === "undefined" ||
@@ -15,7 +17,7 @@ export function RevealOnScroll() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) return;
 
-    const elements = [...document.querySelectorAll<HTMLElement>(".landing [data-motion-reveal]")];
+    const elements = [...document.querySelectorAll<HTMLElement>("[data-motion-reveal]")];
     const observer = new IntersectionObserver(
       entries => {
         for (const entry of entries) {
@@ -35,7 +37,7 @@ export function RevealOnScroll() {
       observer.observe(element);
     }
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   return null;
 }
