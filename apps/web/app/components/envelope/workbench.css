@@ -62,7 +62,7 @@
 .workbench__live { color:#5b8b6c; display:inline-flex;align-items:center;gap:7px;white-space:nowrap; }
 .workbench__live i,.workbench__foot-dot { display:block;width:6px;height:6px;background:#68b387;border-radius:50%; }
 .workbench__canvas-bottom { bottom:18px; }
-.workbench__canvas-bottom span:last-child { display:inline-flex; align-items:center;gap:7px; }
+.workbench__canvas-bottom > span:last-child { display:inline-flex; align-items:center;gap:7px; }
 .workbench__canvas-bottom svg { display:block; }
 .workbench__envelope-frame {
   position:absolute;top:50%;left:50%; z-index:1;
@@ -100,8 +100,7 @@
 
 .workbench__inspector {
   min-width:0; border-left:1px solid #e8e5e4; background:#fff;
-  max-height:657px; overflow-y:auto; overscroll-behavior:contain;
-  scrollbar-width:thin; scrollbar-color:#d7d3db transparent;
+  height:auto; max-height:none; overflow:visible;
 }
 .workbench__inspector-intro { padding:22px 21px 18px; border-bottom:1px solid #f0eeed; }
 .workbench__mini-label { font:550 9px/1.5 var(--site-code);letter-spacing:.05em;color:#95909c; }
@@ -172,7 +171,7 @@
   .workbench__view { padding:8px 10px; }
   .workbench__copy { height:35px; }
   .workbench__canvas { min-height:540px; }
-  .workbench__canvas-bottom span:last-child { display:none; }
+  .workbench__canvas-bottom > span:last-child { display:none; }
   .workbench__stage-toolbar { flex-wrap:wrap; }
   .workbench__stage-actions { margin-left:auto; }
   .workbench__detail { padding:24px 20px; }
@@ -202,6 +201,15 @@
 @media (prefers-reduced-motion:reduce) {
   .workbench__envelope-frame,.workbench__view,.workbench__tool,.workbench__swatch,.workbench__option,.workbench__preset { transition:none!important; }
 }
+
+.workbench__long-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #65569b;
+  font-weight: 650;
+}
+.workbench__long-note svg { display:block; flex:none; }
 
 /* Studio layout correction — align to the shared 1,256px site container.
    Remove the old 1,536px page override and decouple canvas size from the
