@@ -185,7 +185,7 @@
   .workbench__copy { padding:0 9px; }
   .workbench__canvas { min-height:480px; }
   .workbench__canvas-top,.workbench__canvas-bottom { left:13px;right:13px;font-size:8px; }
-  .workbench__envelope-frame { width:100%; transform:translate(-50%,-47%) scale(calc(var(--stage-zoom, 1) * .78)); }
+  .workbench__envelope-frame { width:100%; transform:translate(-50%,-47%) scale(var(--stage-zoom, 1)); }
   .workbench__stage-toolbar { padding:9px 7px;gap:4px; }
   .workbench__tool { padding:8px 7px;font-size:10px;gap:5px; }
   .workbench__zoom span { min-width:36px;font-size:10px; }
