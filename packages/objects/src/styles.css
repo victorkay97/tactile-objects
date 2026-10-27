@@ -302,3 +302,139 @@
 .to-envelope[data-seal="none"] .to-envelope__flap-face {
   background: linear-gradient(180deg,rgba(255,255,255,.2),transparent 55%),linear-gradient(90deg,var(--to-base),var(--to-light) 50%,var(--to-base));
 }
+
+/* Envelope craftsmanship pass: editorial letter setting, readable longer
+   correspondence, nuanced physical layers. All remains package-level CSS. */
+.to-envelope {
+  --to-letter-family: var(--font-newsreader, Georgia), Georgia, "Times New Roman", serif;
+}
+.to-envelope__paper {
+  height: 233px;
+  padding: 17px 21px 16px;
+  background:
+    repeating-linear-gradient(91deg, rgba(125,101,69,.018) 0 1px, transparent 1px 7px),
+    radial-gradient(circle at 23% 19%,rgba(216,187,149,.17),transparent 50%),
+    linear-gradient(136deg,#fffefb 0%,var(--to-paper) 63%,#f4ebde 100%);
+  border: 1px solid rgba(128,103,73,.19);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.65), 0 5px 12px rgba(55,41,29,.13);
+  /* When the letter is closed its visible content is not focusable or selectable. */
+}
+.to-envelope[data-paper="white"] .to-envelope__paper {
+  background:
+    repeating-linear-gradient(91deg, rgba(125,125,138,.018) 0 1px, transparent 1px 7px),
+    radial-gradient(circle at 23% 19%,rgba(207,210,224,.12),transparent 50%),
+    linear-gradient(136deg,#ffffff 0%,#fdfdff 63%,#f3f5f9 100%);
+}
+.to-envelope__paper-rule {
+  height: 1px;
+  width: 34px;
+  background: #b99f85;
+  margin-bottom: 8px;
+}
+.to-envelope__kicker {
+  font: 650 9px/1.3 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .14em;
+  margin-bottom: 7px;
+}
+.to-envelope__message {
+  font-family: var(--to-letter-family);
+  color: #4f4139;
+  font-size: 13.5px;
+  line-height: 1.43;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(122,99,78,.28) transparent;
+  padding: 1px 4px 7px 0;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.to-envelope[data-state="closed"] .to-envelope__message { overflow: hidden; }
+.to-envelope__message::-webkit-scrollbar { width: 4px; }
+.to-envelope__message::-webkit-scrollbar-thumb { background: rgba(122,99,78,.3); border-radius: 4px; }
+.to-envelope__message h3 {
+  font-family: var(--to-letter-family);
+  font-weight: 520;
+  font-size: 19.5px;
+  line-height: 1.13;
+  letter-spacing: -.027em;
+  margin: 0 0 9px;
+  hyphens: auto;
+}
+.to-envelope__message p {
+  font-family: var(--to-letter-family);
+  font-size: 13.5px;
+  line-height: 1.43;
+  letter-spacing: -.006em;
+  color: #756454;
+  margin: 0;
+  white-space: pre-wrap;
+  hyphens: auto;
+}
+.to-envelope__signature {
+  margin-top: 7px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(152,118,83,.12);
+  font: italic 16px/1.1 var(--to-letter-family);
+  color: #91765f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.to-envelope__address strong {
+  font: italic 19px/1.5 var(--to-letter-family);
+  letter-spacing: -.015em;
+}
+/* At full extraction the letter is free to scroll; the open-state hit
+   target is shorter so it doesn't capture the bottom of the revealed note. */
+.to-envelope[data-state="open"] .to-envelope__trigger { height: 142px; }
+.to-envelope__message:focus-visible {
+  outline: 2px solid rgba(104,91,188,.78);
+  outline-offset: -2px;
+  border-radius: 2px;
+}
+
+/* Better paper edge and seam logic, without piling on decorative effects. */
+.to-envelope__back { border: 1px solid rgba(123,89,57,.1); }
+.to-envelope__pocket {
+  background:
+    repeating-linear-gradient(96deg,rgba(255,255,255,.018) 0 1px,transparent 1px 8px),
+    linear-gradient(150deg,var(--to-base) 4%,var(--to-dark) 100%);
+}
+.to-envelope__pocket::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0,50% 50%,100% 0,50% 51%);
+  background: rgba(255,255,255,.18);
+  opacity: .45;
+  pointer-events: none;
+}
+.to-envelope__side--left { opacity: .48; }
+.to-envelope__side--right { opacity: .36; }
+.to-envelope__bottom-fold { opacity: .63; }
+.to-envelope__flap-face {
+  background:
+    linear-gradient(174deg,rgba(255,255,255,.3),transparent 63%),
+    linear-gradient(90deg,var(--to-base),var(--to-light) 50%,var(--to-base));
+}
+.to-envelope[data-seal="none"] .to-envelope__flap-face {
+  background:
+    linear-gradient(174deg,rgba(255,255,255,.27),transparent 62%),
+    linear-gradient(90deg,var(--to-base),var(--to-light) 50%,var(--to-base));
+}
+.to-envelope__wax {
+  border: 2px solid rgba(114,52,45,.55);
+  box-shadow: 0 4px 7px rgba(83,39,32,.25),
+    inset 0 0 0 2px rgba(255,214,199,.26),
+    inset -3px -3px 5px rgba(100,40,32,.24);
+}
+@media (prefers-reduced-motion: reduce) {
+  .to-envelope__paper,.to-envelope__trigger,.to-envelope__wax {
+    transition: none !important;
+  }
+}
