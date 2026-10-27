@@ -1,37 +1,32 @@
-import { ArrowUpRightIcon, SparklesIcon } from "../../components/ui/icons";
 import Link from "next/link";
+import { ObjectCard } from "../../components/object-card";
+import { objects } from "../../lib/objects";
+import { ArrowUpRightIcon, SparklesIcon } from "../../components/ui/icons";
 
-export const metadata = { title: "Components", description: "Browse beautifully crafted interactive React objects." };
-
-const planned = [
-  { id: "002", name: "Journal", description: "A book with page-turning interactions.", type: "paper", art: "journal" },
-  { id: "003", name: "Sticky Note", description: "Notes to peel, fold, and reposition.", type: "paper", art: "sticky" },
-  { id: "004", name: "Polaroid", description: "A picture that develops before your eyes.", type: "memories", art: "polaroid" },
-];
+export const metadata = {
+  title: "Components",
+  description: "Discover realistic interactive React objects from Tactile Objects.",
+};
 
 export default function ComponentsPage() {
   return (
-    <main className="catalog-page">
-      <section className="layout-container catalog-hero">
-        <div className="eyebrow"><span className="eyebrow-star"><SparklesIcon size={17} aria-hidden="true" /></span> THE OBJECT COLLECTION</div>
-        <div className="catalog-title-row"><h1>Find your next<br /><span>little delight.</span></h1><p>Some things are better when you can interact with them. Explore the first object and take a peek inside the workshop.</p></div>
-        <div className="catalog-filter"><span>ALL OBJECTS</span><span className="catalog-count">01 AVAILABLE / 03 PLANNED</span></div>
+    <main className="collection-page">
+      <header className="layout-container collection-page__hero">
+        <div className="collection-page__overline"><span className="platform-overline">THE OBJECT COLLECTION</span><span className="collection-page__volume">VOL. 001 / EARLY ALPHA</span></div>
+        <div className="collection-page__heading">
+          <h1>Little objects.<br /><span>Considered details.</span></h1>
+          <p>Explore the first interactive object and discover what's taking shape in our workshop. Built slowly, with attention to the things you can feel.</p>
+        </div>
+        <div className="collection-page__filters"><span>ALL OBJECTS <span className="collection-page__counter">04</span></span><span>01 AVAILABLE · 03 IN THE WORKSHOP</span></div>
+      </header>
+      <section className="layout-container collection-page__grid" aria-label="Available and planned objects">
+        {objects.map((object) => <ObjectCard key={object.id} object={object} />)}
       </section>
-      <section className="layout-container catalog-grid" aria-label="Object collection">
-        <Link className="catalog-card catalog-card--envelope" href="/components/envelope">
-          <div className="catalog-card-top"><span>001 / PAPER</span><span className="live-badge"><i /> EXPLORE</span></div>
-          <div className="catalog-art catalog-art--envelope" aria-hidden="true"><span className="art-envelope"><i /><i /></span><span className="art-letter" /></div>
-          <div className="catalog-card-bottom"><div><h2>The Envelope</h2><p>A little note worth opening.</p></div><span className="catalog-card-arrow"><ArrowUpRightIcon size={20} aria-hidden="true" /></span></div>
-        </Link>
-        {planned.map(item => (
-          <article key={item.id} className={"catalog-card catalog-card--" + item.art}>
-            <div className="catalog-card-top"><span>{item.id} / {item.type.toUpperCase()}</span><span className="planned-badge">COMING SOON</span></div>
-            <div className={"catalog-art catalog-art--" + item.art} aria-hidden="true"><span className={"art-" + item.art}><i /></span></div>
-            <div className="catalog-card-bottom"><div><h2>The {item.name}</h2><p>{item.description}</p></div><span className="catalog-card-soon">IN PROGRESS</span></div>
-          </article>
-        ))}
-      </section>
-      <section className="layout-container catalog-endnote"><span><SparklesIcon size={19} aria-hidden="true" /></span> A small collection, made carefully. More interactive objects are on the way. <Link href="/about">Our approach <ArrowUpRightIcon size={15} aria-hidden="true" /></Link></section>
+      <aside className="layout-container collection-page__footnote">
+        <div className="collection-page__footnote-icon"><SparklesIcon size={21} aria-hidden="true" /></div>
+        <div><strong>More objects are on their way.</strong><p>We'll only add components when they're ready to be used, not just admired.</p></div>
+        <Link href="/docs/design-principles">How we make things <ArrowUpRightIcon size={17} aria-hidden="true" /></Link>
+      </aside>
     </main>
   );
 }

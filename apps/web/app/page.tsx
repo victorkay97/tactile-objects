@@ -7,10 +7,9 @@ import {
   SparklesIcon,
   CursorIcon,
   CodeIcon,
-  MailIcon,
-  BookIcon,
-  CameraIcon,
 } from "../components/ui/icons";
+import { ObjectCard } from "../components/object-card";
+import { objects } from "../lib/objects";
 import "./landing.css";
 
 const example = [
@@ -104,57 +103,12 @@ export default function HomePage() {
           </div>
 
           <div className="landing-grid">
-            <Link href="/components/envelope" className="landing-object landing-object--envelope">
-              <div className="landing-object__top">
-                <span>01 <span className="landing-object__slash">/</span> PAPER</span>
-                <span className="landing-object__status landing-object__status--live"><i /> EXPLORE</span>
-              </div>
-              <div className="landing-object__visual">
-                <span className="landing-object__art landing-object__art--envelope" aria-hidden="true">
-                  <span className="art-envelope"><i /><i /></span>
-                  <span className="art-letter" />
-                </span>
-              </div>
-              <div className="landing-object__bottom">
-                <div className="landing-object__name"><span className="landing-object__type"><MailIcon size={15} aria-hidden="true" /> INTERACTIVE</span><h3>Envelope</h3><p>Some things are worth opening.</p></div>
-                <span className="landing-object__arrow"><ArrowUpRightIcon size={19} aria-hidden="true" /></span>
-              </div>
-            </Link>
-
-            <article className="landing-object landing-object--journal">
-              <div className="landing-object__top">
-                <span>02 <span className="landing-object__slash">/</span> PAPER</span>
-                <span className="landing-object__status">COMING SOON</span>
-              </div>
-              <div className="landing-object__visual">
-                <span className="landing-object__art landing-object__art--journal" aria-hidden="true">
-                  <span className="art-journal"><i /></span>
-                </span>
-              </div>
-              <div className="landing-object__bottom">
-                <div className="landing-object__name"><span className="landing-object__type"><BookIcon size={15} aria-hidden="true" /> IN THE WORKSHOP</span><h3>Journal</h3><p>Pages that feel made for turning.</p></div>
-                <span className="landing-object__soon">PLANNED</span>
-              </div>
-            </article>
-
-            <article className="landing-object landing-object--polaroid">
-              <div className="landing-object__top">
-                <span>03 <span className="landing-object__slash">/</span> MEMORIES</span>
-                <span className="landing-object__status">COMING SOON</span>
-              </div>
-              <div className="landing-object__visual">
-                <span className="landing-object__art landing-object__art--polaroid" aria-hidden="true">
-                  <span className="art-photo"><i /></span>
-                </span>
-              </div>
-              <div className="landing-object__bottom">
-                <div className="landing-object__name"><span className="landing-object__type"><CameraIcon size={15} aria-hidden="true" /> IN THE WORKSHOP</span><h3>Polaroid</h3><p>A moment slowly coming to life.</p></div>
-                <span className="landing-object__soon">PLANNED</span>
-              </div>
-            </article>
+            {objects.slice(0,3).map((object) => (
+              <ObjectCard key={object.id} object={object} featured />
+            ))}
           </div>
           <div className="landing-collection__foot">
-            <span>ALSO ON THE BENCH: STICKY NOTE, DESK LAMP &amp; MORE</span>
+            <span>STICKY NOTE AND OTHER OBJECTS ARE IN DEVELOPMENT</span>
             <Link href="/components">Explore the roadmap <ArrowUpRightIcon size={15} aria-hidden="true" /></Link>
           </div>
         </div>
@@ -193,9 +147,14 @@ export default function HomePage() {
             <span className="landing-eyebrow">04 / FOR DEVELOPERS</span>
             <h2 id="developer-title">Made for the<br />things you build.</h2>
             <p>Real React components with flexible content and thoughtful defaults. Take one apart, make it yours, and give your next project a little more character.</p>
-            <Link href="/components/envelope" className="landing-inline-link">
-              See how it works <ArrowUpRightIcon size={16} aria-hidden="true" />
-            </Link>
+            <div className="landing-developer__links">
+              <Link href="/docs/getting-started" className="landing-inline-link">
+                Read the documentation <ArrowUpRightIcon size={16} aria-hidden="true" />
+              </Link>
+              <Link href="/components/envelope" className="landing-inline-link landing-inline-link--muted">
+                Try an object <ArrowUpRightIcon size={16} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
           <div className="landing-code">
             <div className="landing-code__header">

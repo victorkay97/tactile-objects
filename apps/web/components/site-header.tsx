@@ -11,15 +11,20 @@ export function SiteHeader() {
         </Link>
         <nav className="header-nav" aria-label="Main navigation">
           <Link href="/components">Components</Link>
+          <Link href="/docs">Documentation</Link>
           <Link href="/about">About</Link>
-          <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer" aria-label="View GitHub repository">
             GitHub <GithubIcon size={15} aria-hidden="true" />
           </a>
         </nav>
-        <Link href="/components" className="header-action">
-          Browse objects <ArrowUpRightIcon size={16} aria-hidden="true" />
-        </Link>
+        <Link href="/components" className="header-action">Browse objects <ArrowUpRightIcon size={16} aria-hidden="true" /></Link>
       </div>
+      <nav className="header-mobile-nav" aria-label="Mobile navigation">
+        <Link href="/components">Components</Link>
+        <Link href="/docs">Docs</Link>
+        <Link href="/about">About</Link>
+        <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository"><GithubIcon size={16} aria-hidden="true" /></a>
+      </nav>
     </header>
   );
 }
