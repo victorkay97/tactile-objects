@@ -97,3 +97,17 @@ Reference explored: Isocons' isometric icon editor (https://www.isocons.app/). T
 - Package tests cover actual visual prop wiring for paper and seal, in addition to state, layering and sequence checks.
 - Static build guards confirm dotted canvas presence, functional toggle and actions, props wired into the preview, and code generation sourced from editing values.
 - Browser QA still required for paper composition, mobile clipping, controls, and clipboard behavior. Never equate a successful build with visual approval.
+
+## Envelope Studio craftsmanship refinement — late October 2026
+
+This iteration directly addresses issues found in the recorded browser review:
+
+- **Letter typography:** Newsreader is self-hosted with Next.js on the website, while the reusable React package falls back gracefully to Georgia. The body and heading are now larger, with an editorial signature rather than default system serif text. Archivo and Geist still drive the surrounding UI.
+- **Long letter handling:** real letter content remains intact. Open letter content is a labeled, keyboard-focusable scroll region; closed content is inert and removed from the tab order. The Studio shows a 160-character budget and clarifies that longer notes can scroll inside the paper. The package itself does not arbitrarily truncate arbitrary React children.
+- **Desktop composition:** the Envelope Studio overrides the standard docs max-width and occupies a larger stage with a slimmer docs sidebar.
+- **Inspector:** no nested scroll area; users scroll the page naturally. Controls receive more legible type sizes, whitespace, and grouping.
+- **Contextual previews:** editing content or paper finish reveals the open letter; toggling the wax seal returns to the closed flap, where the change is visible.
+- **Material details:** denser paper grain, subtle creases, folds, pocket seams and wax depth without adding unmotivated decoration.
+- **Regression gates:** source checks cover letter font registration, overflow handling, and inspector height; component tests cover focus/semantics and preservation of longer React children.
+
+Do not publish to production or merge the draft PR until rendered desktop/mobile QA confirms that lettering fits, focus/scroll interactions work, and the wider layout is balanced. The test environment cannot certify the visual quality of paper folds.
