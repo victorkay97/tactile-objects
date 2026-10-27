@@ -7,6 +7,7 @@ import { RevealOnScroll } from "../components/reveal-on-scroll";
 import "./globals.css";
 import "./platform.css";
 import "./tactile-refinements.css";
+import "./gallery-craft.css";
 import "@tactile/objects/styles.css";
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
