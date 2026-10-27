@@ -3,8 +3,10 @@ import type { ReactNode } from "react";
 import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
+import { RevealOnScroll } from "../components/reveal-on-scroll";
 import "./globals.css";
 import "./platform.css";
+import "./tactile-refinements.css";
 import "@tactile/objects/styles.css";
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
@@ -24,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={archivo.variable + " " + geist.variable + " " + geistMono.variable}>
         <SiteHeader />
+        <RevealOnScroll />
         {children}
         <SiteFooter />
       </body>
