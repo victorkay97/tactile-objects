@@ -75,4 +75,24 @@ assert(studioCSS.includes("grid-template-columns:minmax(0, 1.5fr) minmax(270px, 
 assert(studio.includes("maxLength={500}"), "Keep the improved 500-character editor allowance without changing the original layout");
 assert(objectCSS.includes('font-family: Georgia,"Times New Roman",serif'), "Restore reference typography in the letter");
 assert(objectCSS.includes('.to-envelope[data-state="open"] .to-envelope__message'), "Keep long-letter scrolling accessible without affecting the reference closed appearance");
-console.log("Reference Envelope Studio layout, live controls and accessibility checks passed.");
+const themeSwitcher = readFileSync(new URL("../components/theme-switcher.tsx", import.meta.url), "utf8");
+const themeInit = readFileSync(new URL("../lib/theme-script.ts", import.meta.url), "utf8");
+const themeCSS = readFileSync(new URL("../app/themes.css", import.meta.url), "utf8");
+const header = readFileSync(new URL("../components/site-header.tsx", import.meta.url), "utf8");
+assert(layout.includes('themeInitScript') && layout.includes('suppressHydrationWarning'), "Saved theme must be applied before hydration");
+assert(layout.includes('import "./themes.css"'), "Shared theme styles must load in the root layout");
+assert(header.includes("<ThemeSwitcher />"), "Appearance switcher must be globally available");
+for (const theme of ["light", "dark", "system"]) {
+  assert(themeSwitcher.includes('value: "' + theme + '"'), "Missing appearance option: " + theme);
+  assert(themeInit.includes('"' + theme + '"'), "Initial theme must recognize " + theme);
+}
+assert(themeSwitcher.includes('localStorage.setItem(key, value)'), "Appearance preference must persist");
+assert(themeSwitcher.includes('aria-expanded={open}') && themeSwitcher.includes('aria-pressed={preference === value}'), "Appearance controls need accessible state");
+assert(themeSwitcher.includes('addEventListener("storage"') && themeSwitcher.includes('media.addEventListener("change"'), "System and cross-tab preferences must stay in sync");
+assert(themeCSS.includes('html[data-theme="dark"] .workbench__canvas.has-dots'), "Dotted envelope canvas must adapt to dark mode");
+for (const selector of ['.landing-hero', '.object-showcase__info', '.story-page__manifesto', '.docs-site__card', '.workbench__inspector']) {
+  assert(themeCSS.includes('html[data-theme="dark"] ' + selector), "Dark theme is missing " + selector);
+}
+assert(!themeCSS.includes("filter: invert("), "Do not invert or recolor the real paper objects");
+assert(themeCSS.includes("--theme-surface:") && themeCSS.includes("--theme-line:"), "Shared appearance tokens must be defined");
+console.log("Reference studio, persistent system-aware theme, accessible switcher, multi-route palette and object materials checks passed.");
