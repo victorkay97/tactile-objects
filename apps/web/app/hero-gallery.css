@@ -1,0 +1,187 @@
+/*
+ * A workshop rather than a blank marketing hero. Deliberately no autoplay
+ * paper flight, infinite float, or side-decoration obstructing the copy.
+ */
+.landing-hero {
+  isolation:isolate;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 54% 44% at 50% 55%,rgba(218,212,253,.16),transparent 78%),
+    var(--site-canvas);
+}
+.landing-hero::before {
+  content:"";position:absolute;z-index:0;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(93,86,119,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(93,86,119,.055) 1px,transparent 1px);
+  background-size:51px 51px;
+  mask-image:radial-gradient(ellipse 76% 82% at center,black 8%,rgba(0,0,0,.6) 60%,transparent 96%);
+}
+.landing-hero::after {
+  content:"";pointer-events:none;z-index:0;position:absolute;
+  inset:0;background:radial-gradient(ellipse 42% 40% at 50% 37%,rgba(255,254,251,.79),transparent 95%);
+}
+.landing-hero__inner {position:relative;z-index:2;gap:0;padding-top:65px;padding-bottom:94px;}
+.landing-hero__signature {margin-top:19px;color:#8c8194;}
+.hero-shelf {width:min(680px,100%);margin-top:28px;text-align:left;}
+.hero-shelf__eyebrow {
+  display:flex;align-items:center;gap:9px;
+  font:590 9px/1.3 var(--site-code);
+  color:#9890a5;letter-spacing:.07em;margin:0 0 11px;
+}
+.hero-shelf__eyebrow>span:first-child {color:#786ce4;font-size:15px;}
+.hero-shelf__rule {flex:1;height:1px;background:linear-gradient(90deg,#d9d5e1,transparent);}
+.hero-shelf__objects {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;}
+.hero-shelf__object {
+  min-width:0;height:134px;display:flex;align-items:center;flex-direction:column;
+  position:relative;isolation:isolate;border:1px solid rgba(105,92,124,.17);
+  background:rgba(255,255,255,.7);border-radius:6px;
+  box-shadow:0 7px 21px rgba(67,53,83,.04);
+  backdrop-filter:blur(4px);
+  transition:transform 260ms cubic-bezier(.2,.75,.23,1),box-shadow 260ms ease,border-color 260ms ease;
+  overflow:hidden;
+}
+.hero-shelf__object:hover,.hero-shelf__object:focus-visible {
+  transform:translateY(-5px);
+  border-color:rgba(109,93,170,.46);
+  box-shadow:0 15px 26px rgba(64,49,82,.11);
+}
+.hero-shelf__drawing {
+  height:80px;width:100%;display:grid;place-items:center;flex:none;
+  position:relative;perspective:500px;
+  background:radial-gradient(ellipse at center,#faf9fd 10%,rgba(241,238,248,.53) 80%);
+}
+.hero-shelf__drawing::after {
+  content:"";width:78px;height:13px;position:absolute;top:62px;left:50%;transform:translateX(-50%);
+  background:rgba(71,53,67,.12);filter:blur(10px);border-radius:50%;
+}
+.hero-shelf__book {
+  z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;width:67px;height:74px;margin-top:4px;
+  background:linear-gradient(105deg,#719883,#b3cbb6 18%,#bcd4be 78%,#8eb39a);
+  border:1px solid #85aa8c;border-radius:2px 6px 7px 2px;
+  box-shadow:3px 8px 9px #3f644a29,inset 1px 1px #ffffff57;
+  transform:rotate(-12deg) rotateY(-15deg);
+  transition:transform 440ms cubic-bezier(.16,.83,.2,1);
+}
+.hero-shelf__book i {position:absolute;left:7px;top:0;bottom:0;border-left:2px solid #628c74;border-right:1px solid #effaf447;width:6px;}
+.hero-shelf__book strong {font:italic 600 14px/1 Georgia,serif;text-align:center;letter-spacing:-.06em;color:#4a745a;}
+.hero-shelf__book b {font:450 13px Georgia,serif;color:#4b775d;margin-top:5px;}
+.hero-shelf__object--journal:hover .hero-shelf__book {transform:rotate(-15deg) rotateY(-32deg) translateY(-4px);}
+.hero-shelf__photo {
+  z-index:1;display:flex;flex-direction:column;align-items:center;
+  width:63px;height:75px;padding:5px 5px 0;margin-top:4px;
+  background:linear-gradient(135deg,#fff,#f0ebe9);
+  border:1px solid rgba(81,60,62,.08);
+  box-shadow:3px 8px 9px #513c4131;
+  transform:rotate(12deg);
+  transition:transform 390ms cubic-bezier(.2,.75,.23,1);
+}
+.hero-shelf__photo>i {
+  position:relative;width:100%;height:56px;overflow:hidden;
+  display:block;background:linear-gradient(#c7d6d5 0%,#e8c5bb 62%,#b4b8a6);
+}
+.hero-shelf__photo i b {position:absolute;top:14px;right:15px;width:15px;height:15px;border-radius:50%;background:#f4dfb9;}
+.hero-shelf__photo i em {position:absolute;bottom:0;height:25px;left:0;right:0;background:#a2b3a4;clip-path:polygon(0 85%,23% 31%,49% 67%,71% 9%,100% 65%,100% 100%,0 100%);}
+.hero-shelf__photo i small {position:absolute;bottom:0;left:0;right:0;height:12px;background:#7b988a;}
+.hero-shelf__photo strong {font:italic 9px/1.15 Georgia,serif;color:#92827a;margin-top:3px;}
+.hero-shelf__object--polaroid:hover .hero-shelf__photo {transform:rotate(-2deg) translateY(-4px);}
+.hero-shelf__note {
+  z-index:1;width:80px;height:70px;position:relative;display:flex;align-items:center;
+  background:linear-gradient(130deg,#f4e7b5,#e9d79f);
+  box-shadow:3px 8px 10px #705d3829;
+  transform:rotate(9deg);transition:transform 390ms cubic-bezier(.2,.75,.23,1);
+}
+.hero-shelf__note strong {font:italic 13px/1.05 Georgia,serif;color:#896f3f;padding-left:13px;letter-spacing:-.035em;}
+.hero-shelf__note i {
+  position:absolute;right:0;bottom:0;width:18px;height:18px;
+  background:#fff7d8;clip-path:polygon(100% 0,100% 100%,0 100%);
+  box-shadow:-2px -2px 3px #8d754a24;
+}
+.hero-shelf__object--sticky:hover .hero-shelf__note {transform:rotate(-6deg) translateY(-5px);}
+.hero-shelf__detail {
+  min-width:0;display:flex;align-items:center;justify-content:space-between;gap:5px;
+  padding:10px 12px;width:100%;flex:1;border-top:1px solid rgba(85,72,98,.065);
+}
+.hero-shelf__detail>span {display:flex;flex-direction:column;min-width:0;}
+.hero-shelf__detail small {color:#938d9c;font:590 8px/1 var(--site-code);letter-spacing:.015em;}
+.hero-shelf__detail strong {color:#38323d;font:650 12px/1.2 var(--site-display);margin-top:4px;letter-spacing:-.02em;}
+.hero-shelf__detail em {display:none;}
+.hero-shelf__detail svg {color:#8274ba;flex:none;transition:transform 190ms;}
+.hero-shelf__object:hover .hero-shelf__detail svg {transform:translate(2px,-2px);}
+
+/* A subtle connective grid throughout the landing experience. */
+.landing-collection {position:relative;isolation:isolate;}
+.landing-collection::before {
+  content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0 49.95%,rgba(102,88,129,.035) 50%,transparent 50.05%),
+    repeating-linear-gradient(0deg,transparent 0 73px,rgba(100,85,116,.036) 73px 74px);
+  mask-image:linear-gradient(180deg,transparent,black 25%,black 75%,transparent);
+}
+.landing-intro__inner {position:relative;}
+.landing-intro__inner::after {content:"";position:absolute;left:0;bottom:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--landing-hairline),transparent);}
+.landing-principle {transition:transform 220ms ease,background 220ms ease;}
+.landing-principle:hover {transform:translateX(4px);}
+html[data-theme="dark"] .landing-hero {
+  background:radial-gradient(ellipse 54% 44% at 50% 55%,rgba(91,75,150,.17),transparent 78%),var(--site-canvas);
+}
+html[data-theme="dark"] .landing-hero::before {
+  background-image:linear-gradient(rgba(177,165,221,.09) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(177,165,221,.09) 1px,transparent 1px);
+}
+html[data-theme="dark"] .landing-hero::after {
+  background:radial-gradient(ellipse 45% 38% at 50% 33%,rgba(27,25,40,.61),transparent 90%);
+}
+html[data-theme="dark"] .hero-shelf__object {
+  background:rgba(37,35,49,.75);border-color:rgba(168,149,215,.27);
+}
+html[data-theme="dark"] .hero-shelf__object:hover {border-color:#8b7db7;box-shadow:0 16px 29px rgba(0,0,0,.19);}
+html[data-theme="dark"] .hero-shelf__drawing {
+  background:radial-gradient(ellipse at center,rgba(66,57,85,.57),rgba(35,33,46,.45));
+}
+html[data-theme="dark"] .hero-shelf__detail {border-color:rgba(191,175,220,.1);}
+html[data-theme="dark"] .hero-shelf__detail strong {color:#f3eefa;}
+html[data-theme="dark"] .hero-shelf__detail small {color:#b3a8c5;}
+html[data-theme="dark"] .hero-shelf__detail svg {color:#b8a8f3;}
+html[data-theme="dark"] .hero-shelf__rule {background:linear-gradient(90deg,#554b6f,transparent);}
+html[data-theme="dark"] .hero-shelf__eyebrow {color:#b2a9c1;}
+html[data-theme="dark"] .landing-collection::before {
+  background:linear-gradient(90deg,transparent 0 49.95%,rgba(180,158,222,.045) 50%,transparent 50.05%),
+    repeating-linear-gradient(0deg,transparent 0 73px,rgba(180,158,222,.045) 73px 74px);
+}
+@keyframes hero-shelf-enter {from{opacity:0;transform:translateY(19px);}to{opacity:1;transform:translateY(0);}}
+@keyframes hero-copy-enter {from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@media(prefers-reduced-motion:no-preference) {
+  .landing-hero__eyebrow,.landing-hero__headline-line,.landing-hero__lede,
+  .landing-hero__actions,.landing-hero__signature {animation:hero-copy-enter 660ms cubic-bezier(.2,.79,.24,1) both;}
+  .landing-hero__eyebrow {animation-delay:50ms;}
+  .landing-hero__headline-line:first-child {animation-delay:135ms;}
+  .landing-hero__headline-line:nth-child(2) {animation-delay:210ms;}
+  .landing-hero__lede {animation-delay:310ms;}
+  .landing-hero__actions {animation-delay:390ms;}
+  .landing-hero__signature {animation-delay:475ms;}
+  .hero-shelf {animation:hero-shelf-enter 780ms cubic-bezier(.2,.79,.24,1) .55s both;}
+}
+@media(max-width:750px) {
+  .landing-hero__inner {padding-top:62px;padding-bottom:103px;}
+  .hero-shelf {max-width:590px;}
+  .hero-shelf__objects {gap:7px;}
+  .hero-shelf__detail {padding:10px 8px;}
+}
+@media(max-width:530px) {
+  .landing-hero__inner {padding-top:55px;padding-bottom:98px;}
+  .hero-shelf {margin-top:24px;}
+  .hero-shelf__object {height:116px;}
+  .hero-shelf__drawing {height:72px;}
+  .hero-shelf__detail small {font-size:7px;}
+  .hero-shelf__detail strong {font-size:11px;}
+  .hero-shelf__detail svg {width:14px;}
+  .hero-shelf__book {transform:rotate(-12deg) rotateY(-15deg) scale(.82);}
+  .hero-shelf__photo {transform:rotate(12deg) scale(.84);}
+  .hero-shelf__note {transform:rotate(9deg) scale(.84);}
+  .hero-shelf__eyebrow {font-size:8px;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .hero-shelf,.hero-shelf__object,.hero-shelf__book,.hero-shelf__photo,
+  .hero-shelf__note,.hero-shelf__detail svg,
+  .landing-hero__eyebrow,.landing-hero__headline-line,.landing-hero__lede,
+  .landing-hero__actions,.landing-hero__signature {animation:none!important;transition:none!important;}
+}
