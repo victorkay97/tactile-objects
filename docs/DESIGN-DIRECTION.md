@@ -46,3 +46,16 @@ Do not merge to main or promote preview to production before:
 7. Component interactions are checked on keyboard, touch, pointer and reduced-motion settings.
 
 The flagship Envelope remains its own quality workstream; these changes improve the surrounding product without claiming to have solved paper physics.
+
+## Motion direction — ambient, not ornamental
+
+The website must communicate that Tactile Objects responds and moves, without turning the homepage into a carnival or placing an unfinished flagship object in the hero.
+
+- **Hero:** one hand-crafted SVG origami paper plane follows a slow, intermittent path across the upper third of the stage. Two small paper artifacts drift at the margins on wider screens. Content remains centered, legible and visually above the motion. No envelope illustration, video hero or large product clutter.
+- **Scrolling:** one-time, small-distance reveals for major content groups. Animation is progressive enhancement: HTML is visible by default; IntersectionObserver only primes elements that are genuinely below the fold.
+- **Object cards:** subtle responsive hover and keyboard-focus treatments, object lift and material-light changes. Avoid constant looping motion on every card.
+- **Interface affordances:** MingCute SVG icons and restrained directional micro-movement in navigation actions.
+- **Respect users:** `prefers-reduced-motion: reduce` eliminates continuous loops and entrance effects. The plane sits unobtrusively rather than flying. Decorative nodes are `aria-hidden` and never block pointer input.
+- **Performance:** animate mostly transforms and opacity. Avoid scroll handlers, animation frameworks and large imagery until there is a clear reason.
+
+Build and review the motion on mobile and desktop. A successful build validates the implementation, not its final visual quality. Preview is review-only until user approval.

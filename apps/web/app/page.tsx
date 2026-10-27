@@ -10,8 +10,9 @@ import {
 } from "../components/ui/icons";
 import { ObjectCard } from "../components/object-card";
 import { objects } from "../lib/objects";
+import { AmbientPaperScene } from "../components/ambient-paper-scene";
+import { RevealOnScroll } from "../components/reveal-on-scroll";
 import "./landing.css";
-import "./motion.css";
 
 const example = [
   'import { Envelope } from "@tactile/objects";',
@@ -30,14 +31,9 @@ const example = [
 export default function HomePage() {
   return (
     <main className="landing">
+      <RevealOnScroll />
       <section className="landing-hero" aria-labelledby="landing-title">
-        <div className="hero-atmosphere" aria-hidden="true">
-          <div className="hero-flight"><div className="hero-plane"><span className="hero-plane__left" /><span className="hero-plane__right" /><span className="hero-plane__fold" /></div></div>
-          <div className="hero-paper hero-paper--left"><span /><span /><span /></div>
-          <div className="hero-paper hero-paper--right"><span /><span /></div>
-          <span className="hero-spark hero-spark--one">✧</span>
-          <span className="hero-spark hero-spark--two">✧</span>
-        </div>
+        <AmbientPaperScene />
         <div className="layout-container landing-hero__inner">
           <div className="landing-hero__eyebrow">
             <span className="landing-live-dot" aria-hidden="true" />
@@ -79,7 +75,7 @@ export default function HomePage() {
       </section>
 
       <section className="landing-intro" aria-labelledby="intro-heading">
-        <div className="layout-container landing-intro__inner">
+        <div className="layout-container landing-intro__inner" data-motion-reveal>
           <span className="landing-eyebrow">01 / THE IDEA</span>
           <div className="landing-intro__content">
             <h2 id="intro-heading">
@@ -97,7 +93,7 @@ export default function HomePage() {
 
       <section className="landing-collection" id="collection" aria-labelledby="collection-title">
         <div className="layout-container">
-          <div className="landing-section-heading">
+          <div className="landing-section-heading" data-motion-reveal>
             <div>
               <span className="landing-eyebrow">02 / OBJECT LIBRARY</span>
               <h2 id="collection-title">The collection<span className="landing-dot">.</span></h2>
@@ -110,12 +106,12 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="landing-grid">
+          <div className="landing-grid" data-motion-reveal>
             {objects.slice(0,3).map((object) => (
               <ObjectCard key={object.id} object={object} featured />
             ))}
           </div>
-          <div className="landing-collection__foot">
+          <div className="landing-collection__foot" data-motion-reveal>
             <span>STICKY NOTE AND OTHER OBJECTS ARE IN DEVELOPMENT</span>
             <Link href="/components">Explore the roadmap <ArrowUpRightIcon size={15} aria-hidden="true" /></Link>
           </div>
@@ -124,12 +120,12 @@ export default function HomePage() {
 
       <section className="landing-principles" aria-labelledby="principles-title">
         <div className="layout-container landing-principles__inner">
-          <div className="landing-principles__intro">
+          <div className="landing-principles__intro" data-motion-reveal>
             <span className="landing-eyebrow">03 / OUR APPROACH</span>
             <h2 id="principles-title">Made to be<br /><em>interacted with.</em></h2>
             <p>Less decorative motion. More thoughtful, tactile experiences that earn their place on the screen.</p>
           </div>
-          <div className="landing-principles__list">
+          <div className="landing-principles__list" data-motion-reveal>
             <div className="landing-principle">
               <span className="landing-principle__icon"><CursorIcon size={20} aria-hidden="true" /></span>
               <div><h3>Interaction first</h3><p>Objects respond to input, not just an animation timer.</p></div>
@@ -151,7 +147,7 @@ export default function HomePage() {
 
       <section className="landing-developer" aria-labelledby="developer-title">
         <div className="layout-container landing-developer__inner">
-          <div className="landing-developer__intro">
+          <div className="landing-developer__intro" data-motion-reveal>
             <span className="landing-eyebrow">04 / FOR DEVELOPERS</span>
             <h2 id="developer-title">Made for the<br />things you build.</h2>
             <p>Real React components with flexible content and thoughtful defaults. Take one apart, make it yours, and give your next project a little more character.</p>
@@ -164,7 +160,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="landing-code">
+          <div className="landing-code" data-motion-reveal>
             <div className="landing-code__header">
               <div className="landing-code__filename"><CodeIcon size={16} aria-hidden="true" /> example.tsx</div>
               <span>REACT / TYPESCRIPT</span>
@@ -176,7 +172,7 @@ export default function HomePage() {
       </section>
 
       <section className="landing-end">
-        <div className="layout-container landing-end__inner">
+        <div className="layout-container landing-end__inner" data-motion-reveal>
           <div><span className="landing-eyebrow">THE COLLECTION IS JUST BEGINNING</span><h2>A more <em>tactile</em> web starts here.</h2></div>
           <Link href="/components" className="landing-btn landing-btn--light">See the objects <ArrowRightIcon size={17} aria-hidden="true" /></Link>
         </div>

@@ -29,4 +29,11 @@ assert(home.includes("<ObjectCard"), "Homepage must reuse the shared object card
 for(const path of ["../app/docs/page.tsx","../app/docs/getting-started/page.tsx","../app/docs/accessibility/page.tsx","../app/docs/design-principles/page.tsx"]){
   assert(readFileSync(new URL(path, import.meta.url), "utf8").length > 100, "Missing documentation content: " + path);
 }
-console.log("Typography, viewport hero, shared cards, documentation and icon guards passed.");
+const ambient = readFileSync(new URL("../components/ambient-paper-scene.tsx", import.meta.url), "utf8");
+const reveal = readFileSync(new URL("../components/reveal-on-scroll.tsx", import.meta.url), "utf8");
+assert(home.includes("<AmbientPaperScene />"), "Hero is missing its ambient paper choreography");
+assert(ambient.includes('aria-hidden="true"'), "Decorative paper flight should stay out of accessibility tree");
+assert(landingCSS.includes("@keyframes to-paper-flight"), "Paper-plane animation must exist");
+assert(landingCSS.includes("prefers-reduced-motion: reduce"), "Motion must respect reduced motion preferences");
+assert(reveal.includes("IntersectionObserver") && reveal.includes("prefers-reduced-motion"), "Scroll reveals must be progressive and motion-aware");
+console.log("Typography, viewport hero, icons, ambient animation and docs guards passed.");

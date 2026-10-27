@@ -305,3 +305,26 @@ a.object-showcase:hover .object-showcase__action svg { transform: translate(2px,
   .object-showcase__sticky,
   .object-showcase__action svg { transition: none !important; }
 }
+
+/* Extra visual feedback across the wider library — quiet, purposeful, optional. */
+.header-nav a svg,
+.header-action svg,
+.platform-button svg,
+.platform-text-link svg,
+.collection-page__footnote a svg,
+.docs-site__next a svg {
+  transition: transform 210ms cubic-bezier(.2,.7,.2,1);
+}
+.header-nav a:hover svg,
+.header-action:hover svg,
+.platform-button:hover svg,
+.platform-text-link:hover svg,
+.collection-page__footnote a:hover svg,
+.docs-site__next a:hover svg { transform: translate(2px,-2px); }
+.object-showcase__media { transition: background-color 360ms ease; }
+.object-showcase:where(:hover,:focus-visible) .object-showcase__light { opacity: .8; transform: translateY(0px) scale(1.08); }
+.object-showcase__light { transition: opacity 400ms ease,transform 400ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .header-nav a svg,.header-action svg,.platform-button svg,.platform-text-link svg,.collection-page__footnote a svg,.docs-site__next a svg,
+  .object-showcase__light,.object-showcase__media { transition: none !important; }
+}
