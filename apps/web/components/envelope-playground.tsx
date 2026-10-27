@@ -106,6 +106,13 @@ export function EnvelopePlayground() {
   function change<K extends keyof Config>(key: K, value: Config[K]) {
     setSettings(previous => ({ ...previous, [key]: value }));
     setPreset("custom");
+    // Reveal what changed: paper and letter details live inside the note,
+    // while the seal is visible on the envelope's closed flap.
+    if (key === "paper" || key === "heading" || key === "message" || key === "sender") {
+      setOpen(true);
+    } else if (key === "seal") {
+      setOpen(false);
+    }
   }
 
   function applyPreset(id: Exclude<Preset, "custom">) {
@@ -263,10 +270,16 @@ export function EnvelopePlayground() {
                 <span className="workbench__group-title">Write a little note</span>
                 <label className="workbench__field">Recipient<input maxLength={45} value={settings.recipient} onChange={event => change("recipient", event.target.value)} /></label>
                 <label className="workbench__field">Letter heading<input maxLength={60} value={settings.heading} onChange={event => change("heading", event.target.value)} /></label>
-                <label className="workbench__field">Message<textarea maxLength={160} rows={2} value={settings.message} onChange={event => change("message", event.target.value)} /></label>
+                <label className="workbench__field">Message
+                  <textarea id="envelope-message" maxLength={160} rows={3} aria-describedby="envelope-message-help" value={settings.message} onChange={event => change("message", event.target.value)} />
+                  <span className="workbench__field-help" id="envelope-message-help">
+                    <span>Longer notes scroll inside the open letter.</span>
+                    <span className="workbench__character-count">{settings.message.length}/160</span>
+                  </span>
+                </label>
                 <label className="workbench__field">Signature<input maxLength={45} value={settings.sender} onChange={event => change("sender", event.target.value)} /></label>
               </div>
-              <p className="workbench__inspector-foot"><SparklesIcon size={15} aria-hidden="true" /> Settings update the real component and React code.</p>
+              <p className="workbench__inspector-foot"><SparklesIcon size={15} aria-hidden="true" /> Letter edits reveal the note; seal changes show the closed flap. Code stays in sync.</p>
             </aside>
           </div>
         ) : view === "code" ? (
