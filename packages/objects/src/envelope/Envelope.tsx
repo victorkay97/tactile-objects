@@ -28,7 +28,8 @@ export interface EnvelopeProps {
  * An interactive paper envelope with a folding flap and extractable note.
  * Import "@tactile/objects/styles.css" once in the consuming application.
  *
- * Version 0.1 is a stylized interaction, not a real paper physics simulation.
+ * The flap completes its fold before the letter is extracted; closing reverses
+ * that order. This is a stylized paper interaction, not a full physics engine.
  */
 export function Envelope({
   children,
@@ -130,9 +131,13 @@ export function Envelope({
       </div>
 
       <p className="to-envelope__instruction" aria-live="polite">
-        <span className="to-envelope__instruction-icon" aria-hidden="true">
-          {isOpen ? "↶" : "↗"}
-        </span>
+        <svg className="to-envelope__instruction-icon" aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          {isOpen ? (
+            <><path d="M9 5 4 10l5 5" /><path d="M4 10h10a6 6 0 0 1 0 12" /></>
+          ) : (
+            <><path d="M7 17 17 7" /><path d="M8 7h9v9" /></>
+          )}
+        </svg>
         {isOpen ? "Click the envelope to close" : "Click the envelope to open"}
       </p>
     </div>
