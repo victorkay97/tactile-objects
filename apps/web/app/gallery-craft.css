@@ -1,0 +1,118 @@
+/* Gallery craftsmanship: an actual envelope preview and three different physical
+   composition systems, rather than identical flat silhouettes. */
+
+.object-showcase { isolation: isolate; }
+.object-showcase__media { background-image: radial-gradient(circle at 50% 45%,rgba(255,255,255,.48),transparent 64%); }
+.object-showcase__live-envelope {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 14px;
+  width: 410px;
+  transform: translateX(-50%) scale(.53);
+  transform-origin: top center;
+}
+.object-showcase__live-envelope .to-envelope { width: 410px; }
+.object-showcase__live-envelope .to-envelope__scene { height: 459px; }
+.object-showcase__live-envelope .to-envelope__object { width: 380px; }
+.object-showcase__live-envelope .to-envelope__instruction { margin: 3px 0 0; font-size: 11px; color: #7f6757; }
+.object-showcase__live-envelope .to-envelope__paper { padding: 17px 19px 15px; }
+.object-showcase__live-envelope .to-envelope__message h3 { font-size: 20px; }
+.object-showcase__live-envelope .to-envelope__trigger { outline-offset: 6px; }
+.object-showcase__media:has(.object-showcase__live-envelope) { overflow: hidden; }
+.object-showcase__media:has(.object-showcase__live-envelope)::after { pointer-events:none; }
+
+/* Visitors should discover two different actions: play with the envelope here,
+   or use the arrow/link below to inspect the actual React component. */
+.object-showcase--available .object-showcase__info a {
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+.object-showcase--available .object-showcase__info h3 a:hover { color: #564bc1; }
+.object-showcase--available .object-showcase__action:hover { background: #edeafb; transform: translate(2px,-2px); }
+.object-showcase--available .object-showcase__action:focus-visible { outline: 2px solid #6259ce; outline-offset: 3px; }
+.object-showcase--available .object-showcase__meta .is-live { color: #3c7455; }
+.object-showcase--available .object-showcase__visual-caption { color: #987b64; }
+
+/* Journal — not just a colored block: visible folio behind the binding. */
+.object-showcase__journal-underpage {
+  position: absolute;
+  width: 134px; height: 170px;
+  transform: rotate(-4deg) translate(10px,6px);
+  border-radius: 3px 10px 10px 2px;
+  background: repeating-linear-gradient(0deg,#f5f4ea 0 3px,#e3e6d9 4px 5px);
+  border: 1px solid #d3d8c9;
+  box-shadow: 6px 10px 15px rgba(52,72,51,.10);
+}
+.object-showcase__journal::before {
+  content: ""; position:absolute; left: 27px; right: 8px; top: 9px; bottom: 9px;
+  border: 1px solid rgba(235,248,229,.35);
+  border-radius: 1px 7px 7px 1px;
+}
+.object-showcase__journal-emboss {
+  position: absolute; left: 34px; bottom: 28px;
+  font: 640 7px/1.1 var(--site-code,monospace);
+  letter-spacing: .18em; color: rgba(52,95,63,.48);
+  text-shadow: 0 1px 0 rgba(255,255,255,.25);
+}
+.object-showcase__scene--journal { transform: translateY(-4px); }
+
+/* Polaroid — two overlapping prints with a caption on the upper print. */
+.object-showcase__polaroid-back {
+  position: absolute; width: 139px; height: 168px;
+  transform: rotate(-11deg) translate(-17px,10px);
+  padding: 11px 11px 38px;
+  background: linear-gradient(#faf9f5,#f5f2ed);
+  border: 1px solid rgba(58,52,79,.08);
+  box-shadow: 8px 13px 13px rgba(58,52,79,.1);
+}
+.object-showcase__polaroid-back::before {
+  content: ""; display:block; width: 100%; height: 100%;
+  background: linear-gradient(150deg,#c8cbd0 0%,#b7c7c4 55%,#e4cbbb 56%,#b2b8aa);
+}
+.object-showcase__polaroid-date {
+  position: absolute; bottom: 14px; left: 13px;
+  color: #a09b9a; font: 500 7px/1.3 var(--site-code,monospace); letter-spacing:.025em;
+}
+.object-showcase__scene--polaroid { transform: translate(5px,-2px); }
+
+/* Sticky note — actual handwriting, only a roadmap specimen. */
+.object-showcase__sticky strong {
+  position:absolute; top: 54px; left: 20px; right: 14px;
+  font: italic 17px/1.21 Georgia,serif;
+  color: rgba(125,99,50,.78);
+  letter-spacing:-.04em;
+  font-weight: 400;
+}
+
+/* Curated, editorial composition rather than three perfectly cloned card poses. */
+.landing-grid { grid-template-columns: minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr); gap: 16px; }
+.landing-grid .object-showcase--available .object-showcase__media { background: radial-gradient(circle at 53% 44%,#f8f3ea,#e9dfd4); }
+.landing-grid .object-showcase--botanical .object-showcase__media { background: radial-gradient(circle at 55% 43%,#edf6ed,#dfeae2); }
+.landing-grid .object-showcase--lilac .object-showcase__media { background: radial-gradient(circle at 55% 43%,#f4f2f6,#e4e4ef); }
+.object-showcase__info { border-top:1px solid rgba(61,53,61,.055); }
+.object-showcase__info h3 { font-size: clamp(19px,1.9vw,24px); }
+.object-showcase__visual-caption { letter-spacing: .025em; font-weight: 600; opacity:.7; }
+
+/* Use focus-within rather than hover alone for documentation discoverability. */
+.object-showcase:focus-within { border-color:#bbb5cd; box-shadow:0 8px 28px rgba(37,31,46,.06); }
+.object-showcase--available:hover { border-color:#cfc4c2; box-shadow:0 9px 32px rgba(37,31,46,.05); }
+
+/* Keep the actual interactive object comfortably reachable on tablets/mobile. */
+@media(max-width:950px) {
+  .landing-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .object-showcase__live-envelope { transform: translateX(-50%) scale(.5); top:17px; }
+}
+@media(max-width:700px) {
+  .landing-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .object-showcase__live-envelope { transform:translateX(-50%) scale(.48); top: 21px; }
+  .object-showcase__journal-underpage { transform:rotate(-4deg) translate(8px,6px); }
+}
+@media(max-width:480px) {
+  .landing-grid { grid-template-columns:1fr; }
+  .object-showcase__live-envelope { transform:translateX(-50%) scale(.52); top:19px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .object-showcase__info a, .object-showcase__live-envelope .to-envelope {
+    transition:none!important;
+  }
+}
