@@ -119,3 +119,19 @@ The user specifically rejected the later wide, compacted, grouped-editor reinter
 - The source-based visual comparison is exact for the page-level styling, but a final rendered desktop/mobile side-by-side browser check is still recommended.
 - Automated tests and preview builds remain mandatory.
 - Keep production and `main` unchanged until user approval.
+
+## Website appearance — light, dark and system (October 2026)
+
+The website has a global, accessible appearance selector in the shared header. These guidelines apply to all product pages and documentation.
+
+- **Light** preserves the approved original layout, colour treatments and the previously approved Envelope Studio proportions.
+- **Dark** is an independently art-directed deep-charcoal palette with lavender accents, not a CSS inversion filter. Surfaces, cards, controls, text, buttons, borders, documentation, dotted preview and the surrounding workshop chrome all adapt.
+- **System** follows the OS `prefers-color-scheme` setting, including live device preference changes.
+- The chosen preference is stored under `tactile-objects:theme` in localStorage. A small script in the root HTML head applies the resolved theme before React hydration to avoid a light/dark flash. Blocking storage must not break the selector. `storage` events sync changes between tabs.
+- The popover uses MingCute Sun, Moon, Computer and Check icons. It is keyboard and pointer accessible, uses `aria-pressed` and `aria-expanded`, closes with Escape/outside click, and returns focus to the trigger on selection.
+- **Object material independence:** wax, paper, envelope, journal, Polaroid and draggable stationery keep their own physical material colours when the surrounding website switches themes. The dotted `workbench__canvas` adjusts dot and background contrast but does not recolour the actual Envelope.
+- The theme system is contained in `apps/web/app/themes.css` (dark selectors and shared tokens) plus `apps/web/components/theme-switcher.tsx` and `apps/web/lib/theme-script.ts`. Avoid adding per-component inversion filters.
+- Avoid introducing layout changes in a theme refinement. The preferred Envelope Studio is still anchored to commit `b980a3c`.
+- **Acceptance:** verify home, catalog, About, docs and Envelope Studio in both modes; keyboard operation; persistence after reload; OS changes in System mode; responsiveness at 390px; reduced-motion preference. Build guards are useful but are not a substitute for real browser QA.
+
+This milestone deliberately does not change the public Envelope props or add new component physics. Envelope craftsmanship remains the next focused workstream after the visual theme review.
