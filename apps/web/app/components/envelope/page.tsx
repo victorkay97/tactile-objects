@@ -1,10 +1,11 @@
+import "./workbench.css";
 import { ArrowUpRightIcon, ArrowLeftIcon, MailIcon, BookIcon, PaperIcon, CameraIcon, SparklesIcon } from "../../../components/ui/icons";
 import Link from "next/link";
 import { EnvelopePlayground } from "../../../components/envelope-playground";
 
 export const metadata = {
   title: "Envelope — Interactive React Object",
-  description: "Explore the interactive envelope, customize its material, view its API and copy React code.",
+  description: "An interactive envelope studio: try the object, change real component properties, and copy React code.",
 };
 
 export default function EnvelopePage() {
@@ -27,9 +28,9 @@ export default function EnvelopePage() {
         </aside>
         <div className="docs-main">
           <nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><Link href="/components">Components</Link><span>/</span><b>Envelope</b></nav>
-          <div className="docs-heading" id="playground"><div><span className="section-label">OBJECT 001 / PAPER</span><h1>The Envelope<span>.</span></h1><p>A little note worth opening. An interactive paper object with a folding flap, emerging letter, and material colourways.</p></div><a className="docs-source-link" href="https://github.com/victorkay97/tactile-objects/blob/feat/foundation-and-envelope-prototype/packages/objects/src/envelope/Envelope.tsx" target="_blank" rel="noopener noreferrer">View source <ArrowUpRightIcon size={15} aria-hidden="true" /></a></div>
+          <div className="docs-heading" id="playground"><div><span className="section-label">OBJECT 001 / PAPER COLLECTION</span><h1>Envelope<span>.</span></h1><p>Open a little note. Change the paper, colour, seal and message. Every adjustment is reflected in the live React component.</p></div><a className="docs-source-link" href="https://github.com/victorkay97/tactile-objects/blob/feat/foundation-and-envelope-prototype/packages/objects/src/envelope/Envelope.tsx" target="_blank" rel="noopener noreferrer">View source <ArrowUpRightIcon size={15} aria-hidden="true" /></a></div>
           <EnvelopePlayground />
-          <section className="docs-design-notes" id="philosophy"><span className="section-label">DESIGN NOTES</span><h2>Deliberately tactile.</h2><div className="docs-design-grid"><div><h3>Physical layers</h3><p>The envelope uses overlapping surfaces, a folding flap and a paper note to suggest depth.</p></div><div><h3>Thoughtful interaction</h3><p>Mouse, touch and keyboard can open and close the note. Reduced-motion preferences are respected.</p></div></div></section>
+          <section className="docs-design-notes" id="philosophy"><span className="section-label">DESIGN NOTES</span><h2>Deliberately tactile.</h2><div className="docs-design-grid"><div><h3>Layered materials</h3><p>The front pocket, note, flap and wax seal are composed as separate physical layers.</p></div><div><h3>A real component</h3><p>The preview uses the same typed React component as the library. You can customize it without learning a separate editor-only API.</p></div></div></section>
           <div className="docs-bottom-nav"><Link href="/components"><ArrowLeftIcon size={16} aria-hidden="true" /> All objects</Link><Link href="/about">Our philosophy <ArrowUpRightIcon size={16} aria-hidden="true" /></Link></div>
         </div>
       </div>
