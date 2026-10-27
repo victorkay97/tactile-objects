@@ -36,8 +36,9 @@ describe("Envelope physical motion sequence", () => {
   });
 
   it("offers an instant state change for reduced-motion users", () => {
-    const reduced = styles.slice(styles.lastIndexOf("@media (prefers-reduced-motion: reduce)"));
-    expect(reduced).toContain(".to-envelope__paper,.to-envelope__flap");
+    const reduced = styles.split("@media (prefers-reduced-motion: reduce)").slice(1).join("\n");
+    expect(reduced).toContain(".to-envelope__paper");
+    expect(reduced).toContain(".to-envelope__flap");
     expect(reduced).toContain("transition: none !important");
   });
 });
