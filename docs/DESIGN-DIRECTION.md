@@ -98,30 +98,24 @@ Reference explored: Isocons' isometric icon editor (https://www.isocons.app/). T
 - Static build guards confirm dotted canvas presence, functional toggle and actions, props wired into the preview, and code generation sourced from editing values.
 - Browser QA still required for paper composition, mobile clipping, controls, and clipboard behavior. Never equate a successful build with visual approval.
 
-## Envelope Studio craftsmanship refinement — late October 2026
+## Approved visual reference — Envelope Studio
 
-This iteration directly addresses issues found in the recorded browser review:
+**Latest decision (October 27, 2026):** the preferred visual reference is the deployed studio at
+`https://tactile-objects-cjuzp2ugg-vkalu2266-3185s-projects.vercel.app/components/envelope`,
+from Git commit `b980a3c70aad8823f6a7cd20537b216a368ce26f`.
 
-- **Letter typography:** Newsreader is self-hosted with Next.js on the website, while the reusable React package falls back gracefully to Georgia. The body and heading are now larger, with an editorial signature rather than default system serif text. Archivo and Geist still drive the surrounding UI.
-- **Long letter handling:** real letter content remains intact. Open letter content is a labeled, keyboard-focusable scroll region; closed content is inert and removed from the tab order. The Studio shows a 160-character budget and clarifies that longer notes can scroll inside the paper. The package itself does not arbitrarily truncate arbitrary React children.
-- **Desktop composition:** the Envelope Studio overrides the standard docs max-width and occupies a larger stage with a slimmer docs sidebar.
-- **Inspector:** no nested scroll area; users scroll the page naturally. Controls receive more legible type sizes, whitespace, and grouping.
-- **Contextual previews:** editing content or paper finish reveals the open letter; toggling the wax seal returns to the closed flap, where the change is visible.
-- **Material details:** denser paper grain, subtle creases, folds, pocket seams and wax depth without adding unmotivated decoration.
-- **Regression gates:** source checks cover letter font registration, overflow handling, and inspector height; component tests cover focus/semantics and preservation of longer React children.
+The user specifically rejected the later wide, compacted, grouped-editor reinterpretations. Do **not** redesign or approximate this layout.
 
-Do not publish to production or merge the draft PR until rendered desktop/mobile QA confirms that lettering fits, focus/scroll interactions work, and the wider layout is balanced. The test environment cannot certify the visual quality of paper folds.
+### Required fidelity
+- `apps/web/app/components/envelope/workbench.css` is restored **byte-for-byte** from the preferred reference commit.
+- `apps/web/components/envelope-playground.tsx` uses the original markup and control order; the textarea alone retains an increased `maxLength={500}` rather than the reference's 160.
+- The root font layout is restored to Archivo, Geist and Geist Mono as in the reference.
+- The library's paper/ink material CSS is restored from the reference. Only narrow **open-state** scrolling rules remain appended to preserve access to longer note content, without altering the closed envelope appearance.
+- The workbench's preview, presets, colours, dotted canvas, inspector and code/props tabs must keep the same dimensions, gaps and arrangement as the linked example.
+- Do not introduce a 1,536px page-only container, a fixed 555px preview or paired controls. The original inspector deliberately has its own bounded scroll.
+- Future material or content enhancements must not modify the approved studio proportions without explicit user approval.
 
-## Studio proportion correction — October 27, 2026
-
-The latest recorded feedback showed that the 1,536px one-off Envelope page container caused misalignment with the main navigation and made the preview canvas unnecessarily large.
-
-- **One site container:** The Envelope page now relies on the same `.layout-container` used by the site header (max 1,256px, with the same responsive gutters). No extra-wide page-specific width.
-- **Compact internal grid:** desktop documentation sidebar 190px with 32px gap; primary workbench limited to a balanced 1,000px. Breakpoints narrow the sidebar and stack the preview/inspector only when there is insufficient width.
-- **Intentional canvas height:** 555px on desktop, adapting to 535px, 505px, and 472px at narrower widths. The stage does not stretch to match the complete inspector height.
-- **Natural scrolling:** inspector remains in document flow. Remove the original nested overflow rule, rather than just masking it with later overrides.
-- **Keep what worked:** dotted canvas, presets, real controls, Newsreader letter typography, live code and Docs/Props views, real envelope materials and accessible open-letter scrolling.
-- **Longer messages:** the studio now allows 500 characters (up from 160) and displays an explicit scroll hint for longer open notes. The reusable library component itself does not truncate React children.
-- **Guardrails:** build checks reject returning to a 1,536px container, an inspector-specific scrollbar or the 160-character restriction.
-
-This is a focused layout correction, not a new product redesign. Visual QA on real desktop/mobile viewports remains required before promoting the preview to production.
+### Release and acceptance
+- The source-based visual comparison is exact for the page-level styling, but a final rendered desktop/mobile side-by-side browser check is still recommended.
+- Automated tests and preview builds remain mandatory.
+- Keep production and `main` unchanged until user approval.
