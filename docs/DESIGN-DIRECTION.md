@@ -47,15 +47,23 @@ Do not merge to main or promote preview to production before:
 
 The flagship Envelope remains its own quality workstream; these changes improve the surrounding product without claiming to have solved paper physics.
 
-## Motion direction — ambient, not ornamental
+## Motion direction — interaction, not autoplay
 
-The website must communicate that Tactile Objects responds and moves, without turning the homepage into a carnival or placing an unfinished flagship object in the hero.
+The site should feel alive when it loads and respond to people without becoming a looping screensaver.
 
-- **Hero:** one hand-crafted SVG origami paper plane follows a slow, intermittent path across the upper third of the stage. Two small paper artifacts drift at the margins on wider screens. Content remains centered, legible and visually above the motion. No envelope illustration, video hero or large product clutter.
-- **Scrolling:** one-time, small-distance reveals for major content groups. Animation is progressive enhancement: HTML is visible by default; IntersectionObserver only primes elements that are genuinely below the fold.
-- **Object cards:** subtle responsive hover and keyboard-focus treatments, object lift and material-light changes. Avoid constant looping motion on every card.
-- **Interface affordances:** MingCute SVG icons and restrained directional micro-movement in navigation actions.
-- **Respect users:** `prefers-reduced-motion: reduce` eliminates continuous loops and entrance effects. The plane sits unobtrusively rather than flying. Decorative nodes are `aria-hidden` and never block pointer input.
-- **Performance:** animate mostly transforms and opacity. Avoid scroll handlers, animation frameworks and large imagery until there is a clear reason.
+- **Hero:** a quiet, centered editorial message and just two tactile paper details at the outer edges. No paper plane, no rotating carousel of objects, and no envelope implying the library only makes envelopes.
+- **Entrance:** a one-time staggered fade/up reveal for the eyebrow, two headline lines, description, actions, and footer. Approximately 0.8s per element with staggered starts. No permanent autoplay animations.
+- **Direct manipulation:** both paper details are focusable, draggable with pointer/touch, tilt slightly under drag, lift with a shadow, and spring back when released. Keyboard users can activate them for a small nudge. Paper gestures should never block the center CTA.
+- **Scroll:** preserve the progressive, one-time IntersectionObserver reveals on lower sections. Content remains present by default so no-JS and motion-reduced modes do not lose visibility.
+- **Accessibility:** descriptive button labels, visible focus state, reduced-motion support, touch capture confined to the paper controls.
+- **Performance:** prefer transform and opacity, pointer capture on only two small interactive elements, no physics framework needed in this iteration.
 
-Build and review the motion on mobile and desktop. A successful build validates the implementation, not its final visual quality. Preview is review-only until user approval.
+The model for this interaction comes from the restrained physical details used in the user's portfolio: a purposeful entrance, small lift while dragging, and a return to rest after release.
+
+### Implementation
+
+- `apps/web/components/hero-playground.tsx` — pointer and keyboard interaction.
+- `apps/web/app/hero-playground.css` — material, snap-back transition, entrance and breakpoints.
+- `apps/web/components/reveal-on-scroll.tsx` — existing progressive scroll enhancement.
+
+The result is a **review prototype**, not a claim of completed visual QA or a full paper-physics simulation. Run a real browser interaction test on mobile and desktop before promoting to production.
