@@ -78,7 +78,6 @@ assert(objectCSS.includes('.to-envelope[data-state="open"] .to-envelope__message
 const themeSwitcher = readFileSync(new URL("../components/theme-switcher.tsx", import.meta.url), "utf8");
 const themeInit = readFileSync(new URL("../lib/theme-script.ts", import.meta.url), "utf8");
 const themeCSS = readFileSync(new URL("../app/themes.css", import.meta.url), "utf8");
-const header = readFileSync(new URL("../components/site-header.tsx", import.meta.url), "utf8");
 assert(layout.includes('themeInitScript') && layout.includes('suppressHydrationWarning'), "Saved theme must be applied before hydration");
 assert(layout.includes('import "./themes.css"'), "Shared theme styles must load in the root layout");
 assert(header.includes("<ThemeSwitcher />"), "Appearance switcher must be globally available");
