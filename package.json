@@ -1,0 +1,13 @@
+{
+  "name": "tactile-objects",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.18.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "pnpm --filter @tactile/objects build && pnpm --filter @tactile/web dev",
+    "build": "pnpm --filter @tactile/objects build && pnpm --filter @tactile/web build",
+    "typecheck": "pnpm --filter @tactile/objects typecheck && pnpm --filter @tactile/web typecheck",
+    "test": "pnpm --filter @tactile/objects test"
+  }
+}
