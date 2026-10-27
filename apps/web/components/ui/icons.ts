@@ -6,6 +6,7 @@ export {
   ArrowRightUpRegular as ArrowUpRightIcon,
   ArrowRightRegular as ArrowRightIcon,
   ArrowLeftRegular as ArrowLeftIcon,
+  ArrowDownRegular as ArrowDownIcon,
   GithubRegular as GithubIcon,
   MailRegular as MailIcon,
   BookRegular as BookIcon,

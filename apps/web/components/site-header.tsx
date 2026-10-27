@@ -1,5 +1,5 @@
-import { ArrowUpRightIcon, GithubIcon } from "./ui/icons";
 import Link from "next/link";
+import { ArrowUpRightIcon, GithubIcon } from "./ui/icons";
 
 export function SiteHeader() {
   return (
@@ -11,11 +11,13 @@ export function SiteHeader() {
         </Link>
         <nav className="header-nav" aria-label="Main navigation">
           <Link href="/components">Components</Link>
-          <Link href="/about">Our story</Link>
-          <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRightIcon size={14} aria-hidden="true" /></a>
+          <Link href="/about">About</Link>
+          <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer">
+            GitHub <GithubIcon size={15} aria-hidden="true" />
+          </a>
         </nav>
-        <Link href="/components/envelope" className="header-action">
-          Explore the library <ArrowUpRightIcon size={16} aria-hidden="true" />
+        <Link href="/components" className="header-action">
+          Browse objects <ArrowUpRightIcon size={16} aria-hidden="true" />
         </Link>
       </div>
     </header>

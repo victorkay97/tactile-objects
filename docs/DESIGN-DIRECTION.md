@@ -1,3 +1,39 @@
+# Tactile Objects — Design Direction
+
+**Landing page revision · October 2026.** Preview-only until visual approval.
+
+## Editorial direction
+
+A creative, premium React library should feel intentional and confident without shouting. We are using the user's portfolio sensibilities and the structural discipline of polished component-library sites, not copying either.
+
+- The **homepage hero is centered and text-led**. There is **no envelope, mockup or illustration in the hero**. The library is larger than its first component.
+- Typography is quieter: Archivo for compact-but-confident headlines, Geist for navigation and body copy, Geist Mono for functional metadata and code.
+- Use colour sparingly: near-black, warm ivory and cool gray dominate; signature indigo is an accent, not a wall-to-wall purple banner.
+- More intentional whitespace, hairline dividers and strong alignment.
+- Avoid filler, oversized section banners, generic three-card feature templates, and decorative marquee strips.
+- All functional icons come from MingCute Core Regular. No Unicode arrows on actions.
+- The collection is below the hero. One live object and upcoming objects are labeled honestly.
+- The developer example is preformatted code. The homepage remains marketing/editorial content; the real playground stays at `/components/envelope`.
+- Minimal closing invitation; no unnecessary hero illustration.
+
+## Interaction guidelines
+
+- Retain subtle hover feedback for links, buttons and gallery cards.
+- Keep functionality for touch, keyboard and reduced-motion.
+- No fake interactions for components that aren't implemented.
+- Respect the user-approved decision to refine the flagship Envelope separately after the website is acceptable.
+
+## Acceptance checklist
+
+- View homepage at desktop, tablet and 390px mobile.
+- Verify text sizing, font loading, wrapping, spacing and contrast, particularly the centered hero.
+- Verify the hero has zero component graphics.
+- Check all routes, links and MingCute icons.
+- Check code example line breaks and sideways overflow.
+- Run the typography/layout static guard, tests, typecheck and production build.
+- **Preview only**. Do not promote the current revision to production or merge the draft PR until the user reviews it.
+
+## Prior iteration
 # Visual direction — Tactile Objects
 
 **Status:** Implementation candidate, pending local browser and interaction review.
@@ -9,35 +45,4 @@ We are not copying the visuals of shadcn/ui or React Bits. Instead, we borrow th
 
 ## Key decision: separate product from documentation
 
-- `/` is a landing experience. Large, expressive Archivo headlines; signature purple, coral and mint; a hero envelope you can interact with; collection highlights; philosophy; one small technical teaser and CTA. **No prop tables, color swatches or tabbed code editor here.**
-- `/components` is the collection catalog. Objects can be browsed; incomplete components are marked as planned.
-- `/components/envelope` is the production-minded component playground with Preview / Code / Props, variants, typed API and source links.
-- `/about` documents the motivation and philosophy.
-
-## Type
-- Archivo: impact headlines and selected section headings.
-- Geist: copy, navigation and controls.
-- Geist Mono: metadata, code and tiny functional labels.
-
-Body type and controls must be comfortably readable; micro-labels are supplementary.
-
-## Colours
-- Off-white #fffefa for warmth and breathing room.
-- Near-black #1d1b28 for text.
-- Electric indigo #635bff as the product signature.
-- Coral #ff816b for playful warmth.
-- Pale mint #d8f3e8 as a supportive accent.
-- Object materials retain their own believable natural colours.
-
-## Motion
-Large site elements should mostly remain still. The interactivity lives in the objects. Avoid distracting scroll effects that compete with component motion. Respect reduced-motion preferences.
-
-## Envelope iteration
-The new CSS positions the closed paper behind the pocket rather than below it, keeps the seal attached to the folding flap, and stages the letter after flap rotation. The envelope is still a stylized physical metaphor and needs frame-by-frame browser QA.
-
-## Review
-- Test at 1440px, 1024px, 768px, 390px and 320px.
-- Inspect clipping, focus rings, letter movement, reduced motion, and contrast.
-- Run `corepack pnpm test`, `corepack pnpm typecheck`, `corepack pnpm build`.
-- Verify browser source/code clipboard and all navigation routes.
-- Do not deploy or merge to main until reviewed and approved.
+- `/` is a landing experience. Large, expressive Archivo headlines; signature purple, coral and mint; a hero envelope you can interact with; collection highlights; philosophy; one small technical teaser and CTA. **No prop tables, color swatc
