@@ -11,7 +11,6 @@ import {
 import { ObjectCard } from "../components/object-card";
 import { objects } from "../lib/objects";
 import { HeroPlayground } from "../components/hero-playground";
-import { RevealOnScroll } from "../components/reveal-on-scroll";
 import "./landing.css";
 import "./hero-playground.css";
 
@@ -32,7 +31,6 @@ const example = [
 export default function HomePage() {
   return (
     <main className="landing">
-      <RevealOnScroll />
       <section className="landing-hero" aria-labelledby="landing-title">
         <HeroPlayground />
         <div className="layout-container landing-hero__inner">
@@ -66,7 +64,7 @@ export default function HomePage() {
               View on GitHub
             </a>
           </div>
-          <div className="landing-hero__signature">Go on, drag a paper. It’ll find its way home.</div>
+          <div className="landing-hero__signature">Try the edges. Drag a note, or turn a card.</div>
           <div className="landing-hero__foot" aria-hidden="true">
             <span>BUILT WITH CURIOSITY</span>
             <span>SCROLL TO EXPLORE <ArrowDownIcon size={14} /></span>
