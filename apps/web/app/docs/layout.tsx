@@ -23,7 +23,7 @@ export default function DocsLayout({children}: {children: ReactNode}) {
           <Link href="/components" className="docs-site__component-link">All objects <ArrowUpRightIcon size={15} aria-hidden="true" /></Link>
           <div className="docs-site__sidebar-note">Built with care.<br/>Documented with honesty.</div>
         </aside>
-        <div className="docs-site__main">{children}</div>
+        <div className="docs-site__main" data-motion-reveal>{children}</div>
       </div>
     </div>
   );
