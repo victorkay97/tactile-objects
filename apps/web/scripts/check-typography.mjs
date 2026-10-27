@@ -42,4 +42,14 @@ for (const event of ["onPointerDown", "onPointerMove", "onPointerUp", "onPointer
 assert(heroStyles.includes("@keyframes hero-enter"), "Hero needs its reload entrance");
 assert(heroStyles.includes("prefers-reduced-motion: reduce"), "Hero must support reduced motion");
 assert(reveal.includes("IntersectionObserver") && reveal.includes("prefers-reduced-motion"), "Scroll reveals must be progressive and motion-aware");
-console.log("Typography, viewport hero, interactive paper, reduced motion and docs guards passed.");
+const polish = readFileSync(new URL("../app/tactile-refinements.css", import.meta.url), "utf8");
+assert(layout.includes('import "./tactile-refinements.css"'), "Sitewide interaction polish must be loaded");
+assert(layout.includes("<RevealOnScroll />"), "Scroll reveals belong to the shared layout");
+assert(reveal.includes("usePathname") && reveal.includes("[pathname]"), "Scroll reveals must reset for client navigation");
+assert(heroScene.includes('kind === "card"') && heroScene.includes("setFlipped"), "Specimen card must be reversible");
+assert(heroScene.includes("aria-pressed") && heroScene.includes("aria-label"), "Interactive specimens require accessible semantics");
+assert(heroStyles.includes(".specimen__card-back") && heroStyles.includes(".specimen__memo"), "Hero specimens require complete front/back visual treatments");
+assert(heroStyles.includes("@media (prefers-reduced-motion: reduce)"), "Tactile objects must respect reduced motion");
+assert(polish.includes(".object-showcase__envelope-flap"), "Gallery must have object-specific interaction feedback");
+assert(!home.includes("<AmbientPaperScene"), "Never reintroduce the automatic flying plane");
+console.log("Typography, tactile hero, route reveals, accessible input and docs guards passed.");
