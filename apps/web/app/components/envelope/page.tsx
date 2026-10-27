@@ -16,9 +16,9 @@ export default function EnvelopePage() {
           <Link className="docs-sidebar-back" href="/components"><ArrowLeftIcon size={15} aria-hidden="true" /> All components</Link>
           <div className="docs-sidebar-label">OBJECTS <span>04</span></div>
           <Link href="/components/envelope" aria-current="page" className="docs-sidebar-item active"><span><MailIcon size={17} aria-hidden="true" /></span> Envelope <i>01</i></Link>
-          <div className="docs-sidebar-item disabled"><span><BookIcon size={17} aria-hidden="true" /></span> Journal <small>SOON</small></div>
-          <div className="docs-sidebar-item disabled"><span><PaperIcon size={17} aria-hidden="true" /></span> Sticky Note <small>SOON</small></div>
-          <div className="docs-sidebar-item disabled"><span><CameraIcon size={17} aria-hidden="true" /></span> Polaroid <small>SOON</small></div>
+          <Link href="/components/journal" className="docs-sidebar-item"><span><BookIcon size={17} aria-hidden="true" /></span> Journal <small>02</small></Link>
+          <Link href="/components/sticky-note" className="docs-sidebar-item"><span><PaperIcon size={17} aria-hidden="true" /></span> Sticky Note <small>04</small></Link>
+          <Link href="/components/polaroid" className="docs-sidebar-item"><span><CameraIcon size={17} aria-hidden="true" /></span> Polaroid <small>03</small></Link>
           <div className="docs-sidebar-divider" />
           <div className="docs-sidebar-label">ON THIS PAGE</div>
           <a className="docs-sidebar-link" href="#playground">Playground</a>
