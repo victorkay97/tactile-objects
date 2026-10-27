@@ -14,6 +14,10 @@ We build familiar objects that respond with personality, care, and useful intera
 | `/components` | Browse available and planned objects |
 | `/components/envelope` | Dedicated playground, colourways, code and typed API |
 | `/about` | Philosophy and project purpose |
+| `/docs` | Documentation index and component guides |
+| `/docs/getting-started` | Local setup and first React component |
+| `/docs/accessibility` | Accessibility expectations |
+| `/docs/design-principles` | The product quality and interaction standards |
 
 ## Repository structure
 
@@ -68,3 +72,13 @@ We prioritize visual fidelity, interaction fidelity, accessibility, and develope
 See `docs/DESIGN-DIRECTION.md`, `docs/QUALITY.md`, and `docs/ROADMAP.md`.
 
 MIT licensed.
+
+## Site design and material palettes
+
+The frontend uses shared platform styling in `apps/web/app/platform.css`, with documentation styling in `apps/web/app/docs/docs.css`.
+
+The homepage and catalog use the same `ObjectCard` component, drawing data from `apps/web/lib/objects.ts`. Object surfaces are selected from a curated family of material palettes: paper, botanical, lilac and butter. **More objects do not require new unrelated UI colours** — reuse an established family or add one through design review.
+
+The landing-page hero fills the available viewport beneath the site header (including mobile navigation). No object illustration sits in the hero; component interactions have their own showcase and playground pages.
+
+MingCute Core Regular icons are centralized in `apps/web/components/ui/icons.ts`. Functional actions should use these rather than text arrows.

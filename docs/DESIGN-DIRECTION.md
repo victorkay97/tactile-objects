@@ -1,48 +1,48 @@
-# Tactile Objects — Design Direction
+# Tactile Objects — Platform Design Direction
 
-**Landing page revision · October 2026.** Preview-only until visual approval.
+**Draft review · October 27, 2026**
 
-## Editorial direction
+## Platform-wide identity
 
-A creative, premium React library should feel intentional and confident without shouting. We are using the user's portfolio sensibilities and the structural discipline of polished component-library sites, not copying either.
+The editorial style established for the homepage is now a shared design system:
 
-- The **homepage hero is centered and text-led**. There is **no envelope, mockup or illustration in the hero**. The library is larger than its first component.
-- Typography is quieter: Archivo for compact-but-confident headlines, Geist for navigation and body copy, Geist Mono for functional metadata and code.
-- Use colour sparingly: near-black, warm ivory and cool gray dominate; signature indigo is an accent, not a wall-to-wall purple banner.
-- More intentional whitespace, hairline dividers and strong alignment.
-- Avoid filler, oversized section banners, generic three-card feature templates, and decorative marquee strips.
-- All functional icons come from MingCute Core Regular. No Unicode arrows on actions.
-- The collection is below the hero. One live object and upcoming objects are labeled honestly.
-- The developer example is preformatted code. The homepage remains marketing/editorial content; the real playground stays at `/components/envelope`.
-- Minimal closing invitation; no unnecessary hero illustration.
+- Compact Archivo headings with clear hierarchy, Geist body copy, Geist Mono metadata and code.
+- Warm ivory / off-white, near-black text, calm dividers and restrained indigo.
+- MingCute icons for navigation, buttons and interactive controls.
+- A compact, centered landing hero that takes the available viewport below the header. It **does not** feature an envelope.
+- Consistent shell across `/`, `/components`, `/about`, `/components/envelope` and `/docs/*`.
+- Good whitespace without oversized headings or filler marketing sections.
 
-## Interaction guidelines
+## Component catalogue
 
-- Retain subtle hover feedback for links, buttons and gallery cards.
-- Keep functionality for touch, keyboard and reduced-motion.
-- No fake interactions for components that aren't implemented.
-- Respect the user-approved decision to refine the flagship Envelope separately after the website is acceptable.
+`apps/web/lib/objects.ts` is the source of truth for inventory, status, and selected material palette.
 
-## Acceptance checklist
+`apps/web/components/object-card.tsx` renders each object consistently in the homepage gallery and catalog.
 
-- View homepage at desktop, tablet and 390px mobile.
-- Verify text sizing, font loading, wrapping, spacing and contrast, particularly the centered hero.
-- Verify the hero has zero component graphics.
-- Check all routes, links and MingCute icons.
-- Check code example line breaks and sideways overflow.
-- Run the typography/layout static guard, tests, typecheck and production build.
-- **Preview only**. Do not promote the current revision to production or merge the draft PR until the user reviews it.
+### Colour assignment
 
-## Prior iteration
-# Visual direction — Tactile Objects
+A component does *not* require a new random color. Colours come from a curated system with semantic roles: paper (warm), botanical (sage), lilac (cool photographic), butter (warm note). Future objects can reuse one of these families, adjust hue/tone purposefully, or introduce a new family through a visual design review.
 
-**Status:** Implementation candidate, pending local browser and interaction review.
+Physical object materials are independent of the site brand accent. Cards should stay recognizably related as the library grows.
 
-## Positioning
-A digital workshop: expressive, tactile, visually rich. Still useful and precise for React developers.
+## Routes
 
-We are not copying the visuals of shadcn/ui or React Bits. Instead, we borrow their discipline around readable component documentation and working live previews.
+- Landing `/`: hero, idea, selected objects, principles, developer teaser + documentation link, close.
+- Catalog `/components`: full object index with planned/available states.
+- Playground `/components/envelope`: the interactive component and its API.
+- Documentation `/docs`: overview; `/docs/getting-started`, `/docs/accessibility`, `/docs/design-principles`.
+- About `/about`: philosophy, values, and pathways to components and docs.
 
-## Key decision: separate product from documentation
+## Validation and promotion policy
 
-- `/` is a landing experience. Large, expressive Archivo headlines; signature purple, coral and mint; a hero envelope you can interact with; collection highlights; philosophy; one small technical teaser and CTA. **No prop tables, color swatc
+Do not merge to main or promote preview to production before:
+
+1. Build passes and all expected routes are prerendered.
+2. Fonts are visually verified after build.
+3. Hero occupies the available first viewport at normal desktop/mobile sizes.
+4. Shared cards are consistent and responsive.
+5. Navigation links work on desktop/mobile.
+6. Documentation content is accurate and doesn't claim an npm release.
+7. Component interactions are checked on keyboard, touch, pointer and reduced-motion settings.
+
+The flagship Envelope remains its own quality workstream; these changes improve the surrounding product without claiming to have solved paper physics.

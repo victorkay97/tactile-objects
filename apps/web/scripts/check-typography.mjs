@@ -18,4 +18,15 @@ assert(!home.includes("EnvelopeStage"), "Hero must not depend on a single compon
 assert(landingCSS.includes("text-align: center"), "Homepage must retain its centered hero layout");
 assert(landingCSS.includes("var(--font-archivo"), "Homepage headings must use registered Archivo");
 assert(home.includes("ArrowUpRightIcon") && home.includes("GithubIcon"), "Use the MingCute icon system for actions");
-console.log("Typography, landing layout, icons and code sample guard passed.");
+const sharedCSS = readFileSync(new URL("../app/platform.css", import.meta.url), "utf8");
+assert(sharedCSS.includes("body {\\n  --site-display: var(--font-archivo"), "Shared font aliases must be evaluated on body where Next.js font classes are installed");
+assert(landingCSS.includes("min-height: calc(100svh - var(--site-header-height"), "Hero should fill available viewport");
+const header = readFileSync(new URL("../components/site-header.tsx", import.meta.url), "utf8");
+assert(header.includes('href="/docs"'), "Documentation must be in shared navigation");
+const catalog = readFileSync(new URL("../app/components/page.tsx", import.meta.url), "utf8");
+assert(catalog.includes("<ObjectCard"), "Catalog must reuse the shared object card");
+assert(home.includes("<ObjectCard"), "Homepage must reuse the shared object card");
+for(const path of ["../app/docs/page.tsx","../app/docs/getting-started/page.tsx","../app/docs/accessibility/page.tsx","../app/docs/design-principles/page.tsx"]){
+  assert(readFileSync(new URL(path, import.meta.url), "utf8").length > 100, "Missing documentation content: " + path);
+}
+console.log("Typography, viewport hero, shared cards, documentation and icon guards passed.");

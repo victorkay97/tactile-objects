@@ -8,12 +8,14 @@
   --site-canvas: #fcfbf8;
   --site-paper: #fff;
   --site-accent: #5951d8;
+  --site-header-height: 78px;
+}
+body {
   --site-display: var(--font-archivo, Arial), Arial, sans-serif;
   --site-body: var(--font-geist, Arial), Arial, sans-serif;
   --site-code: var(--font-geist-mono, Consolas), Consolas, monospace;
-  --site-header-height: 78px;
+  background: var(--site-canvas); color: var(--site-ink); font-family: var(--site-body);
 }
-body { background: var(--site-canvas); color: var(--site-ink); font-family: var(--site-body); }
 .site-header { background: rgba(252,251,248,.95); border-bottom: 1px solid var(--site-line); }
 .header-inner { height: 78px; }
 .header-nav { gap: 31px; margin-right: 6px; }

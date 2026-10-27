@@ -4,6 +4,7 @@ import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import "./globals.css";
+import "./platform.css";
 import "@tactile/objects/styles.css";
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
