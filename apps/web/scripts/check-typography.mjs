@@ -52,4 +52,19 @@ assert(heroStyles.includes(".specimen__card-back") && heroStyles.includes(".spec
 assert(heroStyles.includes("@media (prefers-reduced-motion: reduce)"), "Tactile objects must respect reduced motion");
 assert(polish.includes(".object-showcase__envelope-flap"), "Gallery must have object-specific interaction feedback");
 assert(!home.includes("<AmbientPaperScene"), "Never reintroduce the automatic flying plane");
-console.log("Typography, tactile hero, route reveals, accessible input and docs guards passed.");
+const studioPage = readFileSync(new URL("../app/components/envelope/page.tsx", import.meta.url), "utf8");
+const studio = readFileSync(new URL("../components/envelope-playground.tsx", import.meta.url), "utf8");
+const studioCSS = readFileSync(new URL("../app/components/envelope/workbench.css", import.meta.url), "utf8");
+const envelopeSource = readFileSync(new URL("../../../packages/objects/src/envelope/Envelope.tsx", import.meta.url), "utf8");
+assert(studioPage.includes('import "./workbench.css"'), "Envelope route must load scoped workbench styling");
+assert(studioCSS.includes(".workbench__canvas.has-dots") && studioCSS.includes("radial-gradient"), "The real preview must have its default dotted canvas");
+assert(studio.includes("useState(true)") && studio.includes('aria-pressed={showDots}'), "Dotted preview needs a functioning toggle");
+for (const prop of ["tone", "paper", "seal", "recipient", "sender"]) {
+  assert(studio.includes('change("' + prop + '"'), "Inspector is missing a real editing control for " + prop);
+  assert(studio.includes(prop + "={settings." + prop + "}"), "Live preview is missing " + prop);
+  assert(envelopeSource.includes('data-' + prop + '={') || ["recipient","sender"].includes(prop), "Package is missing visual prop " + prop);
+}
+assert(studio.includes('JSON.stringify(config.recipient)') && studio.includes('JSON.stringify(config.message)'), "React code must safely follow user-edited content");
+assert(studio.includes('aria-label="Zoom out"') && studio.includes('aria-label="Zoom in"'), "Preview zoom must be a real accessible control");
+assert(studio.includes('onClick={reset}') && studio.includes('onClick={copyCode}'), "Reset and code copying must be implemented");
+console.log("Typography, interactive workshop, usable component props, dots, docs and motion guards passed.");
