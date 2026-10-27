@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, copyFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 
 for (const output of ["dist/index.js", "dist/index.cjs"]) {
   const compiled = readFileSync(output, "utf8");
@@ -6,4 +6,4 @@ for (const output of ["dist/index.js", "dist/index.cjs"]) {
     writeFileSync(output, '"use client";\n' + compiled);
   }
 }
-copyFileSync("src/styles.css", "dist/styles.css");
+writeFileSync("dist/styles.css", readFileSync("src/styles.css", "utf8") + "\n" + readFileSync("src/new-objects.css", "utf8"));
