@@ -29,29 +29,37 @@ assert(home.includes("<ObjectCard"), "Homepage must reuse the shared object card
 for(const path of ["../app/docs/page.tsx","../app/docs/getting-started/page.tsx","../app/docs/accessibility/page.tsx","../app/docs/design-principles/page.tsx"]){
   assert(readFileSync(new URL(path, import.meta.url), "utf8").length > 100, "Missing documentation content: " + path);
 }
-const heroScene = readFileSync(new URL("../components/hero-playground.tsx", import.meta.url), "utf8");
-const heroStyles = readFileSync(new URL("../app/hero-playground.css", import.meta.url), "utf8");
+const heroStyles = readFileSync(new URL("../app/hero-gallery.css", import.meta.url), "utf8");
+const heroShelf = readFileSync(new URL("../components/hero-object-shelf.tsx", import.meta.url), "utf8");
 const reveal = readFileSync(new URL("../components/reveal-on-scroll.tsx", import.meta.url), "utf8");
-assert(home.includes("<HeroPlayground />"), "Hero is missing its interactive paper playground");
-assert(!home.includes("AmbientPaperScene"), "Remove the autoplay paper plane scene");
-assert(!landingCSS.includes("@keyframes to-paper-flight"), "No continuously flying plane should remain");
-assert(heroScene.startsWith('"use client"'), "Draggable papers must be interactive client components");
-for (const event of ["onPointerDown", "onPointerMove", "onPointerUp", "onPointerCancel", "onLostPointerCapture", "setPointerCapture"]) {
-  assert(heroScene.includes(event), "Paper drag is missing " + event);
+assert(home.includes("<HeroObjectShelf />"), "The homepage needs a real three-object discovery stage");
+assert(!home.includes("<HeroPlayground />") && !home.includes("AmbientPaperScene"), "Remove the old paper-edge decorations and flying plane");
+for(const slug of ["journal","polaroid","sticky-note"]){
+  assert(heroShelf.includes('href:"/components/'+slug+'"'), "The hero study must link to "+slug);
 }
-assert(heroStyles.includes("@keyframes hero-enter"), "Hero needs its reload entrance");
-assert(heroStyles.includes("prefers-reduced-motion: reduce"), "Hero must support reduced motion");
+assert(heroStyles.includes("background-size:51px 51px") && heroStyles.includes(".landing-hero::before"), "The hero needs its dimensional reference grid");
+assert(heroStyles.includes("@keyframes hero-shelf-enter") && heroStyles.includes("prefers-reduced-motion:reduce"), "The hero needs one-time motion and reduced-motion support");
 assert(reveal.includes("IntersectionObserver") && reveal.includes("prefers-reduced-motion"), "Scroll reveals must be progressive and motion-aware");
 const polish = readFileSync(new URL("../app/tactile-refinements.css", import.meta.url), "utf8");
 assert(layout.includes('import "./tactile-refinements.css"'), "Sitewide interaction polish must be loaded");
 assert(layout.includes("<RevealOnScroll />"), "Scroll reveals belong to the shared layout");
 assert(reveal.includes("usePathname") && reveal.includes("[pathname]"), "Scroll reveals must reset for client navigation");
-assert(heroScene.includes('kind === "card"') && heroScene.includes("setFlipped"), "Specimen card must be reversible");
-assert(heroScene.includes("aria-pressed") && heroScene.includes("aria-label"), "Interactive specimens require accessible semantics");
-assert(heroStyles.includes(".specimen__card-back") && heroStyles.includes(".specimen__memo"), "Hero specimens require complete front/back visual treatments");
-assert(heroStyles.includes("@media (prefers-reduced-motion: reduce)"), "Tactile objects must respect reduced motion");
-assert(polish.includes(".object-showcase__envelope-flap"), "Gallery must have object-specific interaction feedback");
-assert(!home.includes("<AmbientPaperScene"), "Never reintroduce the automatic flying plane");
+assert(polish.includes(".object-showcase__envelope-flap"), "Existing Envelope gallery responses should remain intact");
+const objectCard = readFileSync(new URL("../components/object-card.tsx", import.meta.url), "utf8");
+for(const name of ["Journal","Polaroid","StickyNote"]){
+  assert(objectCard.includes("<"+name), "Catalog must render a playable "+name+" component");
+}
+const objectCatalog = readFileSync(new URL("../lib/objects.ts", import.meta.url), "utf8");
+for(const slug of ["journal","polaroid","sticky-note"]){
+  assert(objectCatalog.includes('href: "/components/'+slug+'"'), "Catalog is missing live navigation for "+slug);
+}
+const objectLab = readFileSync(new URL("../components/object-lab.tsx", import.meta.url), "utf8");
+const objectPage = readFileSync(new URL("../app/components/[slug]/page.tsx", import.meta.url), "utf8");
+const objectLabCSS = readFileSync(new URL("../app/components/[slug]/object-lab.css", import.meta.url), "utf8");
+assert(objectPage.includes("generateStaticParams") && objectPage.includes("ObjectLab"), "Three playable routes must be statically generated");
+assert(objectLab.includes("codeFor") && objectLab.includes("navigator.clipboard.writeText"), "Every studio needs live matching React code");
+assert(objectLabCSS.includes("object-lab__canvas.has-dots") && objectLabCSS.includes('html[data-theme="dark"]'), "Every studio needs a theme-aware dotted canvas");
+assert(layout.includes('import "./gallery-live.css"'), "Live four-object catalog styling is required");
 const studioPage = readFileSync(new URL("../app/components/envelope/page.tsx", import.meta.url), "utf8");
 const studio = readFileSync(new URL("../components/envelope-playground.tsx", import.meta.url), "utf8");
 const studioCSS = readFileSync(new URL("../app/components/envelope/workbench.css", import.meta.url), "utf8");
@@ -94,4 +102,4 @@ for (const selector of ['.landing-hero', '.object-showcase__info', '.story-page_
 }
 assert(!themeCSS.includes("filter: invert("), "Do not invert or recolor the real paper objects");
 assert(themeCSS.includes("--theme-surface:") && themeCSS.includes("--theme-line:"), "Shared appearance tokens must be defined");
-console.log("Reference studio, persistent system-aware theme, accessible switcher, multi-route palette and object materials checks passed.");
+console.log("Four live tactile objects, grid-backed hero, studios, preserved Envelope and global theme checks passed.");
