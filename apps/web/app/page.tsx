@@ -66,7 +66,7 @@ export default function HomePage() {
               View on GitHub
             </a>
           </div>
-          <div className="landing-hero__signature">Small details. Real interactions. A more human web.</div>
+          <div className="landing-hero__signature">Go on, drag a paper. It’ll find its way home.</div>
           <div className="landing-hero__foot" aria-hidden="true">
             <span>BUILT WITH CURIOSITY</span>
             <span>SCROLL TO EXPLORE <ArrowDownIcon size={14} /></span>
