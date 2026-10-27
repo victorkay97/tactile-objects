@@ -51,10 +51,11 @@ The flagship Envelope remains its own quality workstream; these changes improve 
 
 The site should feel alive when it loads and respond to people without becoming a looping screensaver.
 
-- **Hero:** a quiet, centered editorial message and just two tactile paper details at the outer edges. No paper plane, no rotating carousel of objects, and no envelope implying the library only makes envelopes.
+- **Hero:** a quiet, centered editorial message and just two bespoke artifacts at the outer edges—a folded memo and a reversible specimen card. No paper plane, no rotating carousel of objects, and no envelope implying the library only makes envelopes.
 - **Entrance:** a one-time staggered fade/up reveal for the eyebrow, two headline lines, description, actions, and footer. Approximately 0.8s per element with staggered starts. No permanent autoplay animations.
-- **Direct manipulation:** both paper details are focusable, draggable with pointer/touch, tilt slightly under drag, lift with a shadow, and spring back when released. Keyboard users can activate them for a small nudge. Paper gestures should never block the center CTA.
-- **Scroll:** preserve the progressive, one-time IntersectionObserver reveals on lower sections. Content remains present by default so no-JS and motion-reduced modes do not lose visibility.
+- **Direct manipulation:** both artifacts are keyboard-focusable, draggable with pointer/touch, tilt slightly under drag, lift with a shadow, and spring back when released. The memo nudges when activated; the specimen card flips to reveal a reverse message (and can flip back). Paper gestures should never block the center CTA.
+- **Gallery:** the available envelope opens its flap slightly and lifts the letter on hover/focus rather than simply lifting a rectangular card; planned objects remain clearly non-interactive.
+- **Scroll:** use the shared, route-aware one-time IntersectionObserver reveals for below-the-fold sections on the homepage, catalog, About and documentation pages. Content remains present by default so no-JS and motion-reduced modes do not lose visibility.
 - **Accessibility:** descriptive button labels, visible focus state, reduced-motion support, touch capture confined to the paper controls.
 - **Performance:** prefer transform and opacity, pointer capture on only two small interactive elements, no physics framework needed in this iteration.
 
@@ -64,6 +65,7 @@ The model for this interaction comes from the restrained physical details used i
 
 - `apps/web/components/hero-playground.tsx` — pointer and keyboard interaction.
 - `apps/web/app/hero-playground.css` — material, snap-back transition, entrance and breakpoints.
-- `apps/web/components/reveal-on-scroll.tsx` — existing progressive scroll enhancement.
+- `apps/web/components/reveal-on-scroll.tsx` — shared, route-aware progressive scroll enhancement.
+- `apps/web/app/tactile-refinements.css` — coherent navigation feedback, object-specific gallery responses and a small hand-drawn headline accent.
 
 The result is a **review prototype**, not a claim of completed visual QA or a full paper-physics simulation. Run a real browser interaction test on mobile and desktop before promoting to production.
