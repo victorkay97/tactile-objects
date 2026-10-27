@@ -79,3 +79,21 @@ The result is a **review prototype**, not a claim of completed visual QA or a fu
 - Hero release uses requestAnimationFrame damped spring integration (distance-dependent) rather than a fixed timing curve. Reduced-motion skips the simulation.
 - Tests assert timing and layer invariants for the flagship and run in Vercel's preview build, alongside TypeScript compilation and the existing static checks.
 - These are implementation and build gates. Rendered-browser QA must still examine flap shape, paper overlap, mobile tap targets, and the actual feeling of spring motion before production promotion.
+
+## Envelope Studio — configurator milestone
+
+Reference explored: Isocons' isometric icon editor (https://www.isocons.app/). The inspiration is a dotted preview workspace, controls that immediately affect a real asset, and an exportable result—not Isocons' dark UI or icon-specific sliders.
+
+### Studio layout
+- Dedicated **dotted canvas**, default on; toggle dots on/off without changing the component itself.
+- Object-centered preview, toolbar with **open/close, reset and zoom**. Zoom changes only the camera/view.
+- Inspector includes three useful presets, envelope colorway, letter paper finish, decorative wax seal, and fully editable recipient, signature, heading and message.
+- **Preview / Code / Props** modes within the same workspace; copying React code serializes live settings and escapes arbitrary user text using JS string expressions.
+- Code and controls refer to *real React props*, not visual-only website tricks. Additional public props added: `paper?: "ivory" | "white"` and `seal?: "wax" | "none"`.
+- The library remains private to the monorepo, so no misleading public npm install or fake PNG export.
+- Neutral, compact, editorial UI with MingCute icons and responsive inspector/canvas layouts.
+
+### Verification
+- Package tests cover actual visual prop wiring for paper and seal, in addition to state, layering and sequence checks.
+- Static build guards confirm dotted canvas presence, functional toggle and actions, props wired into the preview, and code generation sourced from editing values.
+- Browser QA still required for paper composition, mobile clipping, controls, and clipboard behavior. Never equate a successful build with visual approval.
