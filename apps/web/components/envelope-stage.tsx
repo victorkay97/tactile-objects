@@ -1,5 +1,6 @@
-import { ArrowUpRightIcon, SparklesIcon } from "./ui/icons";
 "use client";
+
+import { ArrowUpRightIcon, SparklesIcon } from "./ui/icons";
 
 import { useState } from "react";
 import { Envelope } from "@tactile/objects";
