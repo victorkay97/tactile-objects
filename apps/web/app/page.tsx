@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon, GithubIcon, CodeIcon } from "../components/ui/icons";
 import { ObjectCard } from "../components/object-card";
+import { HowItWorks } from "../components/how-it-works";
 import { objects } from "../lib/objects";
 
 const availableObjects = objects.filter(object => object.status === "available");
@@ -128,17 +129,7 @@ export default function HomePage() {
         <div className="layout-container">
           <span className="landing-eyebrow">HOW IT WORKS</span>
           <h2 id="how-title" className="landing-section-title">Explore, customize, create.</h2>
-          <div className="landing-split landing-how__content">
-            <div className="landing-steps">
-              <details name="tactile-steps"><summary><small>01</small><strong>Pick an object</strong></summary><p>Browse the gallery and choose the interaction that fits your idea. Each preview is a real component.</p></details>
-              <details name="tactile-steps" open><summary><small>02</small><strong>Try it in the playground</strong></summary><p>Experiment with colors, materials, content, and controls. Your changes appear in the live preview.</p></details>
-              <details name="tactile-steps"><summary><small>03</small><strong>Make it your own</strong></summary><p>Review the generated TypeScript and use the open-source workspace as a starting point for your project.</p></details>
-            </div>
-            <div className="landing-terminal">
-              <div className="landing-terminal__chrome"><i/><i/><i/><span>example.tsx</span></div>
-              <pre><code>{example}</code></pre>
-            </div>
-          </div>
+          <HowItWorks />
           <Boundary />
         </div>
       </section>
