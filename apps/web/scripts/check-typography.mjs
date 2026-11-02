@@ -21,6 +21,9 @@ assert(home.includes("ArrowUpRightIcon") && home.includes("GithubIcon"), "Use th
 const sharedCSS = readFileSync(new URL("../app/platform.css", import.meta.url), "utf8");
 assert(/body\s*\{\s*--site-display:\s*var\(--font-archivo/.test(sharedCSS), "Shared font aliases must be evaluated on body where Next.js font classes are installed");
 assert(landingCSS.includes("padding-top: clamp("), "Hero needs generous responsive whitespace");
+assert(landingCSS.includes("60px/1.04") && landingCSS.includes("letter-spacing: -3px"), "Hero type must follow the measured Canvas UI hierarchy");
+assert(landingCSS.includes("height: 56px") && landingCSS.includes(".ref-nav-wrap.header-inner"), "Shared navigation must match 56px reference");
+assert(home.includes("landing-showcase") && home.includes("landing-faq"), "Landing page must include product showcase and FAQ");
 const header = readFileSync(new URL("../components/site-header.tsx", import.meta.url), "utf8");
 assert(header.includes('href="/docs"'), "Documentation must be in shared navigation");
 const catalog = readFileSync(new URL("../app/components/page.tsx", import.meta.url), "utf8");
@@ -31,10 +34,10 @@ for(const path of ["../app/docs/page.tsx","../app/docs/getting-started/page.tsx"
 }
 const reveal = readFileSync(new URL("../components/reveal-on-scroll.tsx", import.meta.url), "utf8");
 assert(!home.includes("<HeroObjectShelf />"), "Landing page should not duplicate the real gallery with decorative shelf art");
-assert(home.includes("availableObjects.map((object) =>"), "Homepage must display the available interactive objects");
-assert(home.includes("Digital objects.") && home.includes("Real interactions."), "Product-first hero message is missing");
-assert(landingCSS.includes("grid-template-columns: repeat(2, minmax(0,1fr))"), "Gallery must have a two-column desktop layout");
-assert(landingCSS.includes("@media (max-width: 640px)"), "Responsive gallery layout is required");
+assert(home.includes("availableObjects.map("), "Homepage must display the available interactive objects");
+assert(home.includes("Digital objects,") && home.includes("made to feel real."), "Product-first hero message is missing");
+assert(landingCSS.includes("repeat(4,minmax(0,1fr))") && landingCSS.includes("repeat(2,minmax(0,1fr))"), "Gallery requires four-column and two-column layouts");
+assert(landingCSS.includes("@media (max-width:760px)") && landingCSS.includes("@media (max-width:560px)"), "Responsive gallery layout is required");
 assert(landingCSS.includes('html[data-theme="dark"]'), "Homepage theme support is required");
 assert(reveal.includes("IntersectionObserver") && reveal.includes("prefers-reduced-motion"), "Scroll reveals must be progressive and motion-aware");
 const polish = readFileSync(new URL("../app/tactile-refinements.css", import.meta.url), "utf8");
