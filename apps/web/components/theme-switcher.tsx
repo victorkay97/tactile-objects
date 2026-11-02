@@ -37,22 +37,29 @@ function applyTheme(preference: ThemePreference) {
 
 export function ThemeSwitcher() {
   const [preference, setPreference] = useState<ThemePreference>("system");
+  const [resolvedAppearance, setResolvedAppearance] = useState<"light" | "dark">("light");
   const [open, setOpen] = useState(false);
   const container = useRef<HTMLDivElement>(null);
   const currentPreference = useRef<ThemePreference>("system");
   const trigger = useRef<HTMLButtonElement>(null);
   const menuId = useId();
-  const ActiveIcon = options.find(option => option.value === preference)?.Icon ?? ComputerIcon;
+  const ActiveIcon = preference === "system"
+    ? (resolvedAppearance === "dark" ? MoonIcon : SunIcon)
+    : (options.find(option => option.value === preference)?.Icon ?? ComputerIcon);
 
   useEffect(() => {
     const current = storedPreference();
     setPreference(current);
     currentPreference.current = current;
     applyTheme(current);
+    setResolvedAppearance(resolveTheme(current));
 
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     function onSystemChange() {
-      if (currentPreference.current === "system") applyTheme("system");
+      if (currentPreference.current === "system") {
+        applyTheme("system");
+        setResolvedAppearance(resolveTheme("system"));
+      }
     }
     function onStorage(event: StorageEvent) {
       if (event.key !== key) return;
@@ -60,6 +67,7 @@ export function ThemeSwitcher() {
       currentPreference.current = updated;
       setPreference(updated);
       applyTheme(updated);
+      setResolvedAppearance(resolveTheme(updated));
     }
     media.addEventListener("change", onSystemChange);
     window.addEventListener("storage", onStorage);
@@ -92,6 +100,7 @@ export function ThemeSwitcher() {
     setPreference(value);
     try { window.localStorage.setItem(key, value); } catch {}
     applyTheme(value);
+    setResolvedAppearance(resolveTheme(value));
     setOpen(false);
     trigger.current?.focus();
   }
