@@ -53,7 +53,7 @@ export default function HomePage() {
       <section className="landing-hero" aria-labelledby="landing-title">
         <div className="layout-container landing-hero__inner">
           <div className="landing-hero__copy">
-            <h1 id="landing-title">Digital objects,<br/>made to feel real.</h1>
+            <h1 id="landing-title">Digital objects,<br/>with a little more feeling.</h1>
             <p className="landing-hero__lede">
               An open-source collection of thoughtful, interactive objects for React.
               Familiar things, with a little more feeling.
