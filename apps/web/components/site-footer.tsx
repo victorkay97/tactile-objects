@@ -16,7 +16,7 @@ export function SiteFooter() {
           <strong>Navigate</strong>
           <Link href="/docs">Docs</Link>
           <Link href="/components">Components</Link>
-          <Link href="/components/envelope">Playground</Link>
+          <Link href="/playground">Playground</Link>
         </nav>
         <nav className="ref-footer__links" aria-label="Project links">
           <strong>The project</strong>
