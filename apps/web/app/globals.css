@@ -1,14 +1,15 @@
+/* Neutral site design system. Material colours live only inside the objects. */
 :root {
-  --canvas: #fffefa;
-  --paper: #ffffff;
-  --ink: #1d1b28;
-  --body: #6c6876;
-  --subtle: #8e8a97;
-  --line: #e9e7ef;
-  --violet: #635bff;
-  --violet-dark: #4d44d4;
-  --coral: #ff816b;
-  --mint: #d8f3e8;
+  --canvas: #fff;
+  --paper: #fff;
+  --ink: #0b0b0c;
+  --body: #696969;
+  --subtle: #888;
+  --line: #eaeaea;
+  --violet: #333;
+  --violet-dark: #111;
+  --coral: #666;
+  --mint: #f0f0f0;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }

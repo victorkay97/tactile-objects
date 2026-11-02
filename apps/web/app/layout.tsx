@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { themeInitScript } from "../lib/theme-script";
 import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "../components/site-header";
+import { WorkspaceChrome } from "../components/workspace-chrome";
 import { SiteFooter } from "../components/site-footer";
 import { RevealOnScroll } from "../components/reveal-on-scroll";
 import "./globals.css";
@@ -12,6 +13,8 @@ import "./gallery-craft.css";
 import "./gallery-live.css";
 import "./themes.css";
 import "@tactile/objects/styles.css";
+import "./landing.css";
+import "./reference-system.css";
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
@@ -31,6 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head><script dangerouslySetInnerHTML={{ __html: themeInitScript }} /></head>
       <body className={archivo.variable + " " + geist.variable + " " + geistMono.variable}>
         <SiteHeader />
+        <WorkspaceChrome />
         <RevealOnScroll />
         {children}
         <SiteFooter />
