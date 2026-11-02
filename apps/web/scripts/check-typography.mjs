@@ -19,7 +19,7 @@ assert(landingCSS.includes("text-align: center"), "Homepage must retain its cent
 assert(landingCSS.includes("var(--font-geist"), "Homepage headings must use registered Geist");
 assert(home.includes("ArrowUpRightIcon") && home.includes("GithubIcon"), "Use the MingCute icon system for actions");
 const sharedCSS = readFileSync(new URL("../app/platform.css", import.meta.url), "utf8");
-assert(/body\s*\{\s*--site-display:\s*var\(--font-archivo/.test(sharedCSS), "Shared font aliases must be evaluated on body where Next.js font classes are installed");
+assert(/body\s*\{\s*--site-display:\s*var\(--font-geist/.test(sharedCSS), "Shared font alias must use Geist on body, where Next.js classes are installed");
 assert(landingCSS.includes("padding-top: clamp("), "Hero needs generous responsive whitespace");
 assert(landingCSS.includes("60px/1.04") && landingCSS.includes("letter-spacing: -3px"), "Hero type must follow the measured Canvas UI hierarchy");
 assert(landingCSS.includes("height: 56px") && landingCSS.includes(".ref-nav-wrap.header-inner"), "Shared navigation must match 56px reference");
