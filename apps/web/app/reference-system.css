@@ -238,3 +238,32 @@ body:has(.workspace-chrome) .docs-page .docs-design-grid>div{background:var(--th
  .ref-footer__grid{grid-template-columns:1fr 1fr;}
 }
 @media(prefers-reduced-motion:reduce){.tactile-card.object-showcase{transition:none!important;}}
+
+
+/* The reference's three-step instructional interaction: one active line and
+   a synchronised code surface. Native buttons remain keyboard accessible. */
+.how-demo{align-items:start;gap:64px;}
+.how-demo__steps{display:grid;gap:0;min-width:0;}
+.how-demo__step{display:flex;flex-direction:column;align-items:flex-start;text-align:left;position:relative;overflow:hidden;padding:24px 0 25px;
+ background:transparent;border:0;border-bottom:1px solid var(--site-line);
+ width:100%;color:var(--site-ink);cursor:pointer;opacity:.57;}
+.how-demo__step:first-child{border-top:1px solid var(--site-line);}
+.how-demo__step.is-active{opacity:1;}
+.how-demo__number{font:500 13px/20px var(--font-geist-mono,Consolas),monospace;color:var(--site-muted);margin-bottom:12px;}
+.how-demo__step strong{font:550 17px/23px var(--font-geist,Arial),Arial,sans-serif;}
+.how-demo__description{font:400 14px/24px var(--font-geist,Arial),Arial,sans-serif;max-width:380px;color:var(--site-soft-ink);margin-top:15px;}
+.how-demo__progress{position:absolute;bottom:0;left:0;height:1px;width:100%;background:#f6f6f6;transform-origin:left;animation:how-progress 6.5s linear both;}
+.how-demo__terminal{min-width:0;padding:8px;border:1px solid var(--site-line);border-radius:15px;background:var(--theme-surface);}
+.how-demo__chrome{display:flex;align-items:center;gap:15px;height:26px;padding:0 9px;color:var(--site-muted);font:400 11px/17px var(--font-geist-mono,Consolas),monospace;}
+.how-demo__lights{display:flex;gap:6px;}
+.how-demo__lights i{width:10px;height:10px;border-radius:50%;background:#303030;}
+.how-demo__surface{min-height:318px;padding:22px 17px;background:var(--site-canvas);border:1px solid var(--site-line);border-radius:9px;white-space:pre;overflow:auto;
+ font:400 12px/26px var(--font-geist-mono,Consolas),monospace;color:var(--site-ink);}
+.how-demo__line{opacity:0;animation:how-reveal .34s ease-out forwards;}
+.how-demo__line.is-blank{min-height:18px;}
+.how-demo__cursor{display:inline-block;width:7px;height:13px;background:var(--site-soft-ink);animation:how-cursor 1s steps(1,end) infinite;}
+@keyframes how-progress{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+@keyframes how-reveal{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:translateY(0);}}
+@keyframes how-cursor{50%{opacity:0;}}
+@media(max-width:760px){.how-demo{gap:30px;}.how-demo__terminal{max-width:100%;}.how-demo__step{padding:19px 0;}}
+@media(prefers-reduced-motion:reduce){.how-demo__line{opacity:1;animation:none;}.how-demo__progress,.how-demo__cursor{animation:none;}}
