@@ -267,3 +267,92 @@ body:has(.workspace-chrome) .docs-page .docs-design-grid>div{background:var(--th
 @keyframes how-cursor{50%{opacity:0;}}
 @media(max-width:760px){.how-demo{gap:30px;}.how-demo__terminal{max-width:100%;}.how-demo__step{padding:19px 0;}}
 @media(prefers-reduced-motion:reduce){.how-demo__line{opacity:1;animation:none;}.how-demo__progress,.how-demo__cursor{animation:none;}}
+
+
+/* Remove the last legacy violet surfaces inside the real editors, not the
+   paper, photography, or cover materials of the components themselves. */
+body:has(.workspace-chrome) :is(.workbench,.object-lab) {
+  background:var(--theme-surface)!important;color:var(--site-ink)!important;border:1px solid var(--site-line)!important;
+  border-radius:13px!important;box-shadow:none!important;
+}
+body:has(.workspace-chrome) :is(
+ .workbench__header,.workbench__stage-toolbar,.workbench__footer,.workbench__inspector,.workbench__inspector-intro,.workbench__detail,
+ .object-lab__header,.object-lab__toolbar,.object-lab__footer,.object-lab__inspector,.object-lab__inspector-intro,.object-lab__detail
+){background:var(--theme-surface)!important;color:var(--site-ink)!important;border-color:var(--site-line)!important;}
+body:has(.workspace-chrome) :is(.workbench__stage,.object-lab__stage){background:var(--site-canvas)!important;}
+body:has(.workspace-chrome) :is(.workbench__canvas,.object-lab__canvas) {
+ background:var(--site-canvas)!important;color:var(--site-ink)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__canvas.has-dots,.object-lab__canvas.has-dots){
+ background-color:var(--site-canvas)!important;
+ background-image:radial-gradient(circle,var(--site-line) 1px,transparent 1.15px)!important;
+ background-size:20px 20px!important;
+}
+body:has(.workspace-chrome) :is(.workbench__canvas::after,.object-lab__canvas::before){
+ background:radial-gradient(ellipse at 50% 50%,transparent 50%,#0001 100%)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__heading-icon,.object-lab__icon) {
+ background:var(--theme-subtle)!important;color:var(--site-ink)!important;border-color:var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__views,.object-lab__tabs) {
+ background:var(--theme-subtle)!important;border:1px solid var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__view,.object-lab__tabs button) {
+ background:transparent!important;color:var(--site-soft-ink)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__view.is-selected,.object-lab__tabs button.is-selected) {
+ background:var(--theme-elevated)!important;color:var(--site-ink)!important;
+ box-shadow:0 1px 6px #0002!important;
+}
+body:has(.workspace-chrome) :is(.workbench__copy,.object-lab__copy,
+ .workbench__detail-copy,.object-lab__detail>button){
+ background:var(--site-ink)!important;color:var(--site-canvas)!important;border-color:var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__tool,.workbench__zoom button,
+ .object-lab__toolbar button,.object-lab__zoom button) {
+ background:transparent!important;color:var(--site-soft-ink)!important;border-color:transparent!important;
+}
+body:has(.workspace-chrome) :is(.workbench__tool:hover,.workbench__tool.is-on,
+ .object-lab__toolbar button:hover,.object-lab__toolbar button.is-active){
+ background:var(--theme-subtle)!important;color:var(--site-ink)!important;border-color:var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__inspector-intro h2,.object-lab__inspector-intro h2,
+ .workbench__heading strong,.object-lab__identity strong,.workbench__detail h2,.object-lab__detail h2) {
+ font-family:var(--font-geist,Arial),Arial,sans-serif!important;color:var(--site-ink)!important;font-weight:550!important;
+}
+body:has(.workspace-chrome) :is(.workbench__inspector-intro h2 span,.object-lab__inspector-intro h2 span){
+ color:var(--site-ink)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__preset,.workbench__option,.workbench__swatch,
+ .object-lab__choices button,.object-lab__page-select button){
+ background:var(--theme-surface)!important;color:var(--site-soft-ink)!important;border:1px solid var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__preset:hover,.workbench__option:hover,.workbench__swatch:hover,
+ .object-lab__choices button:hover,.object-lab__page-select button:hover){
+ border-color:var(--site-soft-ink)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__preset.is-selected,.workbench__option.is-selected,.workbench__swatch.is-selected,
+ .object-lab__choices button.is-active,.object-lab__page-select button.is-active){
+ background:var(--theme-subtle)!important;color:var(--site-ink)!important;border-color:var(--site-soft-ink)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__field input,.workbench__field textarea,.object-lab__group input,.object-lab__group textarea){
+ background:var(--theme-subtle)!important;color:var(--site-ink)!important;border-color:var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__group,.object-lab__group,.workbench__inspector-intro,.object-lab__inspector-intro,
+ .workbench__stage-toolbar,.object-lab__toolbar,.workbench__footer,.object-lab__footer){
+ border-color:var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__group legend,.workbench__group-title,.object-lab__group legend,.object-lab__group-title){
+ color:var(--site-ink)!important;font-weight:550!important;
+}
+body:has(.workspace-chrome) :is(.workbench__detail,.object-lab__detail) pre{
+ background:var(--site-canvas)!important;color:var(--site-ink)!important;border:1px solid var(--site-line)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__detail p,.object-lab__detail p,.workbench__inspector-intro p,.object-lab__inspector-intro p){
+ color:var(--site-soft-ink)!important;
+}
+body:has(.workspace-chrome) :is(.workbench__zoom,.object-lab__zoom){border-color:var(--site-line)!important;}
+body:has(.workspace-chrome) :is(.workbench__detail code,.object-lab__detail code){color:var(--site-ink);}
+@media (max-width:760px) {
+ body:has(.workspace-chrome) :is(.workbench,.object-lab){max-width:100%;overflow:hidden;}
+}
