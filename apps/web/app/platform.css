@@ -1,17 +1,17 @@
 /* Platform-wide editorial visual system, shared by landing, catalog, docs and About.
    Tokens represent *material palettes*, not a unique brand colour per object. */
 :root {
-  --site-ink: #202027;
-  --site-soft-ink: #66646e;
-  --site-muted: #898691;
-  --site-line: #e8e6e3;
-  --site-canvas: #fcfbf8;
+  --site-ink: #090909;
+  --site-soft-ink: #6f6f6f;
+  --site-muted: #8a8a8a;
+  --site-line: #ededed;
+  --site-canvas: #fff;
   --site-paper: #fff;
-  --site-accent: #5951d8;
-  --site-header-height: 78px;
+  --site-accent: #191919;
+  --site-header-height: 56px;
 }
 body {
-  --site-display: var(--font-archivo, Arial), Arial, sans-serif;
+  --site-display: var(--font-geist, Arial), Arial, sans-serif;
   --site-body: var(--font-geist, Arial), Arial, sans-serif;
   --site-code: var(--font-geist-mono, Consolas), Consolas, monospace;
   background: var(--site-canvas); color: var(--site-ink); font-family: var(--site-body);
