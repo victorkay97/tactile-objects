@@ -16,11 +16,11 @@ const landingCSS = readFileSync(new URL("../app/landing.css", import.meta.url), 
 assert(home.includes('className="landing-hero"'), "Homepage is missing its hero");
 assert(!home.includes("EnvelopeStage"), "Hero must not depend on a single component illustration");
 assert(landingCSS.includes("text-align: center"), "Homepage must retain its centered hero layout");
-assert(landingCSS.includes("var(--font-archivo"), "Homepage headings must use registered Archivo");
+assert(landingCSS.includes("var(--font-geist"), "Homepage headings must use registered Geist");
 assert(home.includes("ArrowUpRightIcon") && home.includes("GithubIcon"), "Use the MingCute icon system for actions");
 const sharedCSS = readFileSync(new URL("../app/platform.css", import.meta.url), "utf8");
 assert(/body\s*\{\s*--site-display:\s*var\(--font-archivo/.test(sharedCSS), "Shared font aliases must be evaluated on body where Next.js font classes are installed");
-assert(landingCSS.includes("min-height: calc(100svh - var(--site-header-height"), "Hero should fill available viewport");
+assert(landingCSS.includes("padding-top: clamp("), "Hero needs generous responsive whitespace");
 const header = readFileSync(new URL("../components/site-header.tsx", import.meta.url), "utf8");
 assert(header.includes('href="/docs"'), "Documentation must be in shared navigation");
 const catalog = readFileSync(new URL("../app/components/page.tsx", import.meta.url), "utf8");
@@ -29,16 +29,13 @@ assert(home.includes("<ObjectCard"), "Homepage must reuse the shared object card
 for(const path of ["../app/docs/page.tsx","../app/docs/getting-started/page.tsx","../app/docs/accessibility/page.tsx","../app/docs/design-principles/page.tsx"]){
   assert(readFileSync(new URL(path, import.meta.url), "utf8").length > 100, "Missing documentation content: " + path);
 }
-const heroStyles = readFileSync(new URL("../app/hero-gallery.css", import.meta.url), "utf8");
-const heroShelf = readFileSync(new URL("../components/hero-object-shelf.tsx", import.meta.url), "utf8");
 const reveal = readFileSync(new URL("../components/reveal-on-scroll.tsx", import.meta.url), "utf8");
-assert(home.includes("<HeroObjectShelf />"), "The homepage needs a real three-object discovery stage");
-assert(!home.includes("<HeroPlayground />") && !home.includes("AmbientPaperScene"), "Remove the old paper-edge decorations and flying plane");
-for(const slug of ["journal","polaroid","sticky-note"]){
-  assert(heroShelf.includes('href:"/components/'+slug+'"'), "The hero study must link to "+slug);
-}
-assert(heroStyles.includes("background-size:51px 51px") && heroStyles.includes(".landing-hero::before"), "The hero needs its dimensional reference grid");
-assert(heroStyles.includes("@keyframes hero-shelf-enter") && heroStyles.includes("prefers-reduced-motion:reduce"), "The hero needs one-time motion and reduced-motion support");
+assert(!home.includes("<HeroObjectShelf />"), "Landing page should not duplicate the real gallery with decorative shelf art");
+assert(home.includes("availableObjects.map((object) =>"), "Homepage must display the available interactive objects");
+assert(home.includes("Digital objects.") && home.includes("Real interactions."), "Product-first hero message is missing");
+assert(landingCSS.includes("grid-template-columns: repeat(2, minmax(0,1fr))"), "Gallery must have a two-column desktop layout");
+assert(landingCSS.includes("@media (max-width: 640px)"), "Responsive gallery layout is required");
+assert(landingCSS.includes('html[data-theme="dark"]'), "Homepage theme support is required");
 assert(reveal.includes("IntersectionObserver") && reveal.includes("prefers-reduced-motion"), "Scroll reveals must be progressive and motion-aware");
 const polish = readFileSync(new URL("../app/tactile-refinements.css", import.meta.url), "utf8");
 assert(layout.includes('import "./tactile-refinements.css"'), "Sitewide interaction polish must be loaded");
@@ -102,4 +99,4 @@ for (const selector of ['.landing-hero', '.object-showcase__info', '.story-page_
 }
 assert(!themeCSS.includes("filter: invert("), "Do not invert or recolor the real paper objects");
 assert(themeCSS.includes("--theme-surface:") && themeCSS.includes("--theme-line:"), "Shared appearance tokens must be defined");
-console.log("Four live tactile objects, grid-backed hero, studios, preserved Envelope and global theme checks passed.");
+console.log("Four live tactile objects, responsive product-first homepage, studios and global theme checks passed.");
