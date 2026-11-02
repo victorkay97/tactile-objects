@@ -93,7 +93,7 @@
 
 /* Section rhythm, label and separators follow the reference. */
 .landing-section { background:var(--landing-bg); padding-block:128px; }
-.landing-collection {padding-top:142px;}
+.landing-collection {padding-top:134px;}
 .landing-eyebrow { display:inline-block; font: 500 11px/16px var(--landing-mono); letter-spacing:1.2px; color:var(--landing-muted); }
 .landing-section-title,.landing-section-heading h2 { margin:13px 0 0; font:500 36px/40px var(--landing-display); letter-spacing:-1.8px; }
 .landing-section-lede { max-width:520px; margin:18px 0 0; color:var(--landing-muted); font:400 16px/28px var(--landing-display); }
