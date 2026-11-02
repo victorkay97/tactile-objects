@@ -35,7 +35,7 @@ for(const path of ["../app/docs/page.tsx","../app/docs/getting-started/page.tsx"
 const reveal = readFileSync(new URL("../components/reveal-on-scroll.tsx", import.meta.url), "utf8");
 assert(!home.includes("<HeroObjectShelf />"), "Landing page should not duplicate the real gallery with decorative shelf art");
 assert(home.includes("availableObjects.map("), "Homepage must display the available interactive objects");
-assert(home.includes("Digital objects,") && home.includes("made to feel real."), "Product-first hero message is missing");
+assert(home.includes("Digital objects,") && home.includes("with a little more feeling."), "Product-first hero message is missing");
 assert(landingCSS.includes("repeat(4,minmax(0,1fr))") && landingCSS.includes("repeat(2,minmax(0,1fr))"), "Gallery requires four-column and two-column layouts");
 assert(landingCSS.includes("@media (max-width:760px)") && landingCSS.includes("@media (max-width:560px)"), "Responsive gallery layout is required");
 assert(landingCSS.includes('html[data-theme="dark"]'), "Homepage theme support is required");
