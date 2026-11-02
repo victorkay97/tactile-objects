@@ -12,6 +12,7 @@ import "./gallery-craft.css";
 import "./gallery-live.css";
 import "./themes.css";
 import "@tactile/objects/styles.css";
+import "./landing.css";
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
