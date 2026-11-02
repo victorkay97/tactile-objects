@@ -103,8 +103,8 @@
 .landing-inline-link:hover svg { transform:translateX(3px); }
 .landing-boundary { position:relative; border-top:1px solid var(--landing-line); margin-top:128px; width:calc(100% + 64px); left:-32px; height:1px; color:#b6b6b6; }
 .landing-boundary span { position:absolute; top:-9px; font:400 16px/16px var(--landing-display); }
-.landing-boundary span:first-child { left:-5px; }
-.landing-boundary span:last-child { right:-5px; }
+.landing-boundary span:first-child { left:2px; }
+.landing-boundary span:last-child { right:2px; }
 
 /* Four real React component previews, arranged as the reference gallery. */
 .landing .landing-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
@@ -264,7 +264,7 @@ html[data-theme="dark"] .landing-faq__list details,html[data-theme="dark"] .land
   .ref-icon-button, .ref-nav-actions .theme-switcher__trigger, .ref-mobile-menu > summary, .ref-github-link {border:1px solid #f0f0f0;border-radius:50%;width:32px;height:32px;}
   .landing .layout-container {width:min(calc(100% - 40px),1088px);}
   .landing-hero__inner {padding-top:56px;text-align:left;}
-  .landing-hero__copy {align-items:stretch;}
+  .landing-hero__copy {align-items:stretch;padding-inline:10px;}
   .landing-hero h1 {font:500 36px/38px var(--landing-display);letter-spacing:-1.8px;max-width:480px;}
   .landing-hero__lede {font:400 16px/28px var(--landing-display);margin-top:24px;max-width:490px;}
   .landing-hero__actions {display:grid;grid-template-columns:1fr;gap:12px;margin-top:32px;}
@@ -301,7 +301,7 @@ html[data-theme="dark"] .landing-faq__list details,html[data-theme="dark"] .land
   .landing .landing-grid .object-showcase__media {height:310px;}
   .landing .landing-grid .object-showcase__live-object {transform:translateX(-50%) scale(.72);}
   .landing .landing-grid .object-showcase__live-envelope {transform:translateX(-50%) scale(.63);}
-  .landing-hero h1 br {display:none;}
+  .landing-hero h1 br {display:initial;}
   .landing-hero__copy {min-width:0;}
   .landing-studio__notes {gap:22px;}
   .landing-terminal pre,.landing-code pre {font-size:10px;padding-inline:13px;line-height:23px;}
