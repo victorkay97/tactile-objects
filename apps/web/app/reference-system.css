@@ -356,3 +356,16 @@ body:has(.workspace-chrome) :is(.workbench__detail code,.object-lab__detail code
 @media (max-width:760px) {
  body:has(.workspace-chrome) :is(.workbench,.object-lab){max-width:100%;overflow:hidden;}
 }
+
+
+/* About page shares the same neutral editorial shell. */
+.story-page,.story-page__manifesto,html[data-theme="dark"] .story-page,
+html[data-theme="dark"] .story-page__manifesto {background:var(--site-canvas)!important;color:var(--site-ink)!important;}
+.story-page__hero h1 span,.story-page__manifesto-inner h2 em{color:var(--site-soft-ink)!important;}
+.story-page :is(.story-page__hero p,.story-page__manifesto-inner p,.story-page__value p,.story-page__closing p){
+ color:var(--site-soft-ink)!important;
+}
+.story-page :is(.story-page__value,.story-page__value-list,.story-page__closing,.story-page__manifesto){
+ border-color:var(--site-line)!important;
+}
+.story-page__value-icon{background:var(--theme-surface)!important;color:var(--site-ink)!important;border-color:var(--site-line)!important;}
