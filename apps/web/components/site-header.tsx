@@ -14,7 +14,7 @@ export function SiteHeader() {
         <nav className="header-nav ref-nav-links" aria-label="Main navigation">
           <Link href="/docs">Docs</Link>
           <Link href="/components">Components</Link>
-          <Link href="/components/envelope">Playground</Link>
+          <Link href="/playground">Playground</Link>
         </nav>
         <div className="ref-nav-actions">
           <SiteSearch />
@@ -29,7 +29,7 @@ export function SiteHeader() {
             <nav aria-label="Mobile navigation">
               <Link href="/docs">Docs</Link>
               <Link href="/components">Components</Link>
-              <Link href="/components/envelope">Playground</Link>
+              <Link href="/playground">Playground</Link>
               <Link href="/about">About</Link>
               <a href="https://github.com/victorkay97/tactile-objects" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
             </nav>
