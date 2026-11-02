@@ -56,7 +56,7 @@
 .ref-search-foot { padding: 12px 16px; background: #fafafa; color: #777; font-size: 11px; }
 
 /* Hero follows the 60/62.4/500/-3px reference hierarchy exactly. */
-.landing-hero { background: var(--landing-bg); }
+.landing-hero { background: var(--landing-bg); padding-bottom:42px; }
 .landing-hero__inner { padding-top: clamp(70px, 6vw, 88px); text-align: center; }
 .landing-hero__copy { width: 100%; display:flex; flex-direction:column; align-items:center; }
 .landing-hero h1 { width: min(100%,760px); margin: 0; font: 500 60px/1.04 var(--landing-display); letter-spacing: -3px; text-wrap: balance; }
@@ -93,6 +93,7 @@
 
 /* Section rhythm, label and separators follow the reference. */
 .landing-section { background:var(--landing-bg); padding-block:128px; }
+.landing-collection {padding-top:142px;}
 .landing-eyebrow { display:inline-block; font: 500 11px/16px var(--landing-mono); letter-spacing:1.2px; color:var(--landing-muted); }
 .landing-section-title,.landing-section-heading h2 { margin:13px 0 0; font:500 36px/40px var(--landing-display); letter-spacing:-1.8px; }
 .landing-section-lede { max-width:520px; margin:18px 0 0; color:var(--landing-muted); font:400 16px/28px var(--landing-display); }
@@ -263,7 +264,9 @@ html[data-theme="dark"] .landing-faq__list details,html[data-theme="dark"] .land
   .ref-nav-actions {gap:6px;}
   .ref-icon-button, .ref-nav-actions .theme-switcher__trigger, .ref-mobile-menu > summary, .ref-github-link {border:1px solid #f0f0f0;border-radius:50%;width:32px;height:32px;}
   .landing .layout-container {width:min(calc(100% - 40px),1088px);}
+  .landing-hero {padding-bottom:5px;}
   .landing-hero__inner {padding-top:56px;text-align:left;}
+  .landing-collection {padding-top:96px;}
   .landing-hero__copy {align-items:stretch;padding-inline:10px;}
   .landing-hero h1 {font:500 36px/38px var(--landing-display);letter-spacing:-1.8px;max-width:480px;}
   .landing-hero__lede {font:400 16px/28px var(--landing-display);margin-top:24px;max-width:490px;}
