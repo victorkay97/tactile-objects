@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon, GithubIcon, CodeIcon } from "../components/ui/icons";
 import { ObjectCard } from "../components/object-card";
 import { objects } from "../lib/objects";
-import "./landing.css";
 
 const availableObjects = objects.filter(object => object.status === "available");
 const envelope = objects.find(object => object.id === "001")!;
